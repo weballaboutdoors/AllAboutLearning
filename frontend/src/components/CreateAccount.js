@@ -13,6 +13,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { createAccount } from '../services/api';
+import axios from 'axios';
 
 function CreateAccount() {
   const navigate = useNavigate();
@@ -82,12 +83,29 @@ function CreateAccount() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        await createAccount(formData);        console.log('Account creation form submitted:', formData);
-        // Temporary: navigate to login page
-        navigate('/login');
+        console.log('Attempting to create account with:', formData); // Debug log
+        const response = await axios.post(
+          'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/register',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true
+          }
+        );
+        
+        console.log('Account creation response:', response); // Debug log
+        
+        if (response.data) {
+          console.log('Account created successfully');
+          navigate('/login');
+        }
       } catch (error) {
         console.error('Account creation failed:', error);
-        setErrors({ submit: 'Failed to create account. Please try again.' });
+        setErrors({ 
+          submit: error.response?.data?.detail || 'Failed to create account. Please try again.' 
+        });
       }
     }
   };

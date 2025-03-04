@@ -11,7 +11,8 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../services/api';
+import axios from 'axios';
+
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -52,19 +53,31 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      try {
-        const response = await login(formData);
-        if (response.data && response.data.access_token) {
-          localStorage.setItem('token', response.data.access_token);
-          // Store user data if needed
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          navigate('/');
+    try {
+      console.log('Attempting login with:', formData);
+      const response = await axios.post(
+        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/login',
+        {
+          email: formData.email,
+          password: formData.password
         }
-      } catch (error) {
-        console.error('Login failed:', error);
-        setErrors({ submit: 'Invalid email or password' });
+      );
+      console.log('Login response:', response);
+  
+      if (response.data && response.data.access_token) {
+        localStorage.setItem('token', response.data.access_token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Get intended document and clear it
+        const intendedDocument = localStorage.getItem('intendedDocument');
+        localStorage.removeItem('intendedDocument');
+        
+        // Navigate to intended document or home
+        navigate(intendedDocument ? `/documents/${intendedDocument}` : '/');
       }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrors({ submit: 'Invalid email or password' });
     }
   };
 
