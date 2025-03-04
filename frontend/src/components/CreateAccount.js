@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { createAccount } from '../services/api';
 import axios from 'axios';
 
 function CreateAccount() {
