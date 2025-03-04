@@ -48,6 +48,12 @@ function Navbar() {
             >
               Login
             </Button>
+            <Button 
+            sx={{ color: '#48ad4d', fontSize: '0.9rem' }}
+            onClick={() => navigate('/create-account')}
+          >
+            Create Account
+          </Button>
           </Box>
         </Toolbar>
       </AppBar>

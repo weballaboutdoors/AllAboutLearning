@@ -6,6 +6,8 @@ import DocumentList from './components/DocumentList';
 import Login from './components/Login';
 import Footer from './components/Footer';
 import DocumentDetail from './components/DocumentDetail';
+import CreateAccount from './components/CreateAccount';
+import { AuthProvider } from './context/AuthContext';
 const theme = createTheme({
   palette: {
     primary: {
@@ -63,6 +65,7 @@ const theme = createTheme({
 
 function App() {
     return (
+    <AuthProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -73,12 +76,14 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/documents/:id" element={<DocumentDetail />} />
                 <Route path="/" element={<DocumentList />} />
+                <Route path="/create-account" element={<CreateAccount />} />
               </Routes>
             </Container>
             <Footer />
           </Router>
         </Box>
       </ThemeProvider>
+    </AuthProvider>
     );
   }
 
