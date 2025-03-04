@@ -69,7 +69,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-          <Router>
+          <Router basename="/AllAboutLearning">
             <Navbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
               <Routes>
