@@ -23,13 +23,10 @@ api.interceptors.request.use(
 
 export const login = async (credentials) => {
   try {
-    const response = await api.post('/login', credentials);
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-    }
-    return response.data;
+    const response = await axios.post('https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/login', credentials);
+    return response;
   } catch (error) {
-    throw error.response ? error.response.data : error;
+    throw error.response?.data || error.message;
   }
 };
 

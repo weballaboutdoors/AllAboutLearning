@@ -55,10 +55,12 @@ function Login() {
     if (validateForm()) {
       try {
         const response = await login(formData);
-        // Here we'll add the API call to your backend later
-        console.log('Form submitted:', formData);
-        // Temporary: navigate to documents page
-        navigate('/');
+        if (response.data && response.data.access_token) {
+          localStorage.setItem('token', response.data.access_token);
+          // Store user data if needed
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          navigate('/');
+        }
       } catch (error) {
         console.error('Login failed:', error);
         setErrors({ submit: 'Invalid email or password' });
