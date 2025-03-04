@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "main": "index.js",
-  "homepage": "https://weballaboutdoos.github.io/AllAboutInformation",
+  "homepage": "https://weballaboutdoos.github.io/AllAboutLearning",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts start",
