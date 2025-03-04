@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/AllAboutInformation/static/js/main.818a0f13.js",
-    "index.html": "/AllAboutInformation/index.html",
-    "main.818a0f13.js.map": "/AllAboutInformation/static/js/main.818a0f13.js.map"
+    "main.js": "/AllAboutLearning/static/js/main.818a0f13.js",
+    "index.html": "/AllAboutLearning/index.html",
+    "main.818a0f13.js.map": "/AllAboutLearning/static/js/main.818a0f13.js.map"
   },
   "entrypoints": [
     "static/js/main.818a0f13.js"
