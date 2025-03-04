@@ -12,7 +12,7 @@ function Navbar() {
             {/* Placeholder for logo - you can replace this with your actual logo */}
             <Box 
               component="img"
-              src="/All About.png" // You'll need to add your logo file
+              src="/AllAboutLearning/public/All About.png" // You'll need to add your logo file
               alt="Logo"
               sx={{ 
                 height: 100,
