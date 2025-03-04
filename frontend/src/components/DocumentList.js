@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Container, 
   Typography, 
@@ -11,7 +11,9 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  CardMedia
+  CardMedia,
+  CircularProgress,
+  Alert
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -23,41 +25,7 @@ import { useNavigate } from 'react-router-dom';
 import { getDocuments } from '../services/api';
 
 function DocumentList() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchDocuments = async () => {
-      try {
-        const data = await getDocuments();
-        setDocuments(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDocuments();
-  }, []);
-
-  if (loading) return <CircularProgress />;
-  if (error) return <Alert severity="error">{error}</Alert>;
-
-
-  const getIcon = (type) => {
-    switch(type) {
-      case 'pdf':
-        return <PictureAsPdfIcon color="error" />;
-      case 'presentation':
-        return <SlideshowIcon color="primary" />;
-      default:
-        return <DescriptionIcon color="info" />;
-    }
-  };
-
-  const documents = [
+  const initialDocuments = [
     { 
       id: 'multipoint-locks', 
       name: 'Multi-Point Locks', 
@@ -123,6 +91,22 @@ function DocumentList() {
     },
   ];
 
+  const [documents, setDocuments] = useState(initialDocuments);
+  const [loading, setLoading] = useState(false);  // Changed to false since we have initial data
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const getIcon = (type) => {
+    switch(type) {
+      case 'pdf':
+        return <PictureAsPdfIcon color="error" />;
+      case 'presentation':
+        return <SlideshowIcon color="primary" />;
+      default:
+        return <DescriptionIcon color="info" />;
+    }
+  };
+
   return (
     <Container>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 4 }}>
@@ -177,4 +161,4 @@ function DocumentList() {
   );
 }
 
-export default DocumentList; 
+export default DocumentList;
