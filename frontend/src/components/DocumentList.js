@@ -31,63 +31,63 @@ function DocumentList() {
       name: 'Multi-Point Locks', 
       type: 'pdf', 
       description: 'Installation guides, maintenance tips, and troubleshooting for multi-point lock systems',
-      image: '/images/multipointlock.jpg'
+      image: '/AllAboutLearning/images/multipointlock.jpg'
     },
     { 
       id: 'door-closers', 
       name: 'Door Closers', 
       type: 'pdf', 
       description: 'Complete documentation for door closer installation and adjustment',
-      image: '/images/doorcloser.jpg'
+      image: '/AllAboutLearning/images/doorcloser.jpg'
     },
     { 
       id: 'hinges', 
       name: 'Door Hinges', 
       type: 'document', 
       description: 'Specifications and installation guides for various hinge types',
-      image: '/images/hinge.jpg'
+      image: '/AllAboutLearning/images/hinge.jpg'
     },
     { 
       id: 'sliding-hardware', 
       name: 'Sliding Door Hardware', 
       type: 'presentation', 
       description: 'Installation and maintenance of sliding door systems',
-      image: '/images/sliding-hardware.jpg'
+      image: '/AllAboutLearning/images/sliding-hardware.jpg'
     },
     { 
       id: 'window-hardware', 
       name: 'Window Hardware', 
       type: 'pdf', 
       description: 'Complete guides for window operators and locks',
-      image: '/images/window-hardware.jpg'
+      image: '/AllAboutLearning/images/window-hardware.jpg'
     },
     { 
       id: 'door-hardware', 
       name: 'Door Hardware', 
       type: 'document', 
       description: 'Installation guides for various handle styles and mechanisms',
-      image: '/images/door-handles.jpg'
+      image: '/AllAboutLearning/images/door-handles.jpg'
     },
     { 
       id: 'weatherstripping', 
       name: 'Weatherstripping', 
       type: 'pdf', 
       description: 'Selection and installation of door and window weatherstripping',
-      image: '/images/weatherstripping.jpg'
+      image: '/AllAboutLearning/images/weatherstripping.jpg'
     },
     { 
       id: 'thresholds', 
       name: 'Thresholds', 
       type: 'document', 
       description: 'Installation and adjustment of door thresholds and sweeps',
-      image: '/images/threshold.jpg'
+      image: '/AllAboutLearning/images/threshold.jpg'
     },
     { 
       id: 'operators', 
       name: 'Operators', 
       type: 'pdf', 
       description: 'Automatic door operator installation and programming',
-      image: '/images/operator.jpg'
+      image: '/AllAboutLearning/images/operator.jpg'
     },
   ];
 
