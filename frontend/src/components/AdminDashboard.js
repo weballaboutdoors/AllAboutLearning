@@ -141,13 +141,14 @@ function AdminDashboard() {
         setError('Not authenticated. Please login again.');
         return;
       }
-
+  
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
       await axios.post(
-        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/create-user', 'http://localhost:5001/api/admin/create-user',
+        `${baseUrl}/api/admin/create-user`,
         userForm,
         {
           headers: { 
-            'Authorization': token,  // Make sure the 'Bearer ' prefix is included
+            'Authorization': token,
             'Content-Type': 'application/json'
           }
         }
@@ -158,13 +159,13 @@ function AdminDashboard() {
       setUserForm({ email: '', password: '', firstName: '', lastName: '' });
     } catch (error) {
       console.error('Error creating user:', error);
-    if (error.response?.status === 401) {
-      setError('Session expired. Please login again.');
-    } else {
-      setError(error.response?.data?.detail || 'Failed to create user');
+      if (error.response?.status === 401) {
+        setError('Session expired. Please login again.');
+      } else {
+        setError(error.response?.data?.detail || 'Failed to create user');
+      }
     }
-  }
-};
+  };
 
 const handleDocumentUpload = async () => {
   try {
