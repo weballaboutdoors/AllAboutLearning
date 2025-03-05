@@ -378,6 +378,7 @@ const handleViewDocument = async (docId, categoryId) => {
                           <Button
                             onClick={() => handleViewDocument(doc.id, doc.category_id)}
                             sx={{ textAlign: 'left', textTransform: 'none' }}
+                            variant="text"
                           >
                             {doc.title}
                           </Button>

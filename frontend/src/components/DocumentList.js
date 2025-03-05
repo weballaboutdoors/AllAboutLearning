@@ -147,8 +147,9 @@ function DocumentList() {
     const handleDocumentClick = async (docId) => {
       try {
         const token = localStorage.getItem('token');
+        const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
         const response = await axios.get(
-          `https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/documents/${categoryId}/${docId}/file`,
+          `${baseUrl}/api/documents/${categoryId}/${docId}/file`,
           {
             headers: { Authorization: token },
             responseType: 'blob'
@@ -157,7 +158,7 @@ function DocumentList() {
         
         const file = new Blob([response.data], { type: 'application/pdf' });
         const fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
+        window.open(fileURL, '_blank');  // Added '_blank' to open in new tab
       } catch (error) {
         console.error('Error fetching document:', error);
       }
