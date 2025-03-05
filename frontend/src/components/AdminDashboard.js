@@ -20,8 +20,9 @@ import {
   TableRow,
   IconButton,
   Alert,
+  MenuItem
 } from '@mui/material';
-import { Add as AddIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
+import { Add as AddIcon, Delete as DeleteIcon, Edit as EditIcon, Upload as UploadIcon } from '@mui/icons-material';
 import axios from 'axios';
 
 function AdminDashboard() {
@@ -36,9 +37,18 @@ function AdminDashboard() {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [documents, setDocuments] = useState([]);
+  const [documentForm, setDocumentForm] = useState({
+    title: '',
+    description: '',
+    file: null,
+    categoryId: ''
+  });
+  const [openDocumentDialog, setOpenDocumentDialog] = useState(false);
 
   useEffect(() => {
     fetchUsers();
+    fetchDocuments();
   }, []);
 
   const fetchUsers = async () => {
@@ -53,6 +63,36 @@ function AdminDashboard() {
       setUsers(response.data);
     } catch (error) {
       setError('Failed to fetch users');
+    }
+  };
+
+  const DOCUMENT_CATEGORIES = [
+    { id: 'multipoint-locks', name: 'Multi-Point Locks' },
+    { id: 'door-closers', name: 'Door Closers' },
+    { id: 'hinges', name: 'Door Hinges' },
+    { id: 'sliding-hardware', name: 'Sliding Door Hardware' },
+    { id: 'window-hardware', name: 'Window Hardware' },
+    { id: 'door-hardware', name: 'Door Hardware' },
+    { id: 'weatherstripping', name: 'Weatherstripping' },
+    { id: 'thresholds', name: 'Thresholds' },
+    { id: 'operators', name: 'Operators' }
+  ];
+
+
+
+
+  const fetchDocuments = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/documents',
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      setDocuments(response.data);
+    } catch (error) {
+      setError('Failed to fetch documents');
     }
   };
 
@@ -72,6 +112,50 @@ function AdminDashboard() {
       setUserForm({ email: '', password: '', firstName: '', lastName: '' });
     } catch (error) {
       setError(error.response?.data?.detail || 'Failed to create user');
+    }
+  };
+
+  const handleDocumentUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('title', documentForm.title);
+      formData.append('description', documentForm.description);
+      formData.append('file', documentForm.file);
+      formData.append('categoryId', documentForm.categoryId);
+  
+      const token = localStorage.getItem('token');
+      await axios.post(
+        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/upload-document',
+        formData,
+        {
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+      setSuccess('Document uploaded successfully');
+      setOpenDocumentDialog(false);
+      fetchDocuments();
+      setDocumentForm({ title: '', description: '', file: null, categoryId: '' });
+    } catch (error) {
+      setError(error.response?.data?.detail || 'Failed to upload document');
+    }
+  };
+
+  const handleDeleteDocument = async (documentId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(
+        `https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/documents/${documentId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      setSuccess('Document deleted successfully');
+      fetchDocuments();
+    } catch (error) {
+      setError('Failed to delete document');
     }
   };
 
@@ -176,6 +260,60 @@ function AdminDashboard() {
               </TableContainer>
             </Box>
           )}
+
+          {tabValue === 1 && (
+            <Box sx={{ p: 3 }}>
+              <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="h6" sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+                  Document Management
+                </Typography>
+                <Button
+                  startIcon={<UploadIcon />}
+                  onClick={() => setOpenDocumentDialog(true)}
+                  sx={{
+                    backgroundColor: '#8B4513',
+                    color: '#FAF0E6',
+                    '&:hover': {
+                      backgroundColor: '#654321'
+                    }
+                  }}
+                >
+                  Upload Document
+                </Button>
+              </Box>
+
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Title</TableCell>
+                      <TableCell>Description</TableCell>
+                      <TableCell>Upload Date</TableCell>
+                      <TableCell>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {documents.map((doc) => (
+                      <TableRow key={doc.id}>
+                        <TableCell>{doc.title}</TableCell>
+                        <TableCell>{doc.description}</TableCell>
+                        <TableCell>{new Date(doc.created_at).toLocaleDateString()}</TableCell>
+                        <TableCell>
+                          <IconButton 
+                            size="small" 
+                            sx={{ color: '#8B4513' }}
+                            onClick={() => handleDeleteDocument(doc.id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+          )}
         </Paper>
       </Box>
 
@@ -220,6 +358,61 @@ function AdminDashboard() {
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
           <Button onClick={handleCreateUser}>Create</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Document Upload Dialog */}
+      <Dialog open={openDocumentDialog} onClose={() => setOpenDocumentDialog(false)}>
+        <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+          Upload New Document
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            select
+            margin="dense"
+            label="Category"
+            fullWidth
+            value={documentForm.categoryId}
+            onChange={(e) => setDocumentForm({ ...documentForm, categoryId: e.target.value })}
+            sx={{ mb: 2 }}
+          >
+            {DOCUMENT_CATEGORIES.map((category) => (
+              <MenuItem key={category.id} value={category.id}>
+                {category.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            margin="dense"
+            label="Title"
+            fullWidth
+            value={documentForm.title}
+            onChange={(e) => setDocumentForm({ ...documentForm, title: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            label="Description"
+            fullWidth
+            multiline
+            rows={4}
+            value={documentForm.description}
+            onChange={(e) => setDocumentForm({ ...documentForm, description: e.target.value })}
+          />
+          <input
+            accept="application/pdf"
+            type="file"
+            onChange={(e) => setDocumentForm({ ...documentForm, file: e.target.files[0] })}
+            style={{ marginTop: '16px' }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDocumentDialog(false)}>Cancel</Button>
+          <Button 
+            onClick={handleDocumentUpload}
+            disabled={!documentForm.categoryId || !documentForm.file}
+          >
+            Upload
+          </Button>
         </DialogActions>
       </Dialog>
     </Container>
