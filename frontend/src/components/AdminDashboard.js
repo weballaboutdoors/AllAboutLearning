@@ -213,6 +213,29 @@ const handleDocumentUpload = async () => {
   }
 };
 
+
+const handleViewDocument = async (docId, categoryId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+    const response = await axios.get(
+      `${baseUrl}/api/documents/${categoryId}/${docId}/file`,
+      {
+        headers: { Authorization: token },
+        responseType: 'blob'
+      }
+    );
+    
+    // Create blob URL and open PDF in new tab
+    const file = new Blob([response.data], { type: 'application/pdf' });
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL, '_blank');
+  } catch (error) {
+    console.error('Error viewing document:', error);
+    setError('Failed to open document');
+  }
+};
+
   
 
   return (
@@ -351,6 +374,14 @@ const handleDocumentUpload = async () => {
                   <TableBody>
                     {documents.map((doc) => (
                       <TableRow key={doc.id}>
+                        <TableCell>
+                          <Button
+                            onClick={() => handleViewDocument(doc.id, doc.category_id)}
+                            sx={{ textAlign: 'left', textTransform: 'none' }}
+                          >
+                            {doc.title}
+                          </Button>
+                        </TableCell>
                         <TableCell>{doc.title}</TableCell>
                         <TableCell>{doc.description}</TableCell>
                         <TableCell>{doc.category_id}</TableCell>
