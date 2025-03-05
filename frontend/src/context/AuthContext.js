@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in
+    // Check for stored user data on component mount
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -15,17 +15,32 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+
+  if (loading) {
+    return <div>Loading...</div>; // Or your loading component
+  }
+
   return (
-    <AuthContext.Provider value={{ user, setUser, logout, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};

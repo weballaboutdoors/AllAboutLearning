@@ -25,6 +25,7 @@ import {
 import { Add as AddIcon, Delete as DeleteIcon, Edit as EditIcon, Upload as UploadIcon } from '@mui/icons-material';
 import axios from 'axios';
 
+
 function AdminDashboard() {
   const [tabValue, setTabValue] = useState(0);
   const [users, setUsers] = useState([]);
@@ -85,15 +86,51 @@ function AdminDashboard() {
   const fetchDocuments = async () => {
     try {
       const token = localStorage.getItem('token');
+      console.log('Token being used:', token); // Debug log
+      
       const response = await axios.get(
         'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/documents',
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { 
+            'Authorization': token,  // Don't add 'Bearer ' here if it's already in the token
+            'Content-Type': 'application/json'
+          }
         }
       );
       setDocuments(response.data);
     } catch (error) {
-      setError('Failed to fetch documents');
+      console.error('Error fetching documents:', error);
+      if (error.response?.status === 401) {
+        // Clear token and redirect to login
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
+    }
+  };
+
+
+  const handleDeleteDocument = async (documentId) => {
+    if (!window.confirm('Are you sure you want to delete this document?')) {
+      return;
+    }
+  
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(
+        `https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/documents/${documentId}`,
+        {
+          headers: { 
+            'Authorization': token
+          }
+        }
+      );
+      
+      // Remove the document from the state
+      setDocuments(prevDocs => prevDocs.filter(doc => doc.id !== documentId));
+      setSuccess('Document deleted successfully');
+    } catch (error) {
+      console.error('Error deleting document:', error);
+      setError(error.response?.data?.detail || 'Failed to delete document');
     }
   };
 
@@ -166,21 +203,7 @@ const handleDocumentUpload = async () => {
   }
 };
 
-  const handleDeleteDocument = async (documentId) => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(
-        `https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/documents/${documentId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      );
-      setSuccess('Document deleted successfully');
-      fetchDocuments();
-    } catch (error) {
-      setError('Failed to delete document');
-    }
-  };
+  
 
   return (
     <Container maxWidth="lg">
@@ -320,12 +343,14 @@ const handleDocumentUpload = async () => {
                       <TableRow key={doc.id}>
                         <TableCell>{doc.title}</TableCell>
                         <TableCell>{doc.description}</TableCell>
+                        <TableCell>{doc.category_id}</TableCell>
                         <TableCell>{new Date(doc.created_at).toLocaleDateString()}</TableCell>
                         <TableCell>
                           <IconButton 
                             size="small" 
                             sx={{ color: '#8B4513' }}
                             onClick={() => handleDeleteDocument(doc.id)}
+                            aria-label="Delete"
                           >
                             <DeleteIcon />
                           </IconButton>

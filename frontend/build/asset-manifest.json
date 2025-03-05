@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/AllAboutLearning/static/js/main.28cf4cbf.js",
+    "main.js": "/AllAboutLearning/static/js/main.c94ea996.js",
     "index.html": "/AllAboutLearning/index.html",
-    "main.28cf4cbf.js.map": "/AllAboutLearning/static/js/main.28cf4cbf.js.map"
+    "main.c94ea996.js.map": "/AllAboutLearning/static/js/main.c94ea996.js.map"
   },
   "entrypoints": [
-    "static/js/main.28cf4cbf.js"
+    "static/js/main.c94ea996.js"
   ]
 }

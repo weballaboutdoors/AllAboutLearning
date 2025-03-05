@@ -13,6 +13,10 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+
+
+
+
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -66,18 +70,21 @@ function Login() {
       );
       
       if (response.data && response.data.access_token) {
-        // Store the token with 'Bearer ' prefix
+        // Store the token with Bearer prefix
         const token = `Bearer ${response.data.access_token}`;
+        console.log('Storing token:', token); // Debug log
         localStorage.setItem('token', token);
+        
+        // Update the auth context with user data
+        setUser(response.data.user);  // Add this line!
+        
+        // Store user data in localStorage
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        setUser(response.data.user);
         
         if (response.data.user.is_admin) {
           navigate('/admin');
         } else {
-          const intendedDocument = localStorage.getItem('intendedDocument');
-          localStorage.removeItem('intendedDocument');
-          navigate(intendedDocument ? `/documents/${intendedDocument}` : '/documents');
+          navigate('/documents');
         }
       }
     } catch (error) {
