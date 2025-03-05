@@ -57,7 +57,6 @@ function Login() {
     if (!validateForm()) return;
     
     try {
-      console.log('Attempting login with:', formData);
       const response = await axios.post(
         'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/login',
         {
@@ -65,17 +64,15 @@ function Login() {
           password: formData.password
         }
       );
-      console.log('Login response:', response.data);  // Check the response data
       
       if (response.data && response.data.access_token) {
-        localStorage.setItem('token', response.data.access_token);
+        // Store the token with 'Bearer ' prefix
+        const token = `Bearer ${response.data.access_token}`;
+        localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         setUser(response.data.user);
         
-        console.log('Is admin?', response.data.user.is_admin);  // Debug admin status
-        
         if (response.data.user.is_admin) {
-          console.log('Redirecting to admin dashboard');  // Debug navigation
           navigate('/admin');
         } else {
           const intendedDocument = localStorage.getItem('intendedDocument');

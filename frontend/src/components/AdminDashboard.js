@@ -100,11 +100,19 @@ function AdminDashboard() {
   const handleCreateUser = async () => {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        setError('Not authenticated. Please login again.');
+        return;
+      }
+
       await axios.post(
         'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/create-user', 'http://localhost:5001/api/admin/create-user',
         userForm,
         {
-          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
+          headers: { 
+            'Authorization': token,  // Make sure the 'Bearer ' prefix is included
+            'Content-Type': 'application/json'
+          }
         }
       );
       setSuccess('User created successfully');
@@ -112,37 +120,51 @@ function AdminDashboard() {
       fetchUsers();
       setUserForm({ email: '', password: '', firstName: '', lastName: '' });
     } catch (error) {
+      console.error('Error creating user:', error);
+    if (error.response?.status === 401) {
+      setError('Session expired. Please login again.');
+    } else {
       setError(error.response?.data?.detail || 'Failed to create user');
     }
-  };
+  }
+};
 
-  const handleDocumentUpload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append('title', documentForm.title);
-      formData.append('description', documentForm.description);
-      formData.append('file', documentForm.file);
-      formData.append('categoryId', documentForm.categoryId);
+const handleDocumentUpload = async () => {
+  try {
+    const formData = new FormData();
+    formData.append('title', documentForm.title);
+    formData.append('description', documentForm.description);
+    formData.append('file', documentForm.file);
+    formData.append('categoryId', documentForm.categoryId);
   
-      const token = localStorage.getItem('token');
-      await axios.post(
-        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/upload-document',
-        formData,
-        {
-          headers: { 
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
-          }
+    const token = localStorage.getItem('token');
+    console.log('Token being used:', token); // Debug log
+    
+    await axios.post(
+      'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/upload-document',
+      formData,
+      {
+        headers: { 
+          'Authorization': token, // Remove 'Bearer ' if it's already in the token
+          'Content-Type': 'multipart/form-data'
         }
-      );
-      setSuccess('Document uploaded successfully');
-      setOpenDocumentDialog(false);
-      fetchDocuments();
-      setDocumentForm({ title: '', description: '', file: null, categoryId: '' });
-    } catch (error) {
+      }
+    );
+    setSuccess('Document uploaded successfully');
+    setOpenDocumentDialog(false);
+    fetchDocuments();
+    setDocumentForm({ title: '', description: '', file: null, categoryId: '' });
+  } catch (error) {
+    console.error('Upload error:', error);
+    if (error.response?.status === 401) {
+      setError('Session expired. Please login again.');
+      // Optionally redirect to login
+      window.location.href = '/login';
+    } else {
       setError(error.response?.data?.detail || 'Failed to upload document');
     }
-  };
+  }
+};
 
   const handleDeleteDocument = async (documentId) => {
     try {

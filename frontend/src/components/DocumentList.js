@@ -13,7 +13,15 @@ import {
   TextField,
   CardMedia,
   CircularProgress,
-  Alert
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -22,7 +30,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
-import { getDocuments } from '../services/api';
+import axios from 'axios';
 
 function DocumentList() {
   const initialDocuments = [
@@ -91,60 +99,105 @@ function DocumentList() {
     },
   ];
 
-  const [documents, setDocuments] = useState(initialDocuments);
-  const [loading, setLoading] = useState(false);  // Changed to false since we have initial data
+  const [documents, setDocuments] = useState({});
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
 
-  const getIcon = (type) => {
-    switch(type) {
-      case 'pdf':
-        return <PictureAsPdfIcon color="error" />;
-      case 'presentation':
-        return <SlideshowIcon color="primary" />;
-      default:
-        return <DescriptionIcon color="info" />;
-    }
+  useEffect(() => {
+    const fetchDocuments = async (categoryId) => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(
+          `https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/documents/${categoryId}`,
+          {
+            headers: { Authorization: token }
+          }
+        );
+        return response.data;
+      } catch (error) {
+        console.error(`Error fetching documents for ${categoryId}:`, error);
+        return [];
+      }
+    };
+
+    const loadAllDocuments = async () => {
+      setLoading(true);
+      const documentsMap = {};
+      for (const category of initialDocuments) {
+        documentsMap[category.id] = await fetchDocuments(category.id);
+      }
+      setDocuments(documentsMap);
+      setLoading(false);
+    };
+
+    loadAllDocuments();
+  }, []);
+
+  const handleCardClick = (categoryId) => {
+    setSelectedCategory(categoryId);
+    setOpenDialog(true);
   };
 
-  const renderDocumentPreview = (doc) => {
-    switch(doc.file_type) {
-      case 'pdf':
-        return (
-          <Box sx={{ height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <PictureAsPdfIcon sx={{ fontSize: 60, color: '#8B4513' }} />
-          </Box>
+  const DocumentDialog = ({ open, onClose, categoryId }) => {
+    const categoryDocs = documents[categoryId] || [];
+    
+    const handleDocumentClick = async (docId) => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(
+          `https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/documents/${categoryId}/${docId}/file`,
+          {
+            headers: { Authorization: token },
+            responseType: 'blob'
+          }
         );
-      case 'video':
-        return (
-          <video 
-            width="100%" 
-            height="200" 
-            controls
-            poster="/video-thumbnail.png"
-          >
-            <source src={`/api/documents/${doc.id}/stream`} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        );
-      case 'image':
-        return (
-          <Box
-            component="img"
-            src={`/api/documents/${doc.id}/stream`}
-            alt={doc.title}
-            sx={{
-              width: '100%',
-              height: 200,
-              objectFit: 'cover'
-            }}
-          />
-        );
-      default:
-        return null;
-    }
-  };
+        
+        const file = new Blob([response.data], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      } catch (error) {
+        console.error('Error fetching document:', error);
+      }
+    };
 
+    return (
+      <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+        <DialogTitle>
+          {initialDocuments.find(cat => cat.id === categoryId)?.name} Documents
+        </DialogTitle>
+        <DialogContent>
+          <List>
+            {categoryDocs.map((doc) => (
+              <ListItem 
+                key={doc.id} 
+                button 
+                onClick={() => handleDocumentClick(doc.id)}
+              >
+                <ListItemIcon>
+                  <PictureAsPdfIcon />
+                </ListItemIcon>
+                <ListItemText 
+                  primary={doc.title} 
+                  secondary={doc.description} 
+                />
+              </ListItem>
+            ))}
+            {categoryDocs.length === 0 && (
+              <ListItem>
+                <ListItemText primary="No documents available" />
+              </ListItem>
+            )}
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
 
   return (
     <Container>
@@ -154,48 +207,62 @@ function DocumentList() {
         </Typography>
       </Box>
       
-      <Grid container spacing={3}>
-        {documents.map((doc) => (
-          <Grid item xs={12} sm={6} md={4} key={doc.id}>
-            <Card 
-              sx={{ 
-                height: '100%',
-                cursor: 'pointer',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: 3,
-                  transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
-                }
-              }}
-              onClick={() => navigate(`/documents/${doc.id}`)}
-            >
-              <CardMedia
-                component="img"
-                height="400"
-                image={doc.image}
-                alt={doc.name}
+      {loading ? (
+        <Box display="flex" justifyContent="center" my={4}>
+          <CircularProgress />
+        </Box>
+      ) : error ? (
+        <Alert severity="error" sx={{ mb: 4 }}>{error}</Alert>
+      ) : (
+        <Grid container spacing={3}>
+          {initialDocuments.map((doc) => (
+            <Grid item xs={12} sm={6} md={4} key={doc.id}>
+              <Card 
                 sx={{ 
-                  objectFit: 'cover',
-                  borderBottom: '1px solid #eee',
-                  backgroundColor: '#f5f5f5',
+                  height: '100%',
                   cursor: 'pointer',
                   '&:hover': {
-                    opacity: .5
+                    transform: 'translateY(-4px)',
+                    boxShadow: 3,
+                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
                   }
                 }}
-              />
-              <CardContent sx={{ cursor: 'pointer' }}>
-                <Typography variant="h6" component="h2" sx={{ mb: 1, color: 'primary.main' }}>
-                  {doc.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {doc.description}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+                onClick={() => handleCardClick(doc.id)}
+              >
+                <CardMedia
+                  component="img"
+                  height="400"
+                  image={doc.image}
+                  alt={doc.name}
+                  sx={{ 
+                    objectFit: 'cover',
+                    borderBottom: '1px solid #eee',
+                    backgroundColor: '#f5f5f5',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      opacity: .5
+                    }
+                  }}
+                />
+                <CardContent sx={{ cursor: 'pointer' }}>
+                  <Typography variant="h6" component="h2" sx={{ mb: 1, color: 'primary.main' }}>
+                    {doc.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {doc.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      )}
+
+      <DocumentDialog 
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        categoryId={selectedCategory}
+      />
     </Container>
   );
 }
