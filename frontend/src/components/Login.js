@@ -12,10 +12,11 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { useAuth } from '../context/AuthContext';
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -53,6 +54,8 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+    
     try {
       console.log('Attempting login with:', formData);
       const response = await axios.post(
@@ -62,18 +65,23 @@ function Login() {
           password: formData.password
         }
       );
-      console.log('Login response:', response);
-  
+      console.log('Login response:', response.data);  // Check the response data
+      
       if (response.data && response.data.access_token) {
         localStorage.setItem('token', response.data.access_token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
+        setUser(response.data.user);
         
-        // Get intended document and clear it
-        const intendedDocument = localStorage.getItem('intendedDocument');
-        localStorage.removeItem('intendedDocument');
+        console.log('Is admin?', response.data.user.is_admin);  // Debug admin status
         
-        // Navigate to intended document or home
-        navigate(intendedDocument ? `/documents/${intendedDocument}` : '/');
+        if (response.data.user.is_admin) {
+          console.log('Redirecting to admin dashboard');  // Debug navigation
+          navigate('/admin');
+        } else {
+          const intendedDocument = localStorage.getItem('intendedDocument');
+          localStorage.removeItem('intendedDocument');
+          navigate(intendedDocument ? `/documents/${intendedDocument}` : '/documents');
+        }
       }
     } catch (error) {
       console.error('Login error:', error);

@@ -107,6 +107,45 @@ function DocumentList() {
     }
   };
 
+  const renderDocumentPreview = (doc) => {
+    switch(doc.file_type) {
+      case 'pdf':
+        return (
+          <Box sx={{ height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <PictureAsPdfIcon sx={{ fontSize: 60, color: '#8B4513' }} />
+          </Box>
+        );
+      case 'video':
+        return (
+          <video 
+            width="100%" 
+            height="200" 
+            controls
+            poster="/video-thumbnail.png"
+          >
+            <source src={`/api/documents/${doc.id}/stream`} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        );
+      case 'image':
+        return (
+          <Box
+            component="img"
+            src={`/api/documents/${doc.id}/stream`}
+            alt={doc.title}
+            sx={{
+              width: '100%',
+              height: 200,
+              objectFit: 'cover'
+            }}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+
   return (
     <Container>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 4 }}>

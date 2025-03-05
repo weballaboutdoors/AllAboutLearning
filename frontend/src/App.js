@@ -8,8 +8,10 @@ import Footer from './components/Footer';
 import DocumentDetail from './components/DocumentDetail';
 import CreateAccount from './components/CreateAccount';
 import { AuthProvider } from './context/AuthContext';
-
-const theme = {
+import LandingPage from './components/LandingPage';
+import ProtectedRoute from './components/ProtectedRoute';  // Add this import
+import AdminDashboard from './components/AdminDashboard';
+const theme = createTheme({
   palette: {
     primary: {
       main: '#8B4513', // Vintage brown
@@ -61,36 +63,49 @@ const theme = {
       },
     },
   },
-}
+});
 
 function App() {
-  return (
-    <AuthProvider>
-      <ThemeProvider theme={createTheme(theme)}>
-        <CssBaseline />
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          minHeight: '100vh',
-          bgcolor: '#FDF5E6',
-          backgroundImage: 'url("/vintage-paper-texture.png")',
-        }}>
-          <Router basename="/AllAboutLearning">
-            <Navbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/documents/:id" element={<DocumentDetail />} />
-                <Route path="/" element={<DocumentList />} />
-                <Route path="/create-account" element={<CreateAccount />} />
-              </Routes>
-            </Container>
-            <Footer />
-          </Router>
-        </Box>
-      </ThemeProvider>
-    </AuthProvider>
-  );
-}
+    return (
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            minHeight: '100vh',
+            bgcolor: '#FDF5E6',
+            backgroundImage: 'url("/vintage-paper-texture.png")',
+          }}>
+            <Router basename="/AllAboutLearning">
+              <Navbar />
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route 
+                    path="/documents" 
+                    element={
+                      <ProtectedRoute>
+                        <DocumentList />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route path="/documents/:id" element={
+                    <ProtectedRoute>
+                      <DocumentDetail />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/create-account" element={<CreateAccount />} />
+                </Routes>
+              </Container>
+              <Footer />
+            </Router>
+          </Box>
+        </ThemeProvider>
+      </AuthProvider>
+    );
+  }
 
 export default App;
