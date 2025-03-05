@@ -55,19 +55,28 @@ function AdminDashboard() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
       const response = await axios.get(
-        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/users',
+        `${baseUrl}/api/admin/users`,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: token }
         }
       );
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
-      setError('Failed to fetch users');
+      if (error.response?.status === 401) {
+        setError('Session expired. Please login again.');
+      } else {
+        setError('Failed to fetch users');
+      }
     }
   };
-
+  
+  // Add useEffect to fetch users when component mounts
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   const DOCUMENT_CATEGORIES = [
     { id: 'multipoint-locks', name: 'Multi-Point Locks' },
     { id: 'door-closers', name: 'Door Closers' },
