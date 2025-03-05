@@ -62,6 +62,7 @@ function AdminDashboard() {
       );
       setUsers(response.data);
     } catch (error) {
+      console.error('Error fetching users:', error);
       setError('Failed to fetch users');
     }
   };
@@ -100,10 +101,10 @@ function AdminDashboard() {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/create-user',
+        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/create-user', 'http://localhost:5001/api/admin/create-user',
         userForm,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
         }
       );
       setSuccess('User created successfully');
