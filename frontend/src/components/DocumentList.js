@@ -107,23 +107,11 @@ function DocumentList() {
     }
   };
 
-  const handleDocumentClick = (docId) => {
-    // Check if user is logged in (you can check for token in localStorage)
-    const token = localStorage.getItem('token');
-    if (!token) {
-      // If not logged in, redirect to login
-      navigate('/login');
-    } else {
-      // If logged in, navigate to document
-      navigate(`/documents/${docId}`);
-    }
-  };
-
   return (
     <Container>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 4 }}>
         <Typography variant="h4" component="h1" sx={{ fontWeight: 600 }}>
-          Informational Materials
+          Informational Archives
         </Typography>
       </Box>
       
@@ -140,7 +128,7 @@ function DocumentList() {
                   transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
                 }
               }}
-              onClick={() => handleDocumentClick(doc.id)}
+              onClick={() => navigate(`/documents/${doc.id}`)}
             >
               <CardMedia
                 component="img"

@@ -5,10 +5,11 @@ function Footer() {
     return (
       <Box
         sx={{
-          backgroundColor: '#000000',
-          color: '#ffffff',
-          py: 2, // Reduced padding
-          mt: 'auto'
+          backgroundColor: '#8B4513',  // Vintage brown
+          color: '#FAF0E6',  // Antique white
+          py: 2,
+          mt: 'auto',
+          borderTop: '3px double #DEB887'  // Decorative border
         }}
       >
         <Container maxWidth="lg">
@@ -18,30 +19,55 @@ function Footer() {
             alignItems: 'center',
             flexWrap: 'wrap'
           }}>
-            <Typography variant="body2" sx={{ color: '#48ad4d' }}>
-              © {new Date().getFullYear()} All About Learning
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#DEB887',  // Burlywood
+                fontFamily: '"Old Standard TT", serif',
+                letterSpacing: '0.05em'
+              }}
+            >
+              © {new Date().getFullYear()} All About Doors & Windows
             </Typography>
             
             <Box sx={{ display: 'flex', gap: 3 }}>
-              <Link href="/" color="inherit" sx={{ 
-                textDecoration: 'none', 
-                '&:hover': { color: '#48ad4d' },
-                fontSize: '0.875rem'
-              }}>
+              <Link 
+                href="/" 
+                sx={{ 
+                  color: '#FAF0E6',
+                  textDecoration: 'none', 
+                  '&:hover': { color: '#DEB887' },
+                  fontSize: '0.875rem',
+                  fontFamily: '"Old Standard TT", serif',
+                  letterSpacing: '0.05em'
+                }}
+              >
                 Home
               </Link>
-              <Link href="/documents" color="inherit" sx={{ 
-                textDecoration: 'none', 
-                '&:hover': { color: '#48ad4d' },
-                fontSize: '0.875rem'
-              }}>
-                Documents
+              <Link 
+                href="/documents" 
+                sx={{ 
+                  color: '#FAF0E6',
+                  textDecoration: 'none', 
+                  '&:hover': { color: '#DEB887' },
+                  fontSize: '0.875rem',
+                  fontFamily: '"Old Standard TT", serif',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                Archives
               </Link>
-              <Link href="/login" color="inherit" sx={{ 
-                textDecoration: 'none', 
-                '&:hover': { color: '#48ad4d' },
-                fontSize: '0.875rem'
-              }}>
+              <Link 
+                href="/login" 
+                sx={{ 
+                  color: '#FAF0E6',
+                  textDecoration: 'none', 
+                  '&:hover': { color: '#DEB887' },
+                  fontSize: '0.875rem',
+                  fontFamily: '"Old Standard TT", serif',
+                  letterSpacing: '0.05em'
+                }}
+              >
                 Login
               </Link>
             </Box>

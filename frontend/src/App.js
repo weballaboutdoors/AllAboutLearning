@@ -8,67 +8,73 @@ import Footer from './components/Footer';
 import DocumentDetail from './components/DocumentDetail';
 import CreateAccount from './components/CreateAccount';
 import { AuthProvider } from './context/AuthContext';
-const theme = createTheme({
+
+const theme = {
   palette: {
     primary: {
-      main: '#48ad4d', // A modern blue color
-      light: '#6fc174',
-      dark: '#327834',
+      main: '#8B4513', // Vintage brown
+      light: '#D2691E',
+      dark: '#654321',
     },
     secondary: {
-      main: '#00bcd4',
+      main: '#DEB887', // Burlywood
+      light: '#F5DEB3',
+      dark: '#A0522D',
     },
     background: {
-      default: '#e8f5e9',
-      paper: '#ffffff',
-      navbar: '#000000',
+      default: '#FDF5E6', // Old lace
+      paper: '#FAF0E6',  // Linen
     },
   },
   typography: {
-    fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
-    h4: {
-      fontWeight: 600,
+    fontFamily: '"Old Standard TT", serif',
+    h1: {
+      fontFamily: '"Playfair Display", serif',
+      fontWeight: 700,
     },
-    h5: {
-      fontWeight: 500,
+    h2: {
+      fontFamily: '"Playfair Display", serif',
+      borderBottom: '2px solid #8B4513',
     },
-    h6: {
-      fontWeight: 500,
+    body1: {
+      fontFamily: '"Courier Prime", monospace',
     },
-  },
-  shape: {
-    borderRadius: 12,
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FAF0E6',
+          borderRadius: 0,
+          border: '1px solid #8B4513',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
+          borderRadius: 0,
           textTransform: 'none',
-          borderRadius: 8,
-        },
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: 12,
-          transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          },
+          fontFamily: '"Old Standard TT", serif',
+          border: '2px solid #8B4513',
         },
       },
     },
   },
-});
+}
 
 function App() {
-    return (
+  return (
     <AuthProvider>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={createTheme(theme)}>
         <CssBaseline />
-        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          minHeight: '100vh',
+          bgcolor: '#FDF5E6',
+          backgroundImage: 'url("/vintage-paper-texture.png")',
+        }}>
           <Router basename="/AllAboutLearning">
             <Navbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
@@ -84,7 +90,7 @@ function App() {
         </Box>
       </ThemeProvider>
     </AuthProvider>
-    );
-  }
+  );
+}
 
-export default App; 
+export default App;

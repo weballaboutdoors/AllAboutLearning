@@ -6,58 +6,113 @@ function Navbar() {
     const navigate = useNavigate();
   
     return (
-      <AppBar position="static" sx={{ backgroundColor: '#000000' }}>
-        <Toolbar sx={{ height: 100 }}> {/* Made toolbar taller */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center',  }}>
-            {/* Placeholder for logo - you can replace this with your actual logo */}
+      <AppBar position="static" sx={{ 
+        backgroundColor: '#8B4513',
+        borderBottom: '3px double #DEB887'
+      }}>
+        <Toolbar sx={{ 
+          height: 100,
+          display: 'flex',
+          justifyContent: 'space-between',
+          position: 'relative'  // Added for absolute positioning of center text
+        }}> 
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 4
+          }}>
             <Box 
               component="img"
-              src="/AllAboutLearning/All About.png" // You'll need to add your logo file
+              src="/AllAboutLearning/images/vintage-archive-logo.png"
               alt="Logo"
               sx={{ 
-                height: 100,
+                height: 80,
                 width: 'auto',
                 display: 'block',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                mixBlendMode: 'normal'
               }}
               onClick={() => navigate('/')}
             />
-            <Typography 
-              variant="h5" // Made text larger
-              component="div" 
-              sx={{ 
-                cursor: 'pointer',
-                color: '#48ad4d',
-                fontWeight: 500 // Made text bolder
-              }}
-              onClick={() => navigate('/')}
-            >
-              All About Learning
-            </Typography>
           </Box>
+
+          {/* Centered title */}
+          <Typography 
+            variant="h5"
+            component="div" 
+            sx={{ 
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              cursor: 'pointer',
+              color: '#FAF0E6',
+              fontFamily: '"Playfair Display", serif',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              borderBottom: '2px solid #DEB887',
+              paddingBottom: '4px',
+              '&:hover': {
+                color: '#DEB887'
+              }
+            }}
+            onClick={() => navigate('/')}
+          >
+            The All About Archives
+          </Typography>
+
           <Box sx={{ marginLeft: 'auto' }}>
             <Button 
-              sx={{ color: '#48ad4d', fontSize: '1rem' }} // Made buttons larger
+              sx={{ 
+                color: '#FAF0E6',
+                fontSize: '1rem',
+                fontFamily: '"Old Standard TT", serif',
+                border: '1px solid #DEB887',
+                margin: '0 8px',
+                '&:hover': {
+                  backgroundColor: '#654321',
+                  borderColor: '#FAF0E6'
+                }
+              }}
               onClick={() => navigate('/documents')}
             >
-              Documents
+              Archives
             </Button>
             <Button 
-              sx={{ color: '#48ad4d', fontSize: '1rem' }} // Made buttons larger
+              sx={{ 
+                color: '#FAF0E6',
+                fontSize: '1rem',
+                fontFamily: '"Old Standard TT", serif',
+                border: '1px solid #DEB887',
+                margin: '0 8px',
+                '&:hover': {
+                  backgroundColor: '#654321',
+                  borderColor: '#FAF0E6'
+                }
+              }}
               onClick={() => navigate('/login')}
             >
               Login
             </Button>
             <Button 
-            sx={{ color: '#48ad4d', fontSize: '0.9rem' }}
-            onClick={() => navigate('/create-account')}
-          >
-            Create Account
-          </Button>
+              sx={{ 
+                color: '#FAF0E6',
+                fontSize: '0.9rem',
+                fontFamily: '"Old Standard TT", serif',
+                border: '1px solid #DEB887',
+                margin: '0 8px',
+                '&:hover': {
+                  backgroundColor: '#654321',
+                  borderColor: '#FAF0E6'
+                }
+              }}
+              onClick={() => navigate('/create-account')}
+            >
+              Create Account
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
     );
   }
 
-export default Navbar; 
+export default Navbar;
