@@ -25,3 +25,9 @@ yarn-error.log*
 venv/
 __pycache__/
 *.pyc
+# Dependencies
+node_modules/
+.cache/
+**/node_modules/
+**/.cache/
+
