@@ -60,35 +60,45 @@ function Login() {
     e.preventDefault();
     if (!validateForm()) return;
     
+    const apiUrl = process.env.NODE_ENV === 'production' 
+      ? process.env.REACT_APP_PROD_API_URL 
+      : process.env.REACT_APP_API_URL;
+  
     try {
+      console.log('Attempting login...');
       const response = await axios.post(
-        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/login',
+        `${apiUrl}/api/login`,
         {
           email: formData.email,
           password: formData.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: false
         }
       );
       
+      console.log('Login response:', response.data); // Debug log
+      
       if (response.data && response.data.access_token) {
-        // Store the token with Bearer prefix
         const token = `Bearer ${response.data.access_token}`;
-        console.log('Storing token:', token); // Debug log
         localStorage.setItem('token', token);
-        
-        // Update the auth context with user data
-        setUser(response.data.user);  // Add this line!
-        
-        // Store user data in localStorage
+        setUser(response.data.user);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         
+        console.log('Is admin:', response.data.user.is_admin); // Add this debug log
+        
         if (response.data.user.is_admin) {
+          console.log('Navigating to admin dashboard...'); // Add this debug log
           navigate('/admin');
         } else {
           navigate('/documents');
         }
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Login error details:', error.response?.data);
       setErrors({ submit: 'Invalid email or password' });
     }
   };

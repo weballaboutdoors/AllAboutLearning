@@ -95,53 +95,58 @@ function AdminDashboard() {
   const fetchDocuments = async () => {
     try {
       const token = localStorage.getItem('token');
-      console.log('Token being used:', token); // Debug log
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_PROD_API_URL 
+        : process.env.REACT_APP_API_URL;
+      
+      console.log('Fetching documents...'); // Debug log
       
       const response = await axios.get(
-        'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/documents',
+        `${apiUrl}/api/admin/documents`,
         {
           headers: { 
-            'Authorization': token,  // Don't add 'Bearer ' here if it's already in the token
+            'Authorization': token,
             'Content-Type': 'application/json'
-          }
+          },
+          withCredentials: true  // Add this
         }
       );
+      
+      console.log('Documents received:', response.data); // Debug log
       setDocuments(response.data);
     } catch (error) {
       console.error('Error fetching documents:', error);
-      if (error.response?.status === 401) {
-        // Clear token and redirect to login
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-      }
     }
   };
 
 
   const handleDeleteDocument = async (documentId) => {
-    if (!window.confirm('Are you sure you want to delete this document?')) {
-      return;
-    }
-  
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(
-        `https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/documents/${documentId}`,
-        {
-          headers: { 
-            'Authorization': token
-          }
-        }
-      );
-      
-      // Remove the document from the state
-      setDocuments(prevDocs => prevDocs.filter(doc => doc.id !== documentId));
-      setSuccess('Document deleted successfully');
-    } catch (error) {
-      console.error('Error deleting document:', error);
-      setError(error.response?.data?.detail || 'Failed to delete document');
-    }
-  };
+  if (!window.confirm('Are you sure you want to delete this document?')) {
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem('token');
+    const apiUrl = process.env.REACT_APP_API_URL;
+    
+    await axios.delete(
+      `${apiUrl}/api/admin/documents/${documentId}`,
+      {
+        headers: { 
+          'Authorization': `Bearer ${token}`
+        },
+        withCredentials: false
+      }
+    );
+    
+    // Remove the document from the state
+    setDocuments(prevDocs => prevDocs.filter(doc => doc.id !== documentId));
+    setSuccess('Document deleted successfully');
+  } catch (error) {
+    console.error('Error deleting document:', error);
+    setError(error.response?.data?.detail || 'Failed to delete document');
+  }
+};
 
   const handleCreateUser = async () => {
     try {
@@ -183,34 +188,55 @@ function AdminDashboard() {
       formData.append('description', documentForm.description);
       formData.append('file', documentForm.file);
       formData.append('categoryId', documentForm.categoryId);
-    
+      
       const token = localStorage.getItem('token');
-      const baseUrl = 'https://allaboutlearning-api-aab4440a7226.herokuapp.com';
-      
-      // Remove Google auth step since endpoint doesn't exist yet
-      const response = await axios.post(
-        `${baseUrl}/api/admin/upload-document`,
-        formData,
-        {
-          headers: { 
-            'Authorization': token,
-            'Content-Type': 'multipart/form-data'
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_PROD_API_URL 
+        : process.env.REACT_APP_API_URL;
+  
+      console.log('Starting document upload...'); // Debug log
+  
+      try {
+        const response = await axios.post(
+          `${apiUrl}/api/admin/upload-document`,
+          formData,
+          {
+            headers: { 
+              'Authorization': token,
+              'Content-Type': 'multipart/form-data'
+            }
           }
+        );
+        
+        console.log('Upload successful:', response.data); // Debug log
+        
+        setSuccess('Document uploaded successfully');
+        setOpenDocumentDialog(false);
+        await fetchDocuments();  // Add await here
+        setDocumentForm({ title: '', description: '', file: null, categoryId: '' });
+        
+      } catch (error) {
+        console.log('Upload error response:', error.response?.data);
+        
+        if (error.response?.status === 401 && error.response.data.detail?.auth_url) {
+          const authWindow = window.open(error.response.data.detail.auth_url, '_blank');
+          setError('Please complete Google authentication in the new window and try uploading again');
+          
+          if (authWindow) {
+            const checkWindow = setInterval(() => {
+              if (authWindow.closed) {
+                clearInterval(checkWindow);
+                setError('Google authentication window closed. Please try uploading again.');
+              }
+            }, 1000);
+          }
+        } else {
+          throw error;
         }
-      );
-      
-      setSuccess('Document uploaded successfully');
-      setOpenDocumentDialog(false);
-      fetchDocuments();
-      setDocumentForm({ title: '', description: '', file: null, categoryId: '' });
+      }
     } catch (error) {
       console.error('Upload error:', error);
-      if (error.response?.status === 401) {
-        setError('Session expired. Please login again.');
-        window.location.href = '/login';
-      } else {
-        setError(error.response?.data?.detail || 'Failed to upload document');
-      }
+      setError(error.response?.data?.detail?.message || 'Failed to upload document');
     }
   };
 
@@ -218,29 +244,22 @@ function AdminDashboard() {
   const handleViewDocument = async (docId, categoryId) => {
     try {
       const token = localStorage.getItem('token');
-      const baseUrl = 'https://allaboutlearning-api-aab4440a7226.herokuapp.com';
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_PROD_API_URL 
+        : process.env.REACT_APP_API_URL;
       
-      // Add Google Drive auth before getting the file
-      await axios.get(`${baseUrl}/auth/google`, {
-        headers: { 'Authorization': token }
-      });
+      // Add the basename to the viewer URL
+      const viewerUrl = `/AllAboutLearning/pdf-viewer.html?file=${encodeURIComponent(
+        `${apiUrl}/api/documents/${categoryId}/${docId}/file`
+      )}&token=${encodeURIComponent(token)}`;
       
-      const response = await axios.get(
-        `${baseUrl}/api/documents/${categoryId}/${docId}/file`,
-        {
-          headers: { 
-            Authorization: token,
-            'Content-Type': 'application/pdf'
-          },
-          responseType: 'blob'
-        }
+      // Open in custom viewer
+      window.open(viewerUrl, '_blank', 
+        'width=1000,height=800,toolbar=0,menubar=0,location=0'
       );
-      
-      const file = new Blob([response.data], { type: 'application/pdf' });
-      const fileURL = URL.createObjectURL(file);
-      window.open(fileURL, '_blank');
     } catch (error) {
       console.error('Error viewing document:', error);
+      setError('Failed to view document');
     }
   };
   
@@ -367,32 +386,33 @@ function AdminDashboard() {
                   Upload Document
                 </Button>
               </Box>
-
               <TableContainer>
                 <Table>
                   <TableHead>
                     <TableRow>
                       <TableCell>Title</TableCell>
                       <TableCell>Description</TableCell>
+                      <TableCell>Category</TableCell>
                       <TableCell>Upload Date</TableCell>
                       <TableCell>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {documents.map((doc) => (
+                    {documents && documents.map((doc) => (
                       <TableRow key={doc.id}>
                         <TableCell>
                           <Button
-                            onClick={() => handleViewDocument(doc.id, doc.category_id)}
+                            onClick={() => handleViewDocument(doc.file_path, doc.category_id)}
                             sx={{ textAlign: 'left', textTransform: 'none' }}
                             variant="text"
                           >
                             {doc.title}
                           </Button>
                         </TableCell>
-                        <TableCell>{doc.title}</TableCell>
                         <TableCell>{doc.description}</TableCell>
-                        <TableCell>{doc.category_id}</TableCell>
+                        <TableCell>
+                          {DOCUMENT_CATEGORIES.find(cat => cat.id === doc.category_id)?.name || doc.category_id}
+                        </TableCell>
                         <TableCell>{new Date(doc.created_at).toLocaleDateString()}</TableCell>
                         <TableCell>
                           <IconButton 

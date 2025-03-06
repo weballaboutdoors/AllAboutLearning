@@ -127,7 +127,7 @@ function Navbar() {
                 onClose={handleClose}
                 sx={{
                   '& .MuiPaper-root': {
-                    backgroundColor: '#8B4513',
+                    backgroundColor: '#3b919b',
                     border: '1px solid #DEB887'
                   }
                 }}
