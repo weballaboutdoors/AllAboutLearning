@@ -176,66 +176,73 @@ function AdminDashboard() {
     }
   };
 
-const handleDocumentUpload = async () => {
-  try {
-    const formData = new FormData();
-    formData.append('title', documentForm.title);
-    formData.append('description', documentForm.description);
-    formData.append('file', documentForm.file);
-    formData.append('categoryId', documentForm.categoryId);
-  
-    const token = localStorage.getItem('token');
-    console.log('Token being used:', token); // Debug log
+  const handleDocumentUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('title', documentForm.title);
+      formData.append('description', documentForm.description);
+      formData.append('file', documentForm.file);
+      formData.append('categoryId', documentForm.categoryId);
     
-    await axios.post(
-      'https://allaboutlearning-api-aab4440a7226.herokuapp.com/api/admin/upload-document',
-      formData,
-      {
-        headers: { 
-          'Authorization': token, // Remove 'Bearer ' if it's already in the token
-          'Content-Type': 'multipart/form-data'
+      const token = localStorage.getItem('token');
+      const baseUrl = 'https://allaboutlearning-api-aab4440a7226.herokuapp.com';
+      
+      // Remove Google auth step since endpoint doesn't exist yet
+      const response = await axios.post(
+        `${baseUrl}/api/admin/upload-document`,
+        formData,
+        {
+          headers: { 
+            'Authorization': token,
+            'Content-Type': 'multipart/form-data'
+          }
         }
+      );
+      
+      setSuccess('Document uploaded successfully');
+      setOpenDocumentDialog(false);
+      fetchDocuments();
+      setDocumentForm({ title: '', description: '', file: null, categoryId: '' });
+    } catch (error) {
+      console.error('Upload error:', error);
+      if (error.response?.status === 401) {
+        setError('Session expired. Please login again.');
+        window.location.href = '/login';
+      } else {
+        setError(error.response?.data?.detail || 'Failed to upload document');
       }
-    );
-    setSuccess('Document uploaded successfully');
-    setOpenDocumentDialog(false);
-    fetchDocuments();
-    setDocumentForm({ title: '', description: '', file: null, categoryId: '' });
-  } catch (error) {
-    console.error('Upload error:', error);
-    if (error.response?.status === 401) {
-      setError('Session expired. Please login again.');
-      // Optionally redirect to login
-      window.location.href = '/login';
-    } else {
-      setError(error.response?.data?.detail || 'Failed to upload document');
     }
-  }
-};
+  };
 
 
-const handleViewDocument = async (docId, categoryId) => {
-  try {
-    const token = localStorage.getItem('token');
-    const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
-    const response = await axios.get(
-      `${baseUrl}/api/documents/${categoryId}/${docId}/file`,
-      {
-        headers: { Authorization: token },
-        responseType: 'blob'
-      }
-    );
-    
-    // Create blob URL and open PDF in new tab
-    const file = new Blob([response.data], { type: 'application/pdf' });
-    const fileURL = URL.createObjectURL(file);
-    window.open(fileURL, '_blank');
-  } catch (error) {
-    console.error('Error viewing document:', error);
-    setError('Failed to open document');
-  }
-};
-
+  const handleViewDocument = async (docId, categoryId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const baseUrl = 'https://allaboutlearning-api-aab4440a7226.herokuapp.com';
+      
+      // Add Google Drive auth before getting the file
+      await axios.get(`${baseUrl}/auth/google`, {
+        headers: { 'Authorization': token }
+      });
+      
+      const response = await axios.get(
+        `${baseUrl}/api/documents/${categoryId}/${docId}/file`,
+        {
+          headers: { 
+            Authorization: token,
+            'Content-Type': 'application/pdf'
+          },
+          responseType: 'blob'
+        }
+      );
+      
+      const file = new Blob([response.data], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+    } catch (error) {
+      console.error('Error viewing document:', error);
+    }
+  };
   
 
   return (
