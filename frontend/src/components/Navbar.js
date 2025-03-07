@@ -250,22 +250,7 @@ function Navbar() {
                   >
                     Login
                   </Button>
-                  <Button 
-                    sx={{ 
-                      color: '#FAF0E6',
-                      fontSize: '0.9rem',
-                      fontFamily: '"Old Standard TT", serif',
-                      border: '1px solid #DEB887',
-                      margin: '0 8px',
-                      '&:hover': {
-                        backgroundColor: '#654321',
-                        borderColor: '#FAF0E6'
-                      }
-                    }}
-                    onClick={() => navigate('/create-account')}
-                  >
-                    Create Account
-                  </Button>
+                 
                 </>
               )}
             </Box>

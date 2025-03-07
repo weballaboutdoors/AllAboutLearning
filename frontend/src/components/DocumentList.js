@@ -31,6 +31,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DocumentList() {
   const initialDocuments = [
@@ -145,6 +147,9 @@ function DocumentList() {
     const categoryDocs = documents[categoryId] || [];
     
     const handleDocumentClick = async (doc) => {
+      // Show loading toast immediately
+      const loadingId = toast.loading("Opening document...");
+      
       try {
         const token = localStorage.getItem('token');
         const apiUrl = process.env.NODE_ENV === 'production' 
@@ -155,7 +160,13 @@ function DocumentList() {
           `${apiUrl}/api/documents/${categoryId}/${doc.file_path}/file`,
           {
             headers: { Authorization: token },
-            responseType: 'blob'
+            responseType: 'blob',
+            onDownloadProgress: (progressEvent) => {
+              const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              toast.update(loadingId, { 
+                render: `Loading: ${percentCompleted}%`
+              });
+            }
           }
         );
         
@@ -163,6 +174,14 @@ function DocumentList() {
         const reader = new FileReader();
         reader.readAsDataURL(response.data);
         reader.onloadend = () => {
+          // Update toast to success
+          toast.update(loadingId, {
+            render: "Document ready!",
+            type: "success",
+            isLoading: false,
+            autoClose: 2000
+          });
+          
           const base64data = reader.result;
           
           // Open viewer and pass data
@@ -180,6 +199,13 @@ function DocumentList() {
         };
       } catch (error) {
         console.error('Error:', error);
+        // Update toast to show error
+        toast.update(loadingId, {
+          render: "Error loading document",
+          type: "error",
+          isLoading: false,
+          autoClose: 2000
+        });
       }
     };
 
@@ -227,6 +253,7 @@ function DocumentList() {
 
   return (
     <Container>
+      <ToastContainer position="bottom-right" />
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 4 }}>
         <Typography variant="h4" component="h1" sx={{ fontWeight: 600 }}>
           Informational Archives
