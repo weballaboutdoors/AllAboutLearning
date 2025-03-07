@@ -144,23 +144,42 @@ function DocumentList() {
   const DocumentDialog = ({ open, onClose, categoryId }) => {
     const categoryDocs = documents[categoryId] || [];
     
-    const handleDocumentClick = async (docId) => {
+    const handleDocumentClick = async (doc) => {
       try {
         const token = localStorage.getItem('token');
-        const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+        const apiUrl = process.env.NODE_ENV === 'production' 
+          ? process.env.REACT_APP_PROD_API_URL 
+          : process.env.REACT_APP_API_URL;
+
         const response = await axios.get(
-          `${baseUrl}/api/documents/${categoryId}/${docId}/file`,
+          `${apiUrl}/api/documents/${categoryId}/${doc.file_path}/file`,
           {
             headers: { Authorization: token },
             responseType: 'blob'
           }
         );
         
-        const file = new Blob([response.data], { type: 'application/pdf' });
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL, '_blank');  // Added '_blank' to open in new tab
+        // Convert blob to base64
+        const reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onloadend = () => {
+          const base64data = reader.result;
+          
+          // Open viewer and pass data
+          const viewer = window.open(
+            '/AllAboutLearning/pdf-viewer.html',
+            '_blank',
+            'width=800,height=600'
+          );
+          
+          viewer.onload = () => {
+            viewer.postMessage({ pdfData: base64data }, '*');
+          };
+
+          onClose();
+        };
       } catch (error) {
-        console.error('Error fetching document:', error);
+        console.error('Error:', error);
       }
     };
 
@@ -175,10 +194,16 @@ function DocumentList() {
               <ListItem 
                 key={doc.id} 
                 button 
-                onClick={() => handleDocumentClick(doc.id)}
+                onClick={() => handleDocumentClick(doc)}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                    cursor: 'pointer'
+                  }
+                }}
               >
                 <ListItemIcon>
-                  <PictureAsPdfIcon />
+                  <PictureAsPdfIcon color="primary" />
                 </ListItemIcon>
                 <ListItemText 
                   primary={doc.title} 
@@ -198,7 +223,7 @@ function DocumentList() {
         </DialogActions>
       </Dialog>
     );
-  };
+};
 
   return (
     <Container>

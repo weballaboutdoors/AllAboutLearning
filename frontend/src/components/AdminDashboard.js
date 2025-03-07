@@ -181,6 +181,46 @@ function AdminDashboard() {
     }
   };
 
+
+  const handleDeleteUser = async (userId) => {
+    if (!window.confirm('Are you sure you want to delete this user?')) {
+      return;
+    }
+  
+    try {
+      const token = localStorage.getItem('token');
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_PROD_API_URL 
+        : process.env.REACT_APP_API_URL;
+  
+      await axios.delete(
+        `${apiUrl}/api/admin/users/${userId}`,
+        {
+          headers: { 
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }
+      );
+      
+      setSuccess('User deleted successfully');
+      // Refresh the users list
+      fetchUsers();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      if (error.response?.status === 401) {
+        setError('Session expired. Please login again.');
+        // Redirect to login if needed
+        window.location.href = '/AllAboutLearning/login';
+      } else {
+        setError(error.response?.data?.detail || 'Failed to delete user');
+      }
+    }
+  };
+
+
+
   const handleDocumentUpload = async () => {
     try {
       const formData = new FormData();
@@ -353,7 +393,8 @@ function AdminDashboard() {
                           <IconButton 
                             size="small" 
                             sx={{ color: '#8B4513' }}
-                            onClick={() => {/* Handle delete */}}
+                            onClick={() => handleDeleteUser(user.id)}
+                            aria-label="Delete user"
                           >
                             <DeleteIcon />
                           </IconButton>
