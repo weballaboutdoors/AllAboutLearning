@@ -5,7 +5,7 @@ function Footer() {
     return (
       <Box
         sx={{
-          backgroundColor: '#8B4513',  // Vintage brown
+          background: 'linear-gradient(90deg, #8B4513 0%, #A0522D 50%, #8B4513 100%)',
           color: '#FAF0E6',  // Antique white
           py: 2,
           mt: 'auto',
