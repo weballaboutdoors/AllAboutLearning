@@ -115,6 +115,37 @@
 
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
 
+
+
+    window.addEventListener('message', function(event) {
+  if (event.data && event.data.pdfData) {
+    // Hide any existing error message first
+    document.getElementById('error-message').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+
+    // Load PDF from base64 data
+    const pdfData = atob(event.data.pdfData.split(',')[1]);
+    const array = new Uint8Array(pdfData.length);
+    for (let i = 0; i < pdfData.length; i++) {
+      array[i] = pdfData.charCodeAt(i);
+    }
+    
+    pdfjsLib.getDocument({ data: array }).promise
+      .then(pdf => {
+        pdfDoc = pdf;
+        document.getElementById('page-count').textContent = pdf.numPages;
+        document.getElementById('loading').style.display = 'none';  // Hide loading when done
+        return fitToWidth();
+      })
+      .catch(error => {
+        console.error('Error loading PDF:', error);
+        document.getElementById('loading').style.display = 'none';  // Hide loading on error
+        document.getElementById('error-message').textContent = 'Error loading PDF. Please try again.';
+        document.getElementById('error-message').style.display = 'block';
+      });
+  }
+});
+
     const urlParams = new URLSearchParams(window.location.search);
     const pdfUrl = urlParams.get('file');
     const token = urlParams.get('token');
