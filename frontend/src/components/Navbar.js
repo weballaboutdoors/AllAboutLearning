@@ -43,7 +43,7 @@ function Navbar() {
   
     return (
       <AppBar position="static" sx={{ 
-        background: 'linear-gradient(90deg, #8B4513 10%, #A0522D 50%, #8B4513 100%)',
+        background: 'linear-gradient(35deg, #8B4513 20%, #A0522D 40%, #8B4513 100%)',
         borderBottom: '3px double #DEB887'
       }}>
         <Toolbar sx={{ 
