@@ -47,10 +47,59 @@ function AdminDashboard() {
   });
   const [openDocumentDialog, setOpenDocumentDialog] = useState(false);
 
+  // New state for editing users
+  const [editDialog, setEditDialog] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editForm, setEditForm] = useState({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+  });
+
   useEffect(() => {
     fetchUsers();
     fetchDocuments();
   }, []);
+
+  const handleEditUser = (user) => {
+    setSelectedUser(user);
+    setEditForm({
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      password: ''  // Empty by default
+    });
+    setEditDialog(true);
+  };
+
+  const handleUpdateUser = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      
+      await axios.put(
+        `${baseUrl}/api/admin/users/${selectedUser.id}`,
+        editForm,
+        {
+          headers: { 
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      setSuccess('User updated successfully');
+      setEditDialog(false);
+      fetchUsers();  // Refresh the list
+      setEditForm({ email: '', firstName: '', lastName: '', password: '' });
+    } catch (error) {
+      console.error('Error updating user:', error);
+      setError(error.response?.data?.detail || 'Failed to update user');
+    }
+  };
+
+
 
   const fetchUsers = async () => {
     try {
@@ -383,13 +432,13 @@ function AdminDashboard() {
                         <TableCell>{user.email}</TableCell>
                         <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
                         <TableCell>
-                          <IconButton 
-                            size="small" 
-                            sx={{ color: '#8B4513' }}
-                            onClick={() => {/* Handle edit */}}
-                          >
-                            <EditIcon />
-                          </IconButton>
+                        <IconButton 
+                          size="small" 
+                          sx={{ color: '#8B4513' }}
+                          onClick={() => handleEditUser(user)}  // This connects to the edit functionality
+                        >
+                          <EditIcon />
+                        </IconButton>
                           <IconButton 
                             size="small" 
                             sx={{ color: '#8B4513' }}
@@ -516,6 +565,51 @@ function AdminDashboard() {
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
           <Button onClick={handleCreateUser}>Create</Button>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Edit User Dialog */}
+      <Dialog open={editDialog} onClose={() => setEditDialog(false)}>
+        <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+          Edit Employee Account
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Email"
+            type="email"
+            fullWidth
+            value={editForm.email}
+            onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            label="First Name"
+            fullWidth
+            value={editForm.firstName}
+            onChange={(e) => setEditForm({ ...editForm, firstName: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            label="Last Name"
+            fullWidth
+            value={editForm.lastName}
+            onChange={(e) => setEditForm({ ...editForm, lastName: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            label="New Password (leave blank to keep current)"
+            type="password"
+            fullWidth
+            value={editForm.password}
+            onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditDialog(false)}>Cancel</Button>
+          <Button onClick={handleUpdateUser}>Save Changes</Button>
         </DialogActions>
       </Dialog>
 
