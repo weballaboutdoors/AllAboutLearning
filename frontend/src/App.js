@@ -11,6 +11,8 @@ import { AuthProvider } from './context/AuthContext';
 import LandingPage from './components/LandingPage';
 import ProtectedRoute from './components/ProtectedRoute';  // Add this import
 import AdminDashboard from './components/AdminDashboard';
+import TrainingDocs from './components/TrainingDocs';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -98,6 +100,14 @@ function App() {
                     </ProtectedRoute>
                   } />
                   <Route path="/create-account" element={<CreateAccount />} />
+                  <Route 
+                    path="/training" 
+                    element={
+                      <ProtectedRoute>
+                        <TrainingDocs />
+                      </ProtectedRoute>
+                    } 
+                  />
                 </Routes>
               </Container>
               <Footer />

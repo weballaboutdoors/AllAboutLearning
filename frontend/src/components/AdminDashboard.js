@@ -12,6 +12,9 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -47,7 +50,14 @@ function AdminDashboard() {
   });
   const [openDocumentDialog, setOpenDocumentDialog] = useState(false);
   const [auditLogs, setAuditLogs] = useState([]);
-
+  const [trainingDocs, setTrainingDocs] = useState([]);
+  const [openTrainingDocDialog, setOpenTrainingDocDialog] = useState(false);
+  const [trainingDocFormData, setTrainingDocFormData] = useState({
+    title: '',
+    description: '',
+    category: '',
+    file: null
+  });
   // New state for editing users
   const [editDialog, setEditDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -61,6 +71,7 @@ function AdminDashboard() {
   useEffect(() => {
     fetchUsers();
     fetchDocuments();
+    fetchTrainingDocs();
   }, []);
 
   const handleEditUser = (user) => {
@@ -73,6 +84,91 @@ function AdminDashboard() {
     });
     setEditDialog(true);
   };
+
+  
+  const handleOpenTrainingDocDialog = () => {
+    setOpenTrainingDocDialog(true);
+  };
+  
+  const handleCloseTrainingDocDialog = () => {
+    setOpenTrainingDocDialog(false);
+    setTrainingDocFormData({ title: '', description: '', category: '', file: null });
+  };
+
+  const handleUploadTrainingDoc = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('title', trainingDocFormData.title);
+      formData.append('description', trainingDocFormData.description);
+      formData.append('category', trainingDocFormData.category);
+      formData.append('file', trainingDocFormData.file);
+  
+      const token = localStorage.getItem('token');
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      
+      await axios.post(
+        `${baseUrl}/api/admin/training-documents`,
+        formData,
+        {
+          headers: { 
+            Authorization: token,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+  
+      handleCloseTrainingDocDialog();
+      fetchTrainingDocs();
+      setSuccess('Training document uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading training document:', error);
+      setError('Failed to upload training document');
+    }
+  };
+  
+  // Also make sure you have this function
+  const handleViewTrainingDoc = async (docId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      
+      const viewerUrl = `/AllAboutLearning/pdf-viewer.html?file=${encodeURIComponent(
+        `${baseUrl}/api/training-documents/${docId}`
+      )}&token=${encodeURIComponent(token)}`;
+      
+      // Open in custom viewer
+      window.open(viewerUrl, '_blank', 
+        'width=1000,height=800,toolbar=0,menubar=0,location=0'
+      );
+    } catch (error) {
+      console.error('Error viewing training document:', error);
+      setError('Failed to view training document');
+    }
+  };
+  
+  // And this function for deleting
+  const handleDeleteTrainingDoc = async (docId) => {
+    if (window.confirm('Are you sure you want to delete this training document?')) {
+      try {
+        const token = localStorage.getItem('token');
+        const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+        
+        await axios.delete(
+          `${baseUrl}/api/admin/training-documents/${docId}`,
+          {
+            headers: { Authorization: token }
+          }
+        );
+  
+        fetchTrainingDocs();
+        setSuccess('Training document deleted successfully');
+      } catch (error) {
+        console.error('Error deleting training document:', error);
+        setError('Failed to delete training document');
+      }
+    }
+  };
+
 
   const handleUpdateUser = async () => {
     try {
@@ -127,6 +223,7 @@ function AdminDashboard() {
   useEffect(() => {
     fetchUsers();
     fetchAuditLogs();
+    fetchTrainingDocs();
   }, []);
   const DOCUMENT_CATEGORIES = [
     { id: 'multipoint-locks', name: 'Multi-Point Locks' },
@@ -368,6 +465,72 @@ function AdminDashboard() {
     }
   };
 
+
+  const fetchTrainingDocs = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const response = await axios.get(
+        `${baseUrl}/api/admin/training-documents`,
+        {
+          headers: { Authorization: token }
+        }
+      );
+      setTrainingDocs(response.data);
+    } catch (error) {
+      console.error('Error fetching training documents:', error);
+      setError('Failed to fetch training documents');
+    }
+  };
+
+
+  const TrainingDocDialog = () => (
+    <Dialog open={openTrainingDocDialog} onClose={handleCloseTrainingDocDialog}>
+      <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+        Upload Training Document
+      </DialogTitle>
+      <DialogContent>
+        <TextField
+          margin="dense"
+          label="Title"
+          fullWidth
+          value={trainingDocFormData.title}
+          onChange={(e) => setTrainingDocFormData({...trainingDocFormData, title: e.target.value})}
+        />
+        <TextField
+          margin="dense"
+          label="Description"
+          fullWidth
+          multiline
+          rows={4}
+          value={trainingDocFormData.description}
+          onChange={(e) => setTrainingDocFormData({...trainingDocFormData, description: e.target.value})}
+        />
+        <FormControl fullWidth margin="dense">
+          <InputLabel>Category</InputLabel>
+          <Select
+            value={trainingDocFormData.category}
+            onChange={(e) => setTrainingDocFormData({...trainingDocFormData, category: e.target.value})}
+          >
+            <MenuItem value="sop">Standard Operating Procedures</MenuItem>
+            <MenuItem value="onboarding">Onboarding</MenuItem>
+            <MenuItem value="training">Training Materials</MenuItem>
+          </Select>
+        </FormControl>
+        <input
+          type="file"
+          accept=".pdf,.doc,.docx"
+          onChange={(e) => setTrainingDocFormData({...trainingDocFormData, file: e.target.files[0]})}
+          style={{ marginTop: '20px' }}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCloseTrainingDocDialog}>Cancel</Button>
+        <Button onClick={handleUploadTrainingDoc}>Upload</Button>
+      </DialogActions>
+    </Dialog>
+  );
+
   return (
     <Container maxWidth="lg">
       <Box sx={{ mt: 4, mb: 4 }}>
@@ -404,6 +567,7 @@ function AdminDashboard() {
             <Tab label="User Management" />
             <Tab label="Document Management" />
             <Tab label="System Settings" />
+            <Tab label="Training Documents" />
           </Tabs>
 
           {tabValue === 0 && (
@@ -583,6 +747,84 @@ function AdminDashboard() {
           )}
 
 
+          {tabValue === 3 && (
+            <Box sx={{ p: 3 }}>
+              <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="h6" sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+                  Training Documents
+                </Typography>
+                <Button
+                  startIcon={<UploadIcon />}
+                  onClick={() => handleOpenTrainingDocDialog(true)}
+                  sx={{
+                    backgroundColor: '#8B4513',
+                    color: '#FAF0E6',
+                    '&:hover': {
+                      backgroundColor: '#654321'
+                    }
+                  }}
+                >
+                  Upload Training Document
+                </Button>
+              </Box>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Title</TableCell>
+                      <TableCell>Description</TableCell>
+                      <TableCell>Category</TableCell>
+                      <TableCell>Upload Date</TableCell>
+                      <TableCell>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                <TableBody>
+                  {trainingDocs && trainingDocs.map((doc) => (
+                    <TableRow key={doc.id}>
+                      <TableCell>
+                        <Button
+                          onClick={() => handleViewTrainingDoc(doc.id)}
+                          sx={{ textAlign: 'left', textTransform: 'none' }}
+                          variant="text"
+                        >
+                          {doc.title}
+                        </Button>
+                      </TableCell>
+                      <TableCell>{doc.description}</TableCell>
+                      <TableCell>{doc.category}</TableCell>
+                      <TableCell>
+                        {new Date(doc.upload_date).toLocaleString('en-US', { 
+                          timeZone: 'America/Chicago',
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          second: '2-digit',
+                          hour12: true
+                        })}
+                      </TableCell>
+                      <TableCell>
+                        <IconButton 
+                          size="small" 
+                          sx={{ color: '#8B4513' }}
+                          onClick={() => handleDeleteTrainingDoc(doc.id)}
+                          aria-label="Delete"
+                        >
+                          <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      )}
+
+      
+
+
       {/* Create User Dialog */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
@@ -724,6 +966,51 @@ function AdminDashboard() {
           >
             Upload
           </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openTrainingDocDialog} onClose={handleCloseTrainingDocDialog}>
+        <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+          Upload Training Document
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Title"
+            fullWidth
+            value={trainingDocFormData.title}
+            onChange={(e) => setTrainingDocFormData({...trainingDocFormData, title: e.target.value})}
+          />
+          <TextField
+            margin="dense"
+            label="Description"
+            fullWidth
+            multiline
+            rows={4}
+            value={trainingDocFormData.description}
+            onChange={(e) => setTrainingDocFormData({...trainingDocFormData, description: e.target.value})}
+          />
+          <FormControl fullWidth margin="dense">
+            <InputLabel>Category</InputLabel>
+            <Select
+              value={trainingDocFormData.category}
+              onChange={(e) => setTrainingDocFormData({...trainingDocFormData, category: e.target.value})}
+            >
+              <MenuItem value="sop">Standard Operating Procedures</MenuItem>
+              <MenuItem value="onboarding">Onboarding</MenuItem>
+              <MenuItem value="training">Training Materials</MenuItem>
+            </Select>
+          </FormControl>
+          <input
+            type="file"
+            accept=".pdf,.doc,.docx"
+            onChange={(e) => setTrainingDocFormData({...trainingDocFormData, file: e.target.files[0]})}
+            style={{ marginTop: '20px' }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseTrainingDocDialog}>Cancel</Button>
+          <Button onClick={handleUploadTrainingDoc}>Upload</Button>
         </DialogActions>
       </Dialog>
     </Container>

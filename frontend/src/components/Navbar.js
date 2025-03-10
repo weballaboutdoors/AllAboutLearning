@@ -195,6 +195,28 @@ function Navbar() {
               >
                 Archives
               </MenuItem>
+
+              {user && (  // Only show if user is logged in
+                <MenuItem 
+                  onClick={() => handleNavigation('/training')}
+                  sx={{ 
+                    color: '#8B4513',
+                    fontFamily: '"Old Standard TT", serif',
+                    fontSize: '1.5rem',
+                    width: '80%',
+                    justifyContent: 'center',
+                    borderRadius: 2,
+                    py: 2,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(139, 69, 19, 0.1)',
+                      transform: 'scale(1.05)',
+                      transition: 'all 0.2s ease'
+                    }
+                  }}
+                >
+                  Training & SOPs
+                </MenuItem>
+              )}
               {user ? (
                 <MenuItem 
                   onClick={handleLogout}
@@ -257,6 +279,24 @@ function Navbar() {
               >
                 Archives
               </Button>
+              {user && (
+              <Button 
+                sx={{ 
+                  color: '#FAF0E6',
+                  fontSize: '1rem',
+                  fontFamily: '"Old Standard TT", serif',
+                  border: '1px solid #DEB887',
+                  margin: '0 8px',
+                  '&:hover': {
+                    backgroundColor: '#654321',
+                    borderColor: '#FAF0E6'
+                  }
+                }}
+                onClick={() => navigate('/training')}
+              >
+                Training & SOPs
+              </Button>
+              )}
               {user?.is_admin && (  // Add this block
                 <Button 
                   sx={{ 
