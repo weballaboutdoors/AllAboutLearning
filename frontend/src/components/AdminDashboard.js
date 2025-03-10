@@ -46,6 +46,7 @@ function AdminDashboard() {
     categoryId: ''
   });
   const [openDocumentDialog, setOpenDocumentDialog] = useState(false);
+  const [auditLogs, setAuditLogs] = useState([]);
 
   // New state for editing users
   const [editDialog, setEditDialog] = useState(false);
@@ -125,6 +126,7 @@ function AdminDashboard() {
   // Add useEffect to fetch users when component mounts
   useEffect(() => {
     fetchUsers();
+    fetchAuditLogs();
   }, []);
   const DOCUMENT_CATEGORIES = [
     { id: 'multipoint-locks', name: 'Multi-Point Locks' },
@@ -137,9 +139,6 @@ function AdminDashboard() {
     { id: 'thresholds', name: 'Thresholds' },
     { id: 'operators', name: 'Operators' }
   ];
-
-
-
 
   const fetchDocuments = async () => {
     try {
@@ -352,6 +351,22 @@ function AdminDashboard() {
     }
   };
   
+  const fetchAuditLogs = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const response = await axios.get(
+        `${baseUrl}/api/admin/audit-logs`,
+        {
+          headers: { Authorization: token }
+        }
+      );
+      setAuditLogs(response.data);
+    } catch (error) {
+      console.error('Error fetching audit logs:', error);
+      setError('Failed to fetch audit logs');
+    }
+  };
 
   return (
     <Container maxWidth="lg">
@@ -523,6 +538,50 @@ function AdminDashboard() {
           )}
         </Paper>
       </Box>
+
+          {tabValue === 2 && (
+            <Box sx={{ p: 3 }}>
+              <Typography variant="h6" sx={{ mb: 3, fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+                System Activity Logs
+              </Typography>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Timestamp</TableCell>
+                      <TableCell>User</TableCell>
+                      <TableCell>Action</TableCell>
+                      <TableCell>Details</TableCell>
+                      <TableCell>IP Address</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {auditLogs.map((log) => (
+                      <TableRow key={log.id}>
+                        <TableCell>
+                          {new Date(log.timestamp).toLocaleString('en-US', { 
+                            timeZone: 'America/Chicago',
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: true
+                          })}
+                        </TableCell>
+                        <TableCell>{log.user_email}</TableCell>
+                        <TableCell>{log.action_type}</TableCell>
+                        <TableCell>{log.action_detail}</TableCell>
+                        <TableCell>{log.ip_address}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+          )}
+
 
       {/* Create User Dialog */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
