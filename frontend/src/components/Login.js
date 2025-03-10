@@ -94,7 +94,7 @@ function Login() {
           console.log('Navigating to admin dashboard...'); // Add this debug log
           navigate('/admin');
         } else {
-          navigate('/documents');
+          navigate('/');
         }
       }
     } catch (error) {

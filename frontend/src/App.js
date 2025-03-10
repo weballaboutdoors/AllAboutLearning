@@ -12,6 +12,7 @@ import LandingPage from './components/LandingPage';
 import ProtectedRoute from './components/ProtectedRoute';  // Add this import
 import AdminDashboard from './components/AdminDashboard';
 import TrainingDocs from './components/TrainingDocs';
+import Homepage from './components/Homepage.js';
 
 const theme = createTheme({
   palette: {
@@ -68,7 +69,8 @@ const theme = createTheme({
 });
 
 function App() {
-    return (
+  return (
+    <Router basename="/AllAboutLearning">
       <AuthProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -79,43 +81,50 @@ function App() {
             bgcolor: '#FDF5E6',
             backgroundImage: 'url("/vintage-paper-texture.png")',
           }}>
-            <Router basename="/AllAboutLearning">
-              <Navbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
-                <Routes>
-                  <Route path="/" element={<LandingPage />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route 
-                    path="/documents" 
-                    element={
-                      <ProtectedRoute>
-                        <DocumentList />
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route path="/documents/:id" element={
+            <Navbar />
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
+              <Routes>
+                <Route path="/landing" element={<LandingPage />} />
+                <Route 
+                  path="/" 
+                  element={
                     <ProtectedRoute>
-                      <DocumentDetail />
+                      <Homepage />
                     </ProtectedRoute>
-                  } />
-                  <Route path="/create-account" element={<CreateAccount />} />
-                  <Route 
-                    path="/training" 
-                    element={
-                      <ProtectedRoute>
-                        <TrainingDocs />
-                      </ProtectedRoute>
-                    } 
-                  />
-                </Routes>
-              </Container>
-              <Footer />
-            </Router>
+                  } 
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route 
+                  path="/documents" 
+                  element={
+                    <ProtectedRoute>
+                      <DocumentList />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route path="/documents/:id" element={
+                  <ProtectedRoute>
+                    <DocumentDetail />
+                  </ProtectedRoute>
+                } />
+                <Route path="/create-account" element={<CreateAccount />} />
+                <Route 
+                  path="/training" 
+                  element={
+                    <ProtectedRoute>
+                      <TrainingDocs />
+                    </ProtectedRoute>
+                  } 
+                />
+              </Routes>
+            </Container>
+            <Footer />
           </Box>
         </ThemeProvider>
       </AuthProvider>
-    );
-  }
+    </Router>
+  );
+}
 
 export default App;
