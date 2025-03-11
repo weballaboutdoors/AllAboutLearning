@@ -33,7 +33,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import StaggeredFadeIn from './StaggeredFadeIn';
 function DocumentList() {
   const initialDocuments = [
     { 
@@ -57,6 +57,7 @@ function DocumentList() {
       description: 'Specifications and installation guides for various hinge types',
       image: '/AllAboutLearning/images/hinge.jpg'
     },
+    /*
     { 
       id: 'sliding-hardware', 
       name: 'Sliding Door Hardware', 
@@ -99,6 +100,7 @@ function DocumentList() {
       description: 'Automatic door operator installation and programming',
       image: '/AllAboutLearning/images/operator.jpg'
     },
+    */
   ];
 
   const [documents, setDocuments] = useState({});
@@ -250,25 +252,28 @@ function DocumentList() {
     );
 };
 
-  return (
-    <Container>
-      <ToastContainer position="bottom-right" />
+return (
+  <Container>
+    <ToastContainer position="bottom-right" />
+    <StaggeredFadeIn delay={0}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 4 }}>
         <Typography variant="h4" component="h1" sx={{ fontWeight: 600 }}>
           Informational Archives
         </Typography>
       </Box>
-      
-      {loading ? (
-        <Box display="flex" justifyContent="center" my={4}>
-          <CircularProgress />
-        </Box>
-      ) : error ? (
-        <Alert severity="error" sx={{ mb: 4 }}>{error}</Alert>
-      ) : (
-        <Grid container spacing={3}>
-          {initialDocuments.map((doc) => (
-            <Grid item xs={12} sm={6} md={4} key={doc.id}>
+    </StaggeredFadeIn>
+    
+    {loading ? (
+      <Box display="flex" justifyContent="center" my={4}>
+        <CircularProgress />
+      </Box>
+    ) : error ? (
+      <Alert severity="error" sx={{ mb: 4 }}>{error}</Alert>
+    ) : (
+      <Grid container spacing={3}>
+        {initialDocuments.map((doc, index) => (
+          <Grid item xs={12} sm={6} md={4} key={doc.id}>
+            <StaggeredFadeIn delay={index * 0.1}> {/* Added StaggeredFadeIn with delay */}
               <Card 
                 sx={{ 
                   height: '100%',
@@ -305,18 +310,19 @@ function DocumentList() {
                   </Typography>
                 </CardContent>
               </Card>
-            </Grid>
-          ))}
-        </Grid>
-      )}
+            </StaggeredFadeIn>
+          </Grid>
+        ))}
+      </Grid>
+    )}
 
-      <DocumentDialog 
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-        categoryId={selectedCategory}
-      />
-    </Container>
-  );
+    <DocumentDialog 
+      open={openDialog}
+      onClose={() => setOpenDialog(false)}
+      categoryId={selectedCategory}
+    />
+  </Container>
+);
 }
 
 export default DocumentList;
