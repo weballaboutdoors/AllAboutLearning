@@ -13,11 +13,12 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-
+import { useTheme } from '@mui/material/styles';
 
 
 
 function Login() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { setUser } = useAuth();
@@ -119,6 +120,7 @@ function Login() {
             p: 4,
             width: '100%',
             borderRadius: 2,
+            backgroundColor: 'background.paper'  // Make sure background is consistent
           }}
         >
           <Typography 
@@ -126,66 +128,103 @@ function Login() {
             variant="h4" 
             align="center"
             sx={{ 
-              mb: 3,
-              color: 'primary.main',
-              fontWeight: 600
+              mb: 4,  // Increased margin bottom
+              color: 'white',  // Changed to black
+              fontWeight: 600,
+              fontFamily: 'Roboto, sans-serif'
             }}
           >
             Sign In
           </Typography>
-
+  
           <form onSubmit={handleSubmit}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={formData.email}
-              onChange={handleChange}
-              error={!!errors.email}
-              helperText={errors.email}
-              sx={{ mb: 2 }}
-            />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={formData.email}
+            onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email}
+            sx={{ 
+              mb: 2,
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,  // Green color for label
+                transform: 'none',  // Prevents floating
+                position: 'relative',  // Makes label stay in place
+                fontSize: '1rem'
+              },
+              '& .MuiOutlinedInput-root': {
+                mt: 1,  // Adds space between label and input
+                backgroundColor: 'white',
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.dark,
+                }
+              }
+            }}
+          />
 
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type={showPassword ? 'text' : 'password'}
-              id="password"
-              autoComplete="current-password"
-              value={formData.password}
-              onChange={handleChange}
-              error={!!errors.password}
-              helperText={errors.password}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ mb: 3 }}
-            />
-
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            autoComplete="current-password"
+            value={formData.password}
+            onChange={handleChange}
+            error={!!errors.password}
+            helperText={errors.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{ 
+              mb: 3,
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,  // Green color for label
+                transform: 'none',  // Prevents floating
+                position: 'relative',  // Makes label stay in place
+                fontSize: '1rem'
+              },
+              '& .MuiOutlinedInput-root': {
+                mt: 1,  // Adds space between label and input
+                backgroundColor: 'white',
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.dark,
+                }
+              }
+            }}
+          />
+  
             {errors.submit && (
               <Typography color="error" variant="body2" sx={{ mb: 2 }}>
                 {errors.submit}
               </Typography>
             )}
-
+  
             <Button
               type="submit"
               fullWidth
@@ -196,22 +235,24 @@ function Login() {
                 py: 1.5,
                 fontSize: '1.1rem',
                 fontWeight: 500,
+                backgroundColor: theme.palette.primary.main,  // Green background
+                color: 'white',
                 '&:hover': {
-                  backgroundColor: 'primary.dark',
+                  backgroundColor: theme.palette.primary.dark,  // Darker green on hover
                 }
               }}
             >
               Sign In
             </Button>
-
+  
             <Button
               fullWidth
               onClick={() => navigate('/create-account')}
               sx={{
-                color: 'text.secondary',
+                color: theme.palette.primary.main,  // Green text
                 '&:hover': {
                   backgroundColor: 'transparent',
-                  color: 'primary.main',
+                  color: theme.palette.primary.dark,  // Darker green on hover
                 }
               }}
             >

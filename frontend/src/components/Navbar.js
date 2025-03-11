@@ -43,8 +43,8 @@ function Navbar() {
   
     return (
       <AppBar position="static" sx={{ 
-        background: 'linear-gradient(35deg, #8B4513 20%, #A0522D 40%, #8B4513 100%)',
-        borderBottom: '3px double #DEB887'
+        backgroundColor: 'secondary.main',  // Black background
+        borderBottom: `3px solid ${theme.palette.primary.main}`  // Green border
       }}>
         <Toolbar sx={{ 
           height: { xs: 70, md: 100 },
@@ -59,7 +59,7 @@ function Navbar() {
           }}>
             <Box 
               component="img"
-              src="/AllAboutLearning/images/vintage-archive-logo.png"
+              src="/AllAboutLearning/images/all-about-archives.png"
               alt="Logo"
               sx={{ 
                 height: { xs: 50, md: 80 },
@@ -70,8 +70,7 @@ function Navbar() {
               onClick={() => navigate('/')}
             />
           </Box>
-
-          {/* Centered title */}
+    
           <Typography 
             variant="h5"
             component="div" 
@@ -80,234 +79,234 @@ function Navbar() {
               left: '50%',
               transform: 'translateX(-50%)',
               cursor: 'pointer',
-              color: '#FAF0E6',
-              fontFamily: '"Playfair Display", serif',
+              color: 'white',
+              fontFamily: 'Roboto, sans-serif',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              borderBottom: '2px solid #DEB887',
+              borderBottom: `2px solid ${theme.palette.primary.main}`,
               paddingBottom: '4px',
               fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
               '&:hover': {
-                color: '#DEB887'
+                color: theme.palette.primary.main
               }
             }}
             onClick={() => navigate('/')}
           >
             The All About Archives
           </Typography>
-
+    
           {isMobile ? (
-          <>
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="menu"
-              onClick={handleMenu}
-              sx={{ 
-                color: '#FAF0E6',
-                '&:hover': { color: '#DEB887' }
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              sx={{
-                '& .MuiPaper-root': {
-                  backgroundColor: '#DEB887',
-                  width: '100vw',
-                  height: '100vh',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  position: 'fixed',
-                  top: '0 !important',
-                  left: '0 !important',
-                  m: 0,
-                  borderRadius: 0,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  background: 'linear-gradient(135deg, #DEB887 0%, #F5DEB3 50%, #DEB887 100%)'
-                },
-                '& .MuiList-root': {
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 2,
-                  pt: 4,
-                  position: 'relative'  // Added for close button positioning
-                }
-              }}
-            >
-              {/* Close Button */}
+            <>
               <IconButton
-                onClick={handleClose}
-                sx={{
-                  position: 'absolute',
-                  top: 20,
-                  right: 20,
-                  color: '#8B4513',
-                  backgroundColor: 'rgba(255,255,255,0.1)',
-                  borderRadius: '50%',
-                  padding: 1,
-                  '&:hover': {
-                    backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                    transform: 'rotate(90deg)',
-                    transition: 'all 0.3s ease'
-                  },
-                  transition: 'all 0.3s ease'
+                size="large"
+                edge="end"
+                color="inherit"
+                aria-label="menu"
+                onClick={handleMenu}
+                sx={{ 
+                  color: 'white',
+                  '&:hover': { color: theme.palette.primary.main }
                 }}
               >
-                <CloseIcon sx={{ fontSize: 32 }} />
+                <MenuIcon />
               </IconButton>
-
-              {/* Menu Items */}
-              <MenuItem 
-                onClick={() => handleNavigation('/documents')}
-                sx={{ 
-                  color: '#8B4513',
-                  fontFamily: '"Old Standard TT", serif',
-                  fontSize: '1.5rem',
-                  width: '80%',
-                  justifyContent: 'center',
-                  borderRadius: 2,
-                  py: 2,
-                  mt: 6,  // Added margin top to account for close button
-                  '&:hover': { 
-                    backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                    transform: 'scale(1.05)',
-                    transition: 'all 0.2s ease'
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                sx={{
+                  '& .MuiPaper-root': {
+                    backgroundColor: 'white',
+                    width: '100vw',
+                    height: '100vh',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    position: 'fixed',
+                    top: '0 !important',
+                    left: '0 !important',
+                    m: 0,
+                    borderRadius: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: 'white'
+                  },
+                  '& .MuiList-root': {
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 2,
+                    pt: 4,
+                    position: 'relative'
                   }
                 }}
               >
-                Archives
-              </MenuItem>
-
-              {user && (  // Only show if user is logged in
+                <IconButton
+                  onClick={handleClose}
+                  sx={{
+                    position: 'absolute',
+                    top: 20,
+                    right: 20,
+                    color: theme.palette.primary.main,
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    borderRadius: '50%',
+                    padding: 1,
+                    '&:hover': {
+                      backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                      transform: 'rotate(90deg)',
+                      transition: 'all 0.3s ease'
+                    },
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <CloseIcon sx={{ fontSize: 32 }} />
+                </IconButton>
+    
                 <MenuItem 
-                  onClick={() => handleNavigation('/training')}
+                  onClick={() => handleNavigation('/documents')}
                   sx={{ 
-                    color: '#8B4513',
-                    fontFamily: '"Old Standard TT", serif',
+                    color: 'secondary.main',
+                    fontFamily: 'Roboto, sans-serif',
                     fontSize: '1.5rem',
                     width: '80%',
                     justifyContent: 'center',
                     borderRadius: 2,
                     py: 2,
+                    mt: 6,
                     '&:hover': { 
-                      backgroundColor: 'rgba(139, 69, 19, 0.1)',
+                      backgroundColor: 'rgba(75, 172, 82, 0.1)',
                       transform: 'scale(1.05)',
                       transition: 'all 0.2s ease'
                     }
                   }}
                 >
-                  Training & SOPs
+                  Archives
                 </MenuItem>
-              )}
-              {user ? (
-                <MenuItem 
-                  onClick={handleLogout}
-                  sx={{ 
-                    color: '#8B4513',
-                    fontFamily: '"Old Standard TT", serif',
-                    fontSize: '1.5rem',
-                    width: '80%',
-                    justifyContent: 'center',
-                    borderRadius: 2,
-                    py: 2,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                      transform: 'scale(1.05)',
-                      transition: 'all 0.2s ease'
-                    }
-                  }}
-                >
-                  Logout
-                </MenuItem>
-              ) : (
-                <MenuItem 
-                  onClick={() => handleNavigation('/login')}
-                  sx={{ 
-                    color: '#8B4513',
-                    fontFamily: '"Old Standard TT", serif',
-                    fontSize: '1.5rem',
-                    width: '80%',
-                    justifyContent: 'center',
-                    borderRadius: 2,
-                    py: 2,
-                    '&:hover': { 
-                      backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                      transform: 'scale(1.05)',
-                      transition: 'all 0.2s ease'
-                    }
-                  }}
-                >
-                  Login
-                </MenuItem>
-              )}
-            </Menu>
-          </>
-        ) : (
-          
+    
+                {user && (
+                  <MenuItem 
+                    onClick={() => handleNavigation('/training')}
+                    sx={{ 
+                      color: 'secondary.main',
+                      fontFamily: 'Roboto, sans-serif',
+                      fontSize: '1.5rem',
+                      width: '80%',
+                      justifyContent: 'center',
+                      borderRadius: 2,
+                      py: 2,
+                      '&:hover': { 
+                        backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                        transform: 'scale(1.05)',
+                        transition: 'all 0.2s ease'
+                      }
+                    }}
+                  >
+                    Training & SOPs
+                  </MenuItem>
+                )}
+    
+                {user ? (
+                  <MenuItem 
+                    onClick={handleLogout}
+                    sx={{ 
+                      color: 'secondary.main',
+                      fontFamily: 'Roboto, sans-serif',
+                      fontSize: '1.5rem',
+                      width: '80%',
+                      justifyContent: 'center',
+                      borderRadius: 2,
+                      py: 2,
+                      '&:hover': { 
+                        backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                        transform: 'scale(1.05)',
+                        transition: 'all 0.2s ease'
+                      }
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                ) : (
+                  <MenuItem 
+                    onClick={() => handleNavigation('/login')}
+                    sx={{ 
+                      color: 'secondary.main',
+                      fontFamily: 'Roboto, sans-serif',
+                      fontSize: '1.5rem',
+                      width: '80%',
+                      justifyContent: 'center',
+                      borderRadius: 2,
+                      py: 2,
+                      '&:hover': { 
+                        backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                        transform: 'scale(1.05)',
+                        transition: 'all 0.2s ease'
+                      }
+                    }}
+                  >
+                    Login
+                  </MenuItem>
+                )}
+              </Menu>
+            </>
+          ) : (
             <Box sx={{ marginLeft: 'auto' }}>
               <Button 
                 sx={{ 
-                  color: '#FAF0E6',
+                  color: 'white',
                   fontSize: '1rem',
-                  fontFamily: '"Old Standard TT", serif',
-                  border: '1px solid #DEB887',
+                  fontFamily: 'Roboto, sans-serif',
+                  border: `1px solid ${theme.palette.primary.main}`,
                   margin: '0 8px',
                   '&:hover': {
-                    backgroundColor: '#654321',
-                    borderColor: '#FAF0E6'
+                    backgroundColor: theme.palette.primary.main,
+                    borderColor: 'white'
                   }
                 }}
                 onClick={() => navigate('/documents')}
               >
                 Archives
               </Button>
+    
               {user && (
-              <Button 
-                sx={{ 
-                  color: '#FAF0E6',
-                  fontSize: '1rem',
-                  fontFamily: '"Old Standard TT", serif',
-                  border: '1px solid #DEB887',
-                  margin: '0 8px',
-                  '&:hover': {
-                    backgroundColor: '#654321',
-                    borderColor: '#FAF0E6'
-                  }
-                }}
-                onClick={() => navigate('/training')}
-              >
-                Training & SOPs
-              </Button>
-              )}
-              {user?.is_admin && (  // Add this block
                 <Button 
                   sx={{ 
-                    color: '#FAF0E6',
+                    color: 'white',
                     fontSize: '1rem',
-                    fontFamily: '"Old Standard TT", serif',
-                    border: '1px solid #DEB887',
+                    fontFamily: 'Roboto, sans-serif',
+                    border: `1px solid ${theme.palette.primary.main}`,
                     margin: '0 8px',
                     '&:hover': {
-                      backgroundColor: '#654321',
-                      borderColor: '#FAF0E6'
+                      backgroundColor: theme.palette.primary.main,
+                      borderColor: 'white'
+                    }
+                  }}
+                  onClick={() => navigate('/training')}
+                >
+                  Training & SOPs
+                </Button>
+              )}
+    
+              {user?.is_admin && (
+                <Button 
+                  sx={{ 
+                    color: 'white',
+                    fontSize: '1rem',
+                    fontFamily: 'Roboto, sans-serif',
+                    border: `1px solid ${theme.palette.primary.main}`,
+                    margin: '0 8px',
+                    '&:hover': {
+                      backgroundColor: theme.palette.primary.main,
+                      borderColor: 'white'
                     }
                   }}
                   onClick={() => navigate('/admin')}
@@ -315,17 +314,18 @@ function Navbar() {
                   Admin Dashboard
                 </Button>
               )}
+    
               {user ? (
                 <Button 
                   sx={{ 
-                    color: '#FAF0E6',
+                    color: 'white',
                     fontSize: '1rem',
-                    fontFamily: '"Old Standard TT", serif',
-                    border: '1px solid #DEB887',
+                    fontFamily: 'Roboto, sans-serif',
+                    border: `1px solid ${theme.palette.primary.main}`,
                     margin: '0 8px',
                     '&:hover': {
-                      backgroundColor: '#654321',
-                      borderColor: '#FAF0E6'
+                      backgroundColor: theme.palette.primary.main,
+                      borderColor: 'white'
                     }
                   }}
                   onClick={handleLogout}
@@ -333,25 +333,22 @@ function Navbar() {
                   Logout
                 </Button>
               ) : (
-                <>
-                  <Button 
-                    sx={{ 
-                      color: '#FAF0E6',
-                      fontSize: '1rem',
-                      fontFamily: '"Old Standard TT", serif',
-                      border: '1px solid #DEB887',
-                      margin: '0 8px',
-                      '&:hover': {
-                        backgroundColor: '#654321',
-                        borderColor: '#FAF0E6'
-                      }
-                    }}
-                    onClick={() => navigate('/login')}
-                  >
-                    Login
-                  </Button>
-                 
-                </>
+                <Button 
+                  sx={{ 
+                    color: 'white',
+                    fontSize: '1rem',
+                    fontFamily: 'Roboto, sans-serif',
+                    border: `1px solid ${theme.palette.primary.main}`,
+                    margin: '0 8px',
+                    '&:hover': {
+                      backgroundColor: theme.palette.primary.main,
+                      borderColor: 'white'
+                    }
+                  }}
+                  onClick={() => navigate('/login')}
+                >
+                  Login
+                </Button>
               )}
             </Box>
           )}

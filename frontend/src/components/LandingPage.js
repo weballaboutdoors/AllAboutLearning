@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+
 function LandingPage() {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -34,7 +35,7 @@ function LandingPage() {
           sx={{
             p: isMobile ? 3 : 6,
             backgroundColor: 'transparent',
-            border: '3px double #8B4513',
+            border: '3px double black',
             maxWidth: isMobile ? '100%' : 800,
             margin: isMobile ? 2 : 'auto',
             width: isMobile ? '90%' : 'auto'
@@ -43,8 +44,8 @@ function LandingPage() {
           <Typography
             variant={isMobile ? "h3" : "h2"}
             sx={{
-              color: '#8B4513',
-              fontFamily: '"Playfair Display", serif',
+              color: 'black',
+              fontFamily: 'Roboto, sans-serif',
               mb: isMobile ? 2 : 3,
               letterSpacing: '0.1em',
               fontSize: isMobile ? '2rem' : '3.75rem',
@@ -57,8 +58,8 @@ function LandingPage() {
           <Typography
             variant={isMobile ? "h6" : "h5"}
             sx={{
-              color: '#654321',
-              fontFamily: '"Old Standard TT", serif',
+              color: 'black',
+              fontFamily: 'Roboto, sans-serif',
               mb: isMobile ? 2 : 4,
               fontStyle: 'italic',
               fontSize: isMobile ? '1.1rem' : '1.5rem'
@@ -70,8 +71,8 @@ function LandingPage() {
           <Typography
             variant="body1"
             sx={{
-              color: '#5C4033',
-              fontFamily: '"Courier Prime", monospace',
+              color: 'black',
+              fontFamily: 'Roboto, sans-serif',
               mb: isMobile ? 3 : 4,
               maxWidth: isMobile ? '100%' : 600,
               mx: 'auto',
@@ -88,17 +89,17 @@ function LandingPage() {
             size={isMobile ? "medium" : "large"}
             onClick={() => navigate('/login')}
             sx={{
-              color: '#8B4513',
-              borderColor: '#8B4513',
-              fontFamily: '"Old Standard TT", serif',
+              color: 'black',
+              borderColor: 'black',
+              fontFamily: 'Roboto, sans-serif',
               fontSize: isMobile ? '1rem' : '1.1rem',
               padding: isMobile ? '8px 24px' : '12px 40px',
               width: isMobile ? '100%' : 'auto',
               marginTop: isMobile ? 2 : 0,
               '&:hover': {
-                backgroundColor: '#8B4513',
-                color: '#FAF0E6',
-                borderColor: '#8B4513'
+                backgroundColor: theme.palette.primary.main,  // Green background
+                color: 'white',
+                borderColor: theme.palette.primary.main,  // Green border
               },
               '&:active': {
                 transform: 'scale(0.98)'

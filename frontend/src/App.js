@@ -13,55 +13,94 @@ import ProtectedRoute from './components/ProtectedRoute';  // Add this import
 import AdminDashboard from './components/AdminDashboard';
 import TrainingDocs from './components/TrainingDocs';
 import Homepage from './components/Homepage.js';
-
+import MultiPointLocks from './components/MultiPointLocks';
+import LockGuide from './components/LockGuide';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#8B4513', // Vintage brown
-      light: '#D2691E',
-      dark: '#654321',
+      main: '#4bac52',  // Your green
+      light: '#71c177',  // Lighter shade of green
+      dark: '#348a3a',  // Darker shade of green
+      contrastText: '#ffffff',  // White text on green
     },
     secondary: {
-      main: '#DEB887', // Burlywood
-      light: '#F5DEB3',
-      dark: '#A0522D',
+      main: '#000000',  // Black
+      light: '#2c2c2c',  // Lighter black
+      dark: '#000000',  // Pure black
+      contrastText: '#ffffff',  // White text on black
     },
     background: {
-      default: '#FDF5E6', // Old lace
-      paper: '#FAF0E6',  // Linen
+      default: '#ffffff',  // White background
+      paper: '#000000',    // Slightly off-white for cards/paper elements
     },
+    text: {
+      primary: '#000000',   // Black text
+      secondary: '#4bac52', // Green text for secondary elements
+    },
+    divider: '#4bac52',     // Green dividers
   },
   typography: {
-    fontFamily: '"Old Standard TT", serif',
-    h1: {
-      fontFamily: '"Playfair Display", serif',
-      fontWeight: 700,
+    fontFamily: '"Roboto", "Arial", sans-serif',
+    h4: {
+      color: '#000000',
+      fontWeight: 500,
     },
-    h2: {
-      fontFamily: '"Playfair Display", serif',
-      borderBottom: '2px solid #8B4513',
+    h5: {
+      color: '#000000',
+      fontWeight: 500,
     },
-    body1: {
-      fontFamily: '"Courier Prime", monospace',
+    h6: {
+      color: '#000000',
+      fontWeight: 500,
+    },
+    subtitle1: {
+      color: '#4bac52',
     },
   },
   components: {
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#FAF0E6',
-          borderRadius: 0,
-          border: '1px solid #8B4513',
-        },
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
+          borderRadius: 4,
           textTransform: 'none',
-          fontFamily: '"Old Standard TT", serif',
-          border: '2px solid #8B4513',
+        },
+        contained: {
+          backgroundColor: '#4bac52',
+          color: '#ffffff',
+          '&:hover': {
+            backgroundColor: '#348a3a',
+          },
+        },
+        outlined: {
+          borderColor: '#4bac52',
+          color: '#4bac52',
+          '&:hover': {
+            borderColor: '#348a3a',
+            color: '#348a3a',
+            backgroundColor: 'rgba(75, 172, 82, 0.1)',
+          },
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          border: '1px solid rgba(75, 172, 82, 0.2)',
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: 'rgba(75, 172, 82, 0.2)',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#000000',
         },
       },
     },
@@ -78,12 +117,15 @@ function App() {
             display: 'flex', 
             flexDirection: 'column', 
             minHeight: '100vh',
-            bgcolor: '#FDF5E6',
+            bgcolor: '#f1f8e9',
             backgroundImage: 'url("/vintage-paper-texture.png")',
           }}>
             <Navbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
               <Routes>
+                <Route path="/archives" element={<DocumentList />} />
+                <Route path="/archives/multipoint-locks/:guideId" element={<LockGuide />} />
+                <Route path="/archives/multipoint-locks" element={<MultiPointLocks />} />
                 <Route path="/landing" element={<LandingPage />} />
                 <Route 
                   path="/" 

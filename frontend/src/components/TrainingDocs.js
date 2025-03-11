@@ -13,8 +13,11 @@ import {
   Alert
 } from '@mui/material';
 import axios from 'axios';
+import { useTheme } from '@mui/material/styles';
+import StaggeredFadeIn from './StaggeredFadeIn';
 
 function TrainingDocs() {
+  const theme = useTheme();
   const [documents, setDocuments] = useState([]);
   const [category, setCategory] = useState('all');
   const [error, setError] = useState(null);
@@ -61,22 +64,29 @@ function TrainingDocs() {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <StaggeredFadeIn delay={0}>
       <Typography 
         variant="h4" 
         sx={{ 
           mb: 4,
-          color: '#8B4513',
-          fontFamily: '"Playfair Display", serif',
-          borderBottom: '3px double #8B4513',
+          color: 'secondary.main',  // Changed from #8B4513 to black
+          fontFamily: 'Roboto, sans-serif',
+          borderBottom: `3px solid ${theme.palette.primary.main}`,  // Changed to green
           pb: 2
         }}
       >
         Training & SOPs
       </Typography>
+    </StaggeredFadeIn>
 
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+    <StaggeredFadeIn delay={0.2}>
+      <Box sx={{ 
+        borderBottom: 1, 
+        borderColor: theme.palette.primary.main,  // Changed to green
+        mb: 3 
+      }}>
         <Tabs 
           value={tabValue} 
           onChange={(e, newValue) => {
@@ -85,8 +95,11 @@ function TrainingDocs() {
           }}
           sx={{
             '& .MuiTab-root': {
-              fontFamily: '"Old Standard TT", serif',
-              color: '#8B4513'
+              fontFamily: 'Roboto, sans-serif',
+              color: 'secondary.main',  // Changed to black
+              '&.Mui-selected': {
+                color: theme.palette.primary.main  // Changed to green
+              }
             }
           }}
         >
@@ -96,45 +109,99 @@ function TrainingDocs() {
           <Tab label="Training Materials" />
         </Tabs>
       </Box>
+      </StaggeredFadeIn>
 
+      <StaggeredFadeIn delay={0.4}>
       <Grid container spacing={3}>
         {documents.map((doc) => (
           <Grid item xs={12} md={6} key={doc.id}>
             <Card sx={{ 
-              backgroundColor: '#FAF0E6',
-              border: '1px solid #DEB887'
+              backgroundColor: 'background.paper',  // Changed from #FAF0E6 to white
+              border: `1px solid ${theme.palette.primary.main}`,  // Changed to green
+              '&:hover': {
+                boxShadow: 3,
+                borderColor: theme.palette.primary.dark
+              }
             }}>
               <CardContent>
-                <Typography variant="h6" sx={{ color: '#8B4513', fontFamily: '"Playfair Display", serif' }}>
-                  {doc.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                  {doc.description}
-                </Typography>
-                <Typography variant="caption" display="block" sx={{ mt: 1 }}>
-                  Category: {doc.category}
-                </Typography>
-                <Typography variant="caption" display="block">
-                  Uploaded: {new Date(doc.upload_date).toLocaleDateString()}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button 
-                  onClick={() => handleViewDocument(doc.id)}
+                <Typography 
+                  variant="h6" 
                   sx={{ 
-                    color: '#8B4513',
-                    '&:hover': {
-                      backgroundColor: 'rgba(139, 69, 19, 0.1)'
-                    }
+                    color: 'secondary.main',  // Changed from #8B4513 to black
+                    fontFamily: 'Roboto, sans-serif',
+                    mb:1,
+                    pt:0,
+                    mt:0
                   }}
                 >
-                  View Document
-                </Button>
-              </CardActions>
+                  {doc.title}
+                </Typography>
+                <Typography 
+                  variant="body1"  // Changed from body2 to body1 for larger text
+                  sx={{ 
+                    mt: 1,
+                    color: 'white',
+                    fontSize: '1.1rem',
+                    mb:2,
+                    pt:0,
+                    mt:0
+                  }}
+                >
+                  {doc.description}
+                </Typography>
+                <Typography 
+                  variant="caption" 
+                  display="block" 
+                  sx={{ 
+                    mt: 1,
+                    color: 'white',
+                    fontSize: '0.9rem',
+                    mb:1,
+                    pt:0,
+                    mt:0
+                  }}
+                >
+                  Category: {doc.category}
+                </Typography>
+                <Typography 
+                  variant="caption" 
+                  display="block"
+                  sx={{ 
+                    color: 'white',
+                    fontSize: '0.9rem',
+                    mb:1,
+                    pt:0,
+                    mt:0
+                  }}
+                >
+                  Uploaded: {new Date(doc.upload_date).toLocaleDateString()}
+                </Typography>
+                </CardContent>
+                <CardActions sx={{ pt: 2 }}>
+                  <Button 
+                    onClick={() => handleViewDocument(doc.id)}
+                    sx={{ 
+                      color: 'white',
+                      border: `2px solid ${theme.palette.primary.main}`,  // Added green border
+                      borderRadius: '4px',
+                      padding: '8px 16px',  // Added more padding
+                      fontSize: '0.95rem',  // Larger text
+                      fontWeight: 'medium',
+                      '&:hover': {
+                        backgroundColor: theme.palette.primary.main,
+                        borderColor: 'white'
+                      }
+                    }}
+                  >
+                    View Document
+                  </Button>
+                </CardActions>
+              
             </Card>
           </Grid>
         ))}
       </Grid>
+      </StaggeredFadeIn>
     </Container>
   );
 }

@@ -139,8 +139,7 @@ function DocumentList() {
   }, []);
 
   const handleCardClick = (categoryId) => {
-    setSelectedCategory(categoryId);
-    setOpenDialog(true);
+    navigate(`/archives/${categoryId}`);
   };
 
   const DocumentDialog = ({ open, onClose, categoryId }) => {

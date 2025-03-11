@@ -27,9 +27,10 @@ import {
 } from '@mui/material';
 import { Add as AddIcon, Delete as DeleteIcon, Edit as EditIcon, Upload as UploadIcon } from '@mui/icons-material';
 import axios from 'axios';
-
+import { useTheme } from '@mui/material/styles';
 
 function AdminDashboard() {
+  const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
   const [users, setUsers] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
@@ -486,7 +487,7 @@ function AdminDashboard() {
 
   const TrainingDocDialog = () => (
     <Dialog open={openTrainingDocDialog} onClose={handleCloseTrainingDocDialog}>
-      <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+      <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
         Upload Training Document
       </DialogTitle>
       <DialogContent>
@@ -538,9 +539,9 @@ function AdminDashboard() {
           variant="h4" 
           sx={{ 
             mb: 4,
-            color: '#8B4513',
-            fontFamily: '"Playfair Display", serif',
-            borderBottom: '3px double #8B4513',
+            color: 'secondary.main',
+            fontFamily: 'Roboto, sans-serif',
+            borderBottom: `3px solid ${theme.palette.primary.main}`,
             pb: 2
           }}
         >
@@ -549,18 +550,21 @@ function AdminDashboard() {
 
         <Paper 
           sx={{ 
-            backgroundColor: '#FAF0E6',
-            border: '1px solid #8B4513'
+            backgroundColor: 'background.paper',
+            border: `1px solid ${theme.palette.primary.main}`
           }}
         >
           <Tabs 
             value={tabValue} 
             onChange={(e, newValue) => setTabValue(newValue)}
             sx={{
-              borderBottom: '1px solid #8B4513',
+              borderBottom: `1px solid ${theme.palette.primary.main}`,
               '& .MuiTab-root': {
-                fontFamily: '"Old Standard TT", serif',
-                color: '#8B4513'
+                fontFamily: 'Roboto, sans-serif',
+                color: 'white',
+                '&.Mui-selected': {
+                  color: theme.palette.primary.main  // Green when selected
+                }
               }
             }}
           >
@@ -573,17 +577,17 @@ function AdminDashboard() {
           {tabValue === 0 && (
             <Box sx={{ p: 3 }}>
               <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+                <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
                   Employee Accounts
                 </Typography>
                 <Button
                   startIcon={<AddIcon />}
                   onClick={() => setOpenDialog(true)}
                   sx={{
-                    backgroundColor: '#8B4513',
-                    color: '#FAF0E6',
+                    backgroundColor: theme.palette.primary.main,
+                    color: 'white',
                     '&:hover': {
-                      backgroundColor: '#654321'
+                      backgroundColor: theme.palette.primary.dark
                     }
                   }}
                 >
@@ -598,29 +602,33 @@ function AdminDashboard() {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Email</TableCell>
-                      <TableCell>Created Date</TableCell>
-                      <TableCell>Actions</TableCell>
+                    <TableCell sx={{ color: 'white' }}>Name</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Email</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Created Date</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {users.map((user) => (
                       <TableRow key={user.id}>
-                        <TableCell>{`${user.first_name} ${user.last_name}`}</TableCell>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{`${user.first_name} ${user.last_name}`}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{user.email}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{new Date(user.created_at).toLocaleDateString()}</TableCell>
                         <TableCell>
                         <IconButton 
                           size="small" 
-                          sx={{ color: '#8B4513' }}
+                          sx={{ color: theme.palette.primary.main, '&:hover': {
+                        color: theme.palette.primary.dark  // Darker green on hover
+                    } }}
                           onClick={() => handleEditUser(user)}  // This connects to the edit functionality
                         >
                           <EditIcon />
                         </IconButton>
                           <IconButton 
                             size="small" 
-                            sx={{ color: '#8B4513' }}
+                            sx={{ color: theme.palette.primary.main, '&:hover': {
+                            color: theme.palette.primary.dark  // Darker green on hover
+                        } }}
                             onClick={() => handleDeleteUser(user.id)}
                             aria-label="Delete user"
                           >
@@ -638,17 +646,17 @@ function AdminDashboard() {
           {tabValue === 1 && (
             <Box sx={{ p: 3 }}>
               <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+                <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
                   Document Management
                 </Typography>
                 <Button
                   startIcon={<UploadIcon />}
                   onClick={() => setOpenDocumentDialog(true)}
                   sx={{
-                    backgroundColor: '#8B4513',
-                    color: '#FAF0E6',
+                    backgroundColor: theme.palette.primary.main,
+                    color: 'white',
                     '&:hover': {
-                      backgroundColor: '#654321'
+                      backgroundColor: theme.palette.primary.dark
                     }
                   }}
                 >
@@ -658,12 +666,12 @@ function AdminDashboard() {
               <TableContainer>
                 <Table>
                   <TableHead>
-                    <TableRow>
-                      <TableCell>Title</TableCell>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Category</TableCell>
-                      <TableCell>Upload Date</TableCell>
-                      <TableCell>Actions</TableCell>
+                    <TableRow sx={{ backgroundColor: 'rgba(75, 172, 82, 0.1)' }}>
+                      <TableCell sx={{ color: 'white' }}>Title</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Description</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Category</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Upload Date</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -672,7 +680,14 @@ function AdminDashboard() {
                         <TableCell>
                           <Button
                             onClick={() => handleViewDocument(doc.file_path, doc.category_id)}
-                            sx={{ textAlign: 'left', textTransform: 'none' }}
+                            sx={{ 
+                              textAlign: 'left', 
+                              textTransform: 'none',
+                              color: theme.palette.primary.main,
+                              '&:hover': {
+                                color: theme.palette.primary.dark
+                              }
+                            }}
                             variant="text"
                           >
                             {doc.title}
@@ -686,9 +701,13 @@ function AdminDashboard() {
                         <TableCell>
                           <IconButton 
                             size="small" 
-                            sx={{ color: '#8B4513' }}
+                            sx={{ 
+                              color: theme.palette.primary.main,
+                              '&:hover': {
+                                color: theme.palette.primary.dark
+                              }
+                            }}
                             onClick={() => handleDeleteDocument(doc.id)}
-                            aria-label="Delete"
                           >
                             <DeleteIcon />
                           </IconButton>
@@ -700,44 +719,31 @@ function AdminDashboard() {
               </TableContainer>
             </Box>
           )}
-        </Paper>
-      </Box>
 
           {tabValue === 2 && (
             <Box sx={{ p: 3 }}>
-              <Typography variant="h6" sx={{ mb: 3, fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+              <Typography variant="h6" sx={{ mb: 3, fontFamily: 'Roboto, sans-serif', color: 'white' }}>
                 System Activity Logs
               </Typography>
               <TableContainer>
                 <Table>
                   <TableHead>
-                    <TableRow>
-                      <TableCell>Timestamp</TableCell>
-                      <TableCell>User</TableCell>
-                      <TableCell>Action</TableCell>
-                      <TableCell>Details</TableCell>
-                      <TableCell>IP Address</TableCell>
+                    <TableRow sx={{ backgroundColor: 'rgba(75, 172, 82, 0.1)' }}>
+                      <TableCell sx={{ color: 'white' }}>Timestamp</TableCell>
+                      <TableCell sx={{ color: 'white' }}>User</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Action</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Details</TableCell>
+                      <TableCell sx={{ color: 'white' }}>IP Address</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {auditLogs.map((log) => (
                       <TableRow key={log.id}>
-                        <TableCell>
-                          {new Date(log.timestamp).toLocaleString('en-US', { 
-                            timeZone: 'America/Chicago',
-                            year: 'numeric',
-                            month: '2-digit',
-                            day: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            second: '2-digit',
-                            hour12: true
-                          })}
-                        </TableCell>
-                        <TableCell>{log.user_email}</TableCell>
-                        <TableCell>{log.action_type}</TableCell>
-                        <TableCell>{log.action_detail}</TableCell>
-                        <TableCell>{log.ip_address}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{new Date(log.timestamp).toLocaleString()}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{log.user_email}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{log.action_type}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{log.action_detail}</TableCell>
+                        <TableCell sx={{ color: 'white' }}>{log.ip_address}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -750,17 +756,17 @@ function AdminDashboard() {
           {tabValue === 3 && (
             <Box sx={{ p: 3 }}>
               <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+                <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
                   Training Documents
                 </Typography>
                 <Button
                   startIcon={<UploadIcon />}
                   onClick={() => handleOpenTrainingDocDialog(true)}
                   sx={{
-                    backgroundColor: '#8B4513',
-                    color: '#FAF0E6',
+                    backgroundColor: theme.palette.primary.main,
+                    color: 'white',
                     '&:hover': {
-                      backgroundColor: '#654321'
+                      backgroundColor: theme.palette.primary.dark
                     }
                   }}
                 >
@@ -770,64 +776,65 @@ function AdminDashboard() {
               <TableContainer>
                 <Table>
                   <TableHead>
-                    <TableRow>
-                      <TableCell>Title</TableCell>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Category</TableCell>
-                      <TableCell>Upload Date</TableCell>
-                      <TableCell>Actions</TableCell>
+                    <TableRow sx={{ backgroundColor: 'rgba(75, 172, 82, 0.1)' }}>
+                      <TableCell sx={{ color: 'white' }}>Title</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Description</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Category</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Upload Date</TableCell>
+                      <TableCell sx={{ color: 'white' }}>Actions</TableCell>
                     </TableRow>
                   </TableHead>
-                <TableBody>
-                  {trainingDocs && trainingDocs.map((doc) => (
-                    <TableRow key={doc.id}>
-                      <TableCell>
-                        <Button
-                          onClick={() => handleViewTrainingDoc(doc.id)}
-                          sx={{ textAlign: 'left', textTransform: 'none' }}
-                          variant="text"
-                        >
-                          {doc.title}
-                        </Button>
-                      </TableCell>
-                      <TableCell>{doc.description}</TableCell>
-                      <TableCell>{doc.category}</TableCell>
-                      <TableCell>
-                        {new Date(doc.upload_date).toLocaleString('en-US', { 
-                          timeZone: 'America/Chicago',
-                          year: 'numeric',
-                          month: '2-digit',
-                          day: '2-digit',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          second: '2-digit',
-                          hour12: true
-                        })}
-                      </TableCell>
-                      <TableCell>
-                        <IconButton 
-                          size="small" 
-                          sx={{ color: '#8B4513' }}
-                          onClick={() => handleDeleteTrainingDoc(doc.id)}
-                          aria-label="Delete"
-                        >
-                          <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      )}
+                  <TableBody>
+                    {trainingDocs && trainingDocs.map((doc) => (
+                      <TableRow key={doc.id}>
+                        <TableCell>
+                          <Button
+                            onClick={() => handleViewTrainingDoc(doc.id)}
+                            sx={{ 
+                              textAlign: 'left', 
+                              textTransform: 'none',
+                              color: theme.palette.primary.main,
+                              '&:hover': {
+                                color: theme.palette.primary.dark
+                              }
+                            }}
+                            variant="text"
+                          >
+                            {doc.title}
+                          </Button>
+                        </TableCell>
+                        <TableCell>{doc.description}</TableCell>
+                        <TableCell>{doc.category}</TableCell>
+                        <TableCell>{new Date(doc.upload_date).toLocaleString()}</TableCell>
+                        <TableCell>
+                          <IconButton 
+                            size="small" 
+                            sx={{ 
+                              color: theme.palette.primary.main,
+                              '&:hover': {
+                                color: theme.palette.primary.dark
+                              }
+                            }}
+                            onClick={() => handleDeleteTrainingDoc(doc.id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+          )}
+        </Paper>
 
       
 
 
       {/* Create User Dialog */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+        <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
           Create New Employee Account
         </DialogTitle>
         <DialogContent>
@@ -864,15 +871,36 @@ function AdminDashboard() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button onClick={handleCreateUser}>Create</Button>
-        </DialogActions>
-      </Dialog>
+              <Button 
+                onClick={() => setOpenDialog(false)}
+                sx={{ 
+                  color: theme.palette.primary.main,  // Changed to green
+                  '&:hover': {
+                    backgroundColor: 'rgba(75, 172, 82, 0.1)'  // Light green background
+                  }
+                }}
+              >
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleCreateUser}
+                sx={{
+                  backgroundColor: theme.palette.primary.main,  // Changed to green
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: theme.palette.primary.dark  // Darker green
+                  }
+                }}
+              >
+                Create
+              </Button>
+            </DialogActions>
+          </Dialog>
 
 
       {/* Edit User Dialog */}
       <Dialog open={editDialog} onClose={() => setEditDialog(false)}>
-        <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+        <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
           Edit Employee Account
         </DialogTitle>
         <DialogContent>
@@ -916,7 +944,7 @@ function AdminDashboard() {
 
       {/* Document Upload Dialog */}
       <Dialog open={openDocumentDialog} onClose={() => setOpenDocumentDialog(false)}>
-        <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+        <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
           Upload New Document
         </DialogTitle>
         <DialogContent>
@@ -970,7 +998,7 @@ function AdminDashboard() {
       </Dialog>
 
       <Dialog open={openTrainingDocDialog} onClose={handleCloseTrainingDocDialog}>
-        <DialogTitle sx={{ fontFamily: '"Playfair Display", serif', color: '#8B4513' }}>
+        <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
           Upload Training Document
         </DialogTitle>
         <DialogContent>
@@ -1013,6 +1041,7 @@ function AdminDashboard() {
           <Button onClick={handleUploadTrainingDoc}>Upload</Button>
         </DialogActions>
       </Dialog>
+      </Box>
     </Container>
   );
 }
