@@ -34,7 +34,7 @@ function Footer() {
           
           <Box sx={{ display: 'flex', gap: 3 }}>
             <Link 
-              href="/" 
+              href="/AllAboutLearning/" 
               sx={{ 
                 color: 'white',
                 textDecoration: 'none', 
@@ -47,7 +47,7 @@ function Footer() {
               Home
             </Link>
             <Link 
-              href="/documents" 
+              href="/AllAboutLearning/documents" 
               sx={{ 
                 color: 'white',
                 textDecoration: 'none', 
@@ -60,7 +60,7 @@ function Footer() {
               Archives
             </Link>
             <Link 
-              href="/login" 
+              href="/AllAboutLearning/login" 
               sx={{ 
                 color: 'white',
                 textDecoration: 'none', 

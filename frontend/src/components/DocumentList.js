@@ -44,11 +44,11 @@ function DocumentList() {
       image: '/AllAboutLearning/images/multipointlock.jpg'
     },
     { 
-      id: 'door-closers', 
-      name: 'Door Closers', 
+      id: 'storm-doors-and-windows', 
+      name: 'Storm Doors & Windows', 
       type: 'pdf', 
-      description: 'Complete documentation for door closer installation and adjustment',
-      image: '/AllAboutLearning/images/doorcloser.jpg'
+      description: 'Complete documentation for Storm Door installation and adjustment',
+      image: '/AllAboutLearning/images/storm-window.png'
     },
     { 
       id: 'hinges', 
@@ -305,7 +305,7 @@ return (
                   <Typography variant="h6" component="h2" sx={{ mb: 1, color: 'primary.main' }}>
                     {doc.name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" color="white">
                     {doc.description}
                   </Typography>
                 </CardContent>

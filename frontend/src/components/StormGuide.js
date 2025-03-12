@@ -11,46 +11,31 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import InfoIcon from '@mui/icons-material/Info';
 import WarningIcon from '@mui/icons-material/Warning';
 import ImageIcon from '@mui/icons-material/Image';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Fab from '@mui/material/Fab';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Fade from '@mui/material/Fade';
 
-
-function LockGuide() {
+function StormGuide() {
   const { guideId } = useParams();
   const theme = useTheme();
   const navigate = useNavigate();
-  const handleBackToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-  const trigger = useScrollTrigger({
-    threshold: 100,
-    disableHysteresis: true
-  });
 
   const guideContent = {
-    'Hoppe HLS7 MPL': {
-      title: 'Hoppe HLS 7',
-      subtitle: 'HOPPE HLS7 Multi-Point Lock System - Technical Guide | Rory Snow | March 5, 2024',
+    'Columbia Storm Window': {
+      title: 'Columbia Storm Window',
+      subtitle: 'Columbia Storm Window Installation Guide | Rory Snow | March 12, 2025',
       sections: [
         {
           id: 'general-info',
           title: 'General Information',
           icon: <InfoIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
-            mainText: 'Multipoint locks operate differently by brand and model. When working with HOPPE locks, there are several important factors to consider:',
+            mainText: 'Columbia Storm Window Installation Guide:',
             bulletPoints: [
-              'HOPPE does NOT offer internal repair parts for their locks',
-              'Only the lower assembly or complete lock with extensions are available for purchase',
-              'Lock case only is NOT available from HOPPE',
-              'Pictures are essential for accurate identification and service',
-              'Always verify information received from HOPPE as it may not always be correct'
+              'Needs Updating',
+              '',
+              '',
+              '',
+              ''
             ],
-            notes: 'Pictures, Pictures, Pictures prevents Errors and Returns'
+            notes: ''
           }
         },
         {
@@ -58,119 +43,127 @@ function LockGuide() {
           title: 'Lock System Components',
           icon: <BuildIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
-            mainText: 'The multi-point lock system consists of multiple components working together:',
+            mainText: 'Columbia Storm Window Installation Guide:',
             bulletPoints: [
-              'Bottom assembly is 1/2 of the Multipoint Lock system',
-              'Top extension is added to lower assembly to complete assembly',
-              'Extension length is determined by door height',
-              'Standard Handle Height (HH) is 36 inches'
+              'Needs Updating',
+              '',
+              '',
+              '',
+              ''
             ],
             images: [
               {
-                src: '/AllAboutLearning/images/multipointlock.jpg',
-                alt: 'Multi-point lock components',
-                caption: 'Lock Components'
+                src: '/AllAboutLearning/images/',
+                alt: 'Columbia Storm Window Installation Guide',
+                caption: 'Columbia Storm Window Installation Guide'
               }
             ]
           }
         },
         {
           id: 'specifications',
-          title: 'HOPPE HLS7 Specifications',
+          title: 'Columbia Storm Window Specifications',
           icon: <SettingsIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
-            mainText: 'HOPPE HLS7 comes with various locking point configurations:',
+            mainText: 'Columbia Storm Window Specifications:',
             bulletPoints: [
-              '3-point locks with Hook, Shootbolt or Tongue',
-              '5-point locks with Tongues and Shootbolts or Hook with Shootbolts'
+              'Needs Updating',
+              '',
+              '',
+              '',
+              ''
             ],
             callouts: [
               {
                 title: 'Available Specifications',
                 text: [
-                  '5/8" (16mm) faceplate',
-                  '1-3/4" (45mm) backset',
-                  '3-5/8" (92mm) handle to cylinder spacing (PZ)'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               }
             ],
             images: [
               {
-                src: '/AllAboutLearning/images/hoppe-configurations.png',
-                alt: 'Lock configurations diagram',
-                caption: 'Lock Point Configurations'
+                src: '/AllAboutLearning/images/',
+                alt: 'Columbia Storm Window Specifications',
+                caption: 'Columbia Storm Window Specifications'
               },
               {
-                src: '/AllAboutLearning/images/hoppe-configurations2.png',
-                alt: 'Additional configurations',
-                caption: 'Additional Configurations'
+                src: '/AllAboutLearning/images/',
+                alt: 'Columbia Storm Window Specifications',
+                caption: 'Columbia Storm Window Specifications'
               }
             ]
           }
         },
         {
           id: 'door-handing',
-          title: 'Door Handing Guide',
+          title: 'Columbia Storm Window',
           icon: <SettingsIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
-            mainText: 'Door handing is always determined from the exterior (outside) of the door.',
+            mainText: 'Columbia Storm Window Door Handing Guide:',
             bulletPoints: [
-              'When hinges are on the left, the door is a Left Hand (LH)',
-              'When hinges are on the Right, the door is a Right Hand (RH)',
-              'Inswing or outswing does not determine handing for panic function (Egress)',
-              'Spring latch can be pulled out to reverse handing'
+              'Needs Updating',
+              '',
+              '',
+              ''
             ],
             callouts: [
               {
-                title: 'Torx Screw Positions',
+                title: 'Needs Updating',
                 text: [
-                  'T15 Torx Screws in "A" position = RIGHT HAND (RH)',
-                  'T15 Torx Screws in "B" position = LEFT HAND (LH)'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               }
             ],
-            notes: 'If panic function is on wrong side of lock, it can be changed by adjusting the Torx screw positions.'
+            notes: 'Needs Updating'
           }
         },
         {
           id: 'proper-alignment',
-          title: 'Proper Alignment Guide',
+          title: 'Columbia Storm Window',
           icon: <BuildIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
-            mainText: 'Proper alignment is crucial for the lock to function correctly. Pay special attention to the "half-moon" slot positioning:',
+            mainText: 'Columbia Storm Window Proper Alignment Guide:',
             bulletPoints: [
-              'The "half-moon" slot nub next to the handle hub must be positioned at:',
-              '3 o\'clock position OR',
-              '9 o\'clock position',
-              'Position depends on which side of the gear box you\'re on'
+              'Needs Updating',
+              '',
+              '',
+              ''
             ],
             callouts: [
               {
-                title: 'Important Installation Notes',
+                title: 'Needs Updating',
                 text: [
-                  'If the nub is not properly positioned, the gear will not work',
-                  'Handle set with spring assist will naturally move to proper position when installed',
-                  'When lock is out of the door, manually ensure nub is at 3 or 9 o\'clock'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               }
             ],
             images: [
               {
-                src: '/AllAboutLearning/images/proper-alignment1.png',
-                alt: '3 o\'clock position',
-                caption: '3 o\'clock position'
+                src: '/AllAboutLearning/images/',
+                alt: 'Columbia Storm Window Proper Alignment',
+                caption: 'Columbia Storm Window Proper Alignment'
               },
               {
-                src: '/AllAboutLearning/images/proper-alignment2.png',
-                alt: '9 o\'clock position',
-                caption: '9 o\'clock position'
+                src: '/AllAboutLearning/images/',
+                alt: 'Columbia Storm Window Proper Alignment',
+                caption: 'Columbia Storm Window Proper Alignment'
               }
             ]
           }
         },
         {
           id: 'operation-guide',
-          title: 'Operation of HLS7 Multipoint Lock',
+          title: 'Columbia Storm Window',
           icon: <SettingsIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
             mainText: 'Proper operation of the HLS7 Multipoint Lock with installed handle set:',
@@ -178,39 +171,46 @@ function LockGuide() {
               {
                 title: 'Locking from Inside',
                 steps: [
-                  'Turn thumb turn to horizontal position',
-                  'Lift handle to engage additional locking devices'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               },
               {
                 title: 'Unlocking from Inside',
                 steps: [
-                  'Depress Lever, latch and all locking points will retract',
-                  'Note: Thumbturn rotates back to vertical position automatically when handleset and spring cassette are installed',
-                  'Optional: turn thumb latch, depress lever'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               },
               {
                 title: 'Locking from Outside',
                 steps: [
-                  'Insert key and turn towards door jamb',
-                  'Lift handle to engage additional locking devices'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               },
               {
                 title: 'Unlocking from Outside',
                 steps: [
-                  'Insert key and turn toward hinges',
-                  'Depress lever to open door'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               }
             ],
-            notes: 'If handle set is not installed, use a flat blade screwdriver to extend deadbolt and test panic function before using lock.',
+            notes: 'Needs Updating',
             images: [
               {
-                src: '/AllAboutLearning/images/operation1.png',
-                alt: 'Interior operation',
-                caption: 'Interior Operation'
+                src: '/AllAboutLearning/images/',
+                alt: 'Columbia Storm Window Operation',
+                caption: 'Columbia Storm Window Operation'
               }
               
             ]
@@ -218,100 +218,105 @@ function LockGuide() {
         },
         {
           id: 'handle-components',
-          title: 'HOPPE HLS7 Handle Set Components',
+          title: 'Columbia Storm Window',
           icon: <BuildIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
-            mainText: 'The HOPPE HLS7 handle set consists of various components and parts packs designed for different door configurations:',
+            mainText: 'Columbia Storm Window Handle Components:',
             
             callouts: [
               {
-                title: 'Essential Components',
+                title: 'Needs Updating',
                 text: [
-                  '2702170 - Cassette Spring Cartridge',
-                  '1958579 - Cylinder Adaptor 8 x 23mm - Black'
+                  'Needs Updating',
+                  '',
+                  '',
+                  ''
                 ]
               }
             ],
             
             bulletPoints: {
               'Standard Door Parts Packs (Centered Lock)': [
-                '2753954 - HLS7 Parts Pack - 1-3/4" Active Door',
-                '2776136 - HLS7 Parts Pack - 2-1/4" Active Door',
-                '2753920 - HLS7 Parts Pack - 1-3/4" Inactive Door',
-                '2753938 - HLS7 Parts Pack - 2-1/4" Inactive Door'
+                'Needs Updating',
+                '',
+                '',
+                ''
+                
               ],
               'Euro Groove Parts Packs (Off-Center)': [
-                '3084211 - HLS7 Parts Pack - 2-1/4" Active Door Off Center',
-                '3084220 - HLS7 Parts Pack - 2-1/4" Inactive Door Off Center'
+                'Needs Updating',
+                '',
+                '',
+                ''
               ]
             },
             
-            notes: 'Always verify the door thickness and configuration before ordering parts.',
+            notes: 'Needs Updating',
             
             images: [
               {
-                src: '/AllAboutLearning/images/hoppe11.png',
-                alt: 'HLS7 Handle Components',
-                caption: 'HLS7 Handle Set Components'
+                src: '/AllAboutLearning/images/',
+                alt: 'Columbia Storm Window Handle Components',
+                caption: 'Columbia Storm Window Handle Components'
               }
             ]
           }
         },
         {
           id: 'additional-images',
-          title: 'HOPPE HLS7 Additional Images',
+          title: 'Columbia Storm Window',
           icon: <ImageIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
-            mainText: 'Additional images for HOPPE HLS7 components and configurations:',
+            mainText: 'Additional images for Columbia Storm Window components and configurations:',
             imageGallery: [
               {
                 title: 'Backplate & Handle Styles',
-                src: '/AllAboutLearning/images/hoppe1.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Color & Finishes',
-                src: '/AllAboutLearning/images/hoppe2.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 2'
               },
               {
                 title: 'Standard Door & Handleset Options',
-                src: '/AllAboutLearning/images/hoppe3.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Grip Style MPLS',
-                src: '/AllAboutLearning/images/hoppe4.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Lever Style MPLS',
-                src: '/AllAboutLearning/images/hoppe5.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Backplate Dimensions Solid Brass',
-                src: '/AllAboutLearning/images/hoppe6.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Backplate Dimensions Solid Brass',
-                src: '/AllAboutLearning/images/hoppe7.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Schlage Keyway',
-                src: '/AllAboutLearning/images/hoppe8.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Cylinder Adapter',
-                src: '/AllAboutLearning/images/hoppe9.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               },
               {
                 title: 'Exterior Lever Handle Kit Contents',
-                src: '/AllAboutLearning/images/hoppe10.png',
+                src: '/AllAboutLearning/images/',
                 alt: 'Description of image 1'
               }
               
@@ -331,7 +336,7 @@ function LockGuide() {
       <StaggeredFadeIn delay={0}>
         <Box sx={{ mb: 4 }}>
           <Button 
-            onClick={() => navigate('/archives/multipoint-locks')}
+            onClick={() => navigate('/archives/storm-doors-and-windows')}
             sx={{ 
               color: theme.palette.primary.main,
               mb: 2,
@@ -341,7 +346,7 @@ function LockGuide() {
               }
             }}
           >
-            ← Back to Multi-Point Locks
+            ← Back to Storm Doors & Windows
           </Button>
           <Typography 
             variant="h4" 
@@ -739,25 +744,8 @@ function LockGuide() {
           </Paper>
         ))}
       </StaggeredFadeIn>
-      <Fade in={trigger}>
-        <Fab 
-          onClick={handleBackToTop}
-          sx={{
-            position: 'fixed',
-            bottom: 16,
-            right: 16,
-            backgroundColor: '#4BAC52',
-            '&:hover': {
-              backgroundColor: '#3d8b42'
-            }
-          }}
-          aria-label="scroll back to top"
-        >
-          <KeyboardArrowUpIcon sx={{ color: 'white' }} />
-        </Fab>
-      </Fade>
     </Container>
   );
 }
 
-export default LockGuide;
+export default StormGuide;

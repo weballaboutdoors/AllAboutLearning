@@ -109,6 +109,33 @@ function CreateAccount() {
     }
   };
 
+  const textFieldStyle = {
+    '& .MuiOutlinedInput-root': {
+      backgroundColor: 'rgba(75, 172, 82, 0.05)',
+      '& fieldset': {
+        borderColor: 'primary.main',
+      },
+      '&:hover fieldset': {
+        borderColor: 'primary.light',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'primary.main',
+      }
+    },
+    '& .MuiInputLabel-root': {
+      color: '#4BAC52',
+    },
+    '& .MuiOutlinedInput-input': {
+      color: 'white',
+    },
+    '& .Mui-focused .MuiInputLabel-root': {
+      color: '#4BAC52',
+    },
+    '& .MuiFormHelperText-root': {
+      color: 'error.main', // Keep error text red
+    }
+  };
+
   return (
     <Container maxWidth="sm">
       <Box
@@ -126,6 +153,9 @@ function CreateAccount() {
             p: 4,
             width: '100%',
             borderRadius: 2,
+            backgroundColor: 'background.paper',
+            border: '1px solid',
+            borderColor: 'primary.main',
           }}
         >
           <Typography 
@@ -134,8 +164,11 @@ function CreateAccount() {
             align="center"
             sx={{ 
               mb: 3,
-              color: 'primary.main',
-              fontWeight: 600
+              color: 'white',
+              fontWeight: 600,
+              borderBottom: '2px solid',
+              borderColor: 'primary.main',
+              pb: 2
             }}
           >
             Create Account
@@ -154,6 +187,7 @@ function CreateAccount() {
                 onChange={handleChange}
                 error={!!errors.firstName}
                 helperText={errors.firstName}
+                sx={textFieldStyle}
               />
               <TextField
                 required
@@ -166,6 +200,7 @@ function CreateAccount() {
                 onChange={handleChange}
                 error={!!errors.lastName}
                 helperText={errors.lastName}
+                sx={textFieldStyle}
               />
             </Box>
 
@@ -181,7 +216,10 @@ function CreateAccount() {
               onChange={handleChange}
               error={!!errors.email}
               helperText={errors.email}
-              sx={{ mb: 2 }}
+              sx={{
+                ...textFieldStyle,
+                mb: 2
+              }}
             />
 
             <TextField
@@ -202,13 +240,17 @@ function CreateAccount() {
                     <IconButton
                       onClick={() => setShowPassword(!showPassword)}
                       edge="end"
+                      sx={{ color: '#4BAC52' }}
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
-              sx={{ mb: 2 }}
+              sx={{
+                ...textFieldStyle,
+                mb: 2
+              }}
             />
 
             <TextField
@@ -229,13 +271,17 @@ function CreateAccount() {
                     <IconButton
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       edge="end"
+                      sx={{ color: '#4BAC52' }}
                     >
                       {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
-              sx={{ mb: 3 }}
+              sx={{
+                ...textFieldStyle,
+                mb: 3
+              }}
             />
 
             {errors.submit && (
@@ -254,8 +300,11 @@ function CreateAccount() {
                 py: 1.5,
                 fontSize: '1.1rem',
                 fontWeight: 500,
+                backgroundColor: '#4BAC52',
                 '&:hover': {
-                  backgroundColor: 'primary.dark',
+                  backgroundColor: '#3d8b42',
+                  transform: 'translateY(-2px)',
+                  transition: 'transform 0.2s ease-in-out'
                 }
               }}
             >
@@ -266,10 +315,10 @@ function CreateAccount() {
               fullWidth
               onClick={() => navigate('/login')}
               sx={{
-                color: 'text.secondary',
+                color: '#4BAC52',
                 '&:hover': {
                   backgroundColor: 'transparent',
-                  color: 'primary.main',
+                  color: '#3d8b42',
                 }
               }}
             >

@@ -11,7 +11,6 @@ import {
   Divider
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import ArchiveIcon from '@mui/icons-material/Archive';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useAuth } from '../context/AuthContext';
 import StaggeredFadeIn from './StaggeredFadeIn';
@@ -23,8 +22,22 @@ function Homepage() {
   const sections = [
     {
       title: 'Archives',
-      description: 'Access Door & Window Part documents and records',
-      icon: <ArchiveIcon sx={{ fontSize: 60, color: 'black' }} />,
+      description: 'Access Door & Window Part Documents and Records',
+      icon: <img 
+      src="/AllAboutLearning/images/vecteezy-archive.png"
+      alt="Archives" 
+      style={{ 
+        width: '500px',  // Increased size
+        height: '300px', // Increased size
+        objectFit: 'cover',
+        borderRadius: '6px', // Rounded corners
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
+        transition: 'transform 0.3s ease',
+        '&:hover': {
+          transform: 'scale(1.02)' // Slight zoom on hover
+        }
+      }} 
+    />,
       path: '/documents',
       color: 'white',
       details: `The Archives section serves as your comprehensive resource for all hardware-related documentation. 
@@ -44,8 +57,22 @@ function Homepage() {
     },
     {
       title: 'Training & SOPs',
-      description: 'View training materials and standard operating procedures',
-      icon: <MenuBookIcon sx={{ fontSize: 60, color: 'black' }} />,
+      description: 'View Training Materials & Operating Procedures',
+      icon: <img 
+      src="/AllAboutLearning/images/training-sop.png"
+      alt="Archives" 
+      style={{ 
+        width: '500px',  // Increased size
+        height: '300px', // Increased size
+        objectFit: 'cover',
+        borderRadius: '6px', // Rounded corners
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
+        transition: 'transform 0.3s ease',
+        '&:hover': {
+          transform: 'scale(1.02)' // Slight zoom on hover
+        }
+      }} 
+    />,
       path: '/training',
       color: 'white',
       details: `The Training & SOPs section is your go-to resource for professional development and standardized procedures. 
@@ -82,7 +109,7 @@ function Homepage() {
             mb: 2
           }}
         >
-          Welcome, {user?.firstName}
+          Welcome, {user?.firstName} {user?.lastName}
         </Typography>
         <Typography 
           variant="subtitle1" 
@@ -110,26 +137,31 @@ function Homepage() {
         >
           <Grid container spacing={4} direction={index % 2 === 0 ? 'row' : 'row-reverse'}>
             <Grid item xs={12} md={6}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  backgroundColor: '#F8F9FA',
-                  border: '1px solid black',
-                  transition: 'transform 0.2s ease-in-out',
-                  '&:hover': {
-                    transform: 'scale(1.02)',
-                    boxShadow: '0 4px 8px rgba(139, 69, 19, 0.2)'
-                  }
-                }}
-              >
-                <CardContent sx={{ 
-                  p: 15,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center'
-                }}>
-                  <Box sx={{ mb: 3 }}>
+            <Card
+              onClick={() => navigate(section.path)}
+              sx={{ 
+                height: '100%',
+                maxWidth: '800px',
+                backgroundColor: '#F8F9FA',
+                border: '1px solid black',
+                borderRadius: '12px', // More rounded corners
+                transition: 'transform 0.2s ease-in-out',
+                cursor: 'pointer',
+                '&:hover': {
+                  transform: 'scale(1.02)',
+                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
+                }
+              }}
+            >
+              <CardContent sx={{ 
+                p: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                gap: '1rem' // Add space between elements
+              }}>
+                  <Box sx={{ mb: 2 }}>
                     {section.icon}
                   </Box>
                   <Typography 
@@ -138,14 +170,14 @@ function Homepage() {
                     sx={{ 
                       color: 'black',
                       fontFamily: 'Roboto, sans-serif',
-                      mb: 2
+                      mb: 1
                     }}
                   >
                     {section.title}
                   </Typography>
                   <Typography 
                     sx={{ 
-                      mb: 3,
+                      mb: 2,
                       color: 'black',
                       fontFamily: 'Roboto, sans-serif'
                     }}
@@ -171,11 +203,14 @@ function Homepage() {
               </Card>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box sx={{ 
+              <Box 
+              onClick={() => navigate(section.path)}
+              sx={{ 
                 p: 3, 
                 height: '100%',
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                cursor: 'pointer'
               }}>
                 <Typography
                   sx={{

@@ -15,6 +15,8 @@ import TrainingDocs from './components/TrainingDocs';
 import Homepage from './components/Homepage.js';
 import MultiPointLocks from './components/MultiPointLocks';
 import LockGuide from './components/LockGuide';
+import StormDoors from './components/StormDoors';
+import StormGuide from './components/StormGuide';
 const theme = createTheme({
   palette: {
     primary: {
@@ -126,6 +128,8 @@ function App() {
                 <Route path="/archives" element={<DocumentList />} />
                 <Route path="/archives/multipoint-locks/:guideId" element={<LockGuide />} />
                 <Route path="/archives/multipoint-locks" element={<MultiPointLocks />} />
+                <Route path="/archives/storm-doors-and-windows" element={<StormDoors />} />
+                <Route path="/archives/storm-doors-and-windows/:guideId" element={<StormGuide />} />
                 <Route path="/landing" element={<LandingPage />} />
                 <Route 
                   path="/" 

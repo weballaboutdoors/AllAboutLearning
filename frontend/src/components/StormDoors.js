@@ -6,33 +6,33 @@ import StaggeredFadeIn from './StaggeredFadeIn';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
 
 
-function MultiPointLocks() {
+function StormDoors() {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const lockGuides = [
+  const stormGuides = [
     {
-      id: 'Hoppe HLS7 MPL',
-      title: 'Hoppe HLS7',
-      description: 'Comprehensive guide for the Hoppe HLS7 multi-point lock system',
+      id: 'Columbia Storm Window',
+      title: 'Columbia Storm Window',
+      description: 'Comprehensive guide for the Columbia Storm Window',
+      image: '/AllAboutLearning/images/storm-window.png'
+    },
+    {
+      id: 'Columbia Storm Door',
+      title: 'Columbia Storm Door',
+      description: 'Comprehensive guide for the Columbia Storm Door',
+      image: '/AllAboutLearning/images/storm-door.png'
+    },
+    {
+      id: 'Andersen Storm Door',
+      title: 'Andersen Storm Door',
+      description: 'Comprehensive guide for the Andersen Storm Door',
       image: '/AllAboutLearning/images/multipointlock.jpg'
     },
     {
-      id: 'Amesbury Truth MPL',
-      title: 'Amesbury Truth',
-      description: 'Comprehensive guide for the Amesbury Truth multi-point lock system',
-      image: '/AllAboutLearning/images/multipointlock.jpg'
-    },
-    {
-      id: 'Andersen MPL',
-      title: 'Andersen ',
-      description: 'Comprehensive guide for the Andersen multi-point lock system',
-      image: '/AllAboutLearning/images/multipointlock.jpg'
-    },
-    {
-      id: 'Fuhr MPL',
-      title: 'Fuhr',
-      description: 'Comprehensive guide for the Fuhr multi-point lock system',
+      id: 'Andersen Storm Window',
+      title: 'Andersen Storm Window',
+      description: 'Comprehensive guide for the Andersen Storm Window',
       image: '/AllAboutLearning/images/multipointlock.jpg'
     },
     /*
@@ -80,16 +80,16 @@ function MultiPointLocks() {
             pb: 2
           }}
         >
-          Multi-Point Locks
+          Storm Doors & Windows
         </Typography>
       </StaggeredFadeIn>
 
       <StaggeredFadeIn delay={0.2}>
         <Grid container spacing={3}>
-          {lockGuides.map((guide) => (
+          {stormGuides.map((guide) => (
             <Grid item xs={12} md={6} key={guide.id}>
               <Card 
-                onClick={() => navigate(`/archives/multipoint-locks/${guide.id}`)}
+                onClick={() => navigate(`/archives/storm-doors-and-windows/${guide.id}`)}
                 sx={{ 
                   cursor: 'pointer',
                   backgroundColor: 'background.paper',
@@ -105,7 +105,7 @@ function MultiPointLocks() {
               >
                 <CardMedia
                   component="img"
-                  height="470"
+                  height="500"
                   image={guide.image}
                   alt={guide.title}
                   sx={{ 
@@ -145,4 +145,4 @@ function MultiPointLocks() {
   );
 }
 
-export default MultiPointLocks;
+export default StormDoors;

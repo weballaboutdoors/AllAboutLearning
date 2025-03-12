@@ -59,7 +59,7 @@ function Navbar() {
           }}>
             <Box 
               component="img"
-              src="/AllAboutLearning/images/all-about-archives.png"
+              src="/AllAboutLearning/images/all-about-archives-logo-2.png"
               alt="Logo"
               sx={{ 
                 height: { xs: 50, md: 80 },
@@ -171,6 +171,27 @@ function Navbar() {
                 >
                   <CloseIcon sx={{ fontSize: 32 }} />
                 </IconButton>
+
+                <MenuItem 
+                  onClick={() => handleNavigation('/')}
+                  sx={{ 
+                    color: 'secondary.main',
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: '1.5rem',
+                    width: '80%',
+                    justifyContent: 'center',
+                    borderRadius: 2,
+                    py: 2,
+                    mt: 6,
+                    '&:hover': { 
+                      backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                      transform: 'scale(1.05)',
+                      transition: 'all 0.2s ease'
+                    }
+                  }}
+                >
+                  Home
+                </MenuItem>
     
                 <MenuItem 
                   onClick={() => handleNavigation('/documents')}
@@ -260,6 +281,22 @@ function Navbar() {
             </>
           ) : (
             <Box sx={{ marginLeft: 'auto' }}>
+              <Button 
+                sx={{ 
+                  color: 'white',
+                  fontSize: '1rem',
+                  fontFamily: 'Roboto, sans-serif',
+                  border: `1px solid ${theme.palette.primary.main}`,
+                  margin: '0 8px',
+                  '&:hover': {
+                    backgroundColor: theme.palette.primary.main,
+                    borderColor: 'white'
+                  }
+                }}
+                onClick={() => navigate('/')}
+              >
+                Home
+              </Button>
               <Button 
                 sx={{ 
                   color: 'white',
