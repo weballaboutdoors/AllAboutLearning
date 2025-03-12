@@ -29,6 +29,7 @@ function MultiPointLocks() {
       description: 'Comprehensive guide for the Andersen multi-point lock system',
       image: '/AllAboutLearning/images/multipointlock.jpg'
     },
+    /*
     {
       id: 'Fuhr MPL',
       title: 'Fuhr',
@@ -85,64 +86,63 @@ function MultiPointLocks() {
       </StaggeredFadeIn>
 
       <StaggeredFadeIn delay={0.2}>
-        <Grid container spacing={3}>
-          {lockGuides.map((guide) => (
-            <Grid item xs={12} md={6} key={guide.id}>
-              <Card 
-                onClick={() => navigate(`/archives/multipoint-locks/${guide.id}`)}
+      <Grid container spacing={3}>
+        {lockGuides.map((guide) => (
+          <Grid item xs={12} sm={6} md={4} key={guide.id}>  {/* Changed grid sizing to match DocumentList */}
+            <Card 
+              onClick={() => navigate(`/archives/multipoint-locks/${guide.id}`)}
+              sx={{ 
+                height: '100%',
+                cursor: 'pointer',
+                backgroundColor: 'background.paper',
+                border: `1px solid ${theme.palette.primary.main}`,
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: 3,
+                  transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
+                }
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="400"  // Changed height to match DocumentList
+                image={guide.image}
+                alt={guide.title}
                 sx={{ 
-                  cursor: 'pointer',
-                  backgroundColor: 'background.paper',
-                  border: `1px solid ${theme.palette.primary.main}`,
-                  height: '100%',
+                  objectFit: 'cover',
+                  borderBottom: '1px solid #eee',
+                  backgroundColor: '#f5f5f5',
                   '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: 3,
-                    borderColor: theme.palette.primary.dark,
-                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
+                    opacity: .5
                   }
                 }}
-              >
-                <CardMedia
-                  component="img"
-                  height="470"
-                  image={guide.image}
-                  alt={guide.title}
+              />
+              <CardContent>
+                <Typography 
+                  variant="h6" 
+                  component="h2"
                   sx={{ 
-                    objectFit: 'cover',
-                    borderBottom: `1px solid ${theme.palette.primary.main}`,
-                    '&:hover': {
-                      opacity: 0.8
-                    }
+                    mb: 1,
+                    color: 'primary.main'
                   }}
-                />
-                <CardContent>
-                  <Typography 
-                    variant="h6" 
-                    sx={{ 
-                      color: 'primary.main',
-                      fontFamily: 'Roboto, sans-serif',
-                      mb: 1
-                    }}
-                  >
-                    {guide.title}
-                  </Typography>
-                  <Typography 
-                    variant="body1"
-                    sx={{ 
-                      color: 'white'
-                    }}
-                  >
-                    {guide.description}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </StaggeredFadeIn>
-    </Container>
-  );
+                >
+                  {guide.title}
+                </Typography>
+                <Typography 
+                  variant="body2"  // Changed to body2 to match DocumentList
+                  color="white"
+                >
+                  {guide.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </StaggeredFadeIn>
+  </Container>
+);
+          
 }
 
 export default MultiPointLocks;

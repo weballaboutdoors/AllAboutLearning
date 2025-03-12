@@ -27,8 +27,9 @@ function StormDoors() {
       id: 'Andersen Storm Door',
       title: 'Andersen Storm Door',
       description: 'Comprehensive guide for the Andersen Storm Door',
-      image: '/AllAboutLearning/images/multipointlock.jpg'
+      image: '/AllAboutLearning/images/andersen-storm-door.png'
     },
+    /*
     {
       id: 'Andersen Storm Window',
       title: 'Andersen Storm Window',
@@ -86,57 +87,57 @@ function StormDoors() {
 
       <StaggeredFadeIn delay={0.2}>
         <Grid container spacing={3}>
-          {stormGuides.map((guide) => (
-            <Grid item xs={12} md={6} key={guide.id}>
-              <Card 
-                onClick={() => navigate(`/archives/storm-doors-and-windows/${guide.id}`)}
-                sx={{ 
-                  cursor: 'pointer',
-                  backgroundColor: 'background.paper',
-                  border: `1px solid ${theme.palette.primary.main}`,
-                  height: '100%',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: 3,
-                    borderColor: theme.palette.primary.dark,
-                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="500"
-                  image={guide.image}
-                  alt={guide.title}
+          {stormGuides.map((guide, index) => (
+            <Grid item xs={12} sm={6} md={4} key={guide.id}>
+              <StaggeredFadeIn delay={index * 0.1}>
+                <Card 
+                  onClick={() => navigate(`/archives/storm-doors-windows/${guide.id}`)}
                   sx={{ 
-                    objectFit: 'cover',
-                    borderBottom: `1px solid ${theme.palette.primary.main}`,
+                    height: '100%',
+                    cursor: 'pointer',
+                    backgroundColor: 'background.paper',
+                    border: `1px solid ${theme.palette.primary.main}`,
                     '&:hover': {
-                      opacity: 0.8
+                      transform: 'translateY(-4px)',
+                      boxShadow: 3,
+                      transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
                     }
                   }}
-                />
-                <CardContent>
-                  <Typography 
-                    variant="h6" 
+                >
+                  <CardMedia
+                    component="img"
+                    height="400"
+                    image={guide.image}
+                    alt={guide.title}
                     sx={{ 
-                      color: 'primary.main',
-                      fontFamily: 'Roboto, sans-serif',
-                      mb: 1
+                      objectFit: 'cover',
+                      borderBottom: '1px solid #eee',
+                      backgroundColor: '#f5f5f5',
+                      '&:hover': {
+                        opacity: .5
+                      }
                     }}
-                  >
-                    {guide.title}
-                  </Typography>
-                  <Typography 
-                    variant="body1"
-                    sx={{ 
-                      color: 'white'
-                    }}
-                  >
-                    {guide.description}
-                  </Typography>
-                </CardContent>
-              </Card>
+                  />
+                  <CardContent>
+                    <Typography 
+                      variant="h6" 
+                      component="h2"
+                      sx={{ 
+                        mb: 1,
+                        color: 'primary.main'
+                      }}
+                    >
+                      {guide.title}
+                    </Typography>
+                    <Typography 
+                      variant="body2"
+                      color="white"
+                    >
+                      {guide.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </StaggeredFadeIn>
             </Grid>
           ))}
         </Grid>

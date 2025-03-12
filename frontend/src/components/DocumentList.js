@@ -257,7 +257,7 @@ return (
     <ToastContainer position="bottom-right" />
     <StaggeredFadeIn delay={0}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ fontWeight: 600 }}>
+        <Typography variant="h4" component="h1" sx={{ fontWeight: 450 }}>
           Informational Archives
         </Typography>
       </Box>
