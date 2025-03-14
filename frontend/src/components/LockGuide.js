@@ -208,7 +208,7 @@ function LockGuide() {
             notes: 'If handle set is not installed, use a flat blade screwdriver to extend deadbolt and test panic function before using lock.',
             images: [
               {
-                src: '/AllAboutLearning/images/operation1.png',
+                src: '/AllAboutLearning/images/operation-1.png',
                 alt: 'Interior operation',
                 caption: 'Interior Operation'
               }
@@ -374,7 +374,7 @@ function LockGuide() {
             sx={{
               mb: 4,
               p: 3,
-              backgroundColor: 'background.paper',
+              backgroundColor: '#faf9f6',
               border: `1px solid ${theme.palette.primary.main}`,
             }}
           >
@@ -383,7 +383,7 @@ function LockGuide() {
               <Typography 
                 variant="h5" 
                 sx={{ 
-                  color: 'white',
+                  color: 'black',
                   ml: 2,
                   borderBottom: `2px solid ${theme.palette.primary.main}`,
                   pb: 1
@@ -397,86 +397,86 @@ function LockGuide() {
               <Grid item xs={12}>
                 <Typography 
                   variant="body1" 
-                  color="white" 
+                  color="black" 
                   sx={{ mb: 3, lineHeight: 1.7 }}
                 >
                   {section.content.mainText}
                 </Typography>
 
                 {section.content.bulletPoints && (
-  <Box sx={{ mt: 3 }}>
-    {Array.isArray(section.content.bulletPoints) ? (
-      // Regular bullet points
-      section.content.bulletPoints.map((point, idx) => (
-        <Typography 
-          key={idx} 
-          variant="body1" 
-          color="white"
-          sx={{ 
-            display: 'flex', 
-            alignItems: 'center',
-            mb: 2
-          }}
-        >
-          <CheckCircleIcon sx={{ mr: 2, color: theme.palette.primary.main }} />
-          {point}
-        </Typography>
-      ))
-    ) : (
-      // Categorized bullet points
-      Object.entries(section.content.bulletPoints).map(([category, items], catIdx) => (
-        <Box 
-          key={catIdx}
-          sx={{ 
-            mb: 4,
-            p: 2,
-            backgroundColor: 'rgba(75, 172, 82, 0.05)',
-            borderRadius: 1,
-            border: `1px solid ${theme.palette.primary.main}`
-          }}
-        >
-          <Typography 
-            variant="h6" 
-            color="primary"
-            sx={{ 
-              mb: 2,
-              pb: 1,
-              borderBottom: `2px solid ${theme.palette.primary.main}`
-            }}
-          >
-            {category}
-          </Typography>
-          {items.map((item, idx) => (
-            <Typography 
-              key={idx}
-              variant="body1"
-              color="white"
-              sx={{ 
-                display: 'flex',
-                alignItems: 'center',
-                mb: 1.5,
-                pl: 2
-              }}
-            >
-              <Box 
-                component="span" 
-                sx={{ 
-                  color: theme.palette.primary.main,
-                  fontFamily: 'monospace',
-                  mr: 2,
-                  minWidth: '80px'
-                }}
-              >
-                {item.split(' - ')[0]}
-              </Box>
-              {item.split(' - ')[1]}
-            </Typography>
-          ))}
-        </Box>
-      ))
-    )}
-  </Box>
-)}
+                  <Box sx={{ mt: 3 }}>
+                    {Array.isArray(section.content.bulletPoints) ? (
+                      // Regular bullet points
+                      section.content.bulletPoints.map((point, idx) => (
+                        <Typography 
+                          key={idx} 
+                          variant="body1" 
+                          color="black"
+                          sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center',
+                            mb: 2
+                          }}
+                        >
+                          <CheckCircleIcon sx={{ mr: 2, color: theme.palette.primary.main }} />
+                          {point}
+                        </Typography>
+                      ))
+                    ) : (
+                      // Categorized bullet points
+                      Object.entries(section.content.bulletPoints).map(([category, items], catIdx) => (
+                        <Box 
+                          key={catIdx}
+                          sx={{ 
+                            mb: 4,
+                            p: 2,
+                            backgroundColor: 'rgba(75, 172, 82, 0.05)',
+                            borderRadius: 1,
+                            border: `1px solid ${theme.palette.primary.main}`
+                          }}
+                        >
+                          <Typography 
+                            variant="h6" 
+                            color="primary"
+                            sx={{ 
+                              mb: 2,
+                              pb: 1,
+                              borderBottom: `2px solid ${theme.palette.primary.main}`
+                            }}
+                          >
+                            {category}
+                          </Typography>
+                          {items.map((item, idx) => (
+                            <Typography 
+                              key={idx}
+                              variant="body1"
+                              color="black"
+                              sx={{ 
+                                display: 'flex',
+                                alignItems: 'center',
+                                mb: 1.5,
+                                pl: 2
+                              }}
+                            >
+                              <Box 
+                                component="span" 
+                                sx={{ 
+                                  color: theme.palette.primary.main,
+                                  fontFamily: 'monospace',
+                                  mr: 2,
+                                  minWidth: '80px'
+                                }}
+                              >
+                                {item.split(' - ')[0]}
+                              </Box>
+                              {item.split(' - ')[1]}
+                            </Typography>
+                          ))}
+                        </Box>
+                      ))
+                    )}
+                  </Box>
+                )}
 
                 {section.content.operationGuides && (
                   <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', mb: 4 }}>
@@ -486,7 +486,7 @@ function LockGuide() {
                         sx={{
                           flex: '1 1 300px',
                           p: 2,
-                          backgroundColor: 'background.paper',
+                          backgroundColor: 'white',
                           border: `1px solid ${theme.palette.primary.main}`,
                           borderRadius: 1
                         }}
@@ -506,7 +506,7 @@ function LockGuide() {
                           <Typography 
                             key={stepIdx}
                             variant="body1"
-                            color="white"
+                            color="black"
                             sx={{
                               display: 'flex',
                               alignItems: 'flex-start',
@@ -566,7 +566,7 @@ function LockGuide() {
                           callout.text.map((line, index) => (
                             <Typography 
                               key={index}
-                              color="white"
+                              color="black"
                               sx={{ 
                                 mb: 1,
                                 display: 'flex',
@@ -604,7 +604,7 @@ function LockGuide() {
                   >
                     <Typography 
                       variant="body2" 
-                      color="white" 
+                      color="black" 
                       sx={{ fontStyle: 'italic' }}
                     >
                       Important: {section.content.notes}
@@ -615,80 +615,80 @@ function LockGuide() {
 
 
               {section.content.imageGallery && (
-  <Grid item xs={12}>
-    <Box sx={{ 
-      display: 'grid',
-      gridTemplateColumns: { 
-        xs: '1fr',
-        sm: 'repeat(2, 1fr)',
-        md: 'repeat(3, 1fr)' 
-      },
-      gap: 4,
-      mt: 3,
-      p: 2
-    }}>
-      {section.content.imageGallery.map((image, idx) => (
-        <Box 
-          key={idx}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            mb: 4,
-            position: 'relative', // Added for zoom functionality
-            zIndex: 1, // Base z-index
-            '&:hover': {
-              zIndex: 999 // Ensure hovered image stays on top
-            }
-          }}
-        >
-          <Typography 
-            variant="h6" 
-            color="primary"
-            sx={{ 
-              mb: 2,
-              textAlign: 'center',
-              width: '100%',
-              borderBottom: `2px solid ${theme.palette.primary.main}`,
-              pb: 1
-            }}
-          >
-            {image.title}
-          </Typography>
-          <Card 
-            sx={{ 
-              width: '100%',
-              backgroundColor: 'transparent',
-              position: 'relative',
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                transform: 'scale(1.5)', // Increased zoom factor
-                boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
-                zIndex: 1000,
-                backgroundColor: 'transparent'
-              }
-            }}
-          >
-            <CardMedia
-              component="img"
-              image={image.src}
-              alt={image.alt}
-              sx={{ 
-                objectFit: 'contain',
-                backgroundColor: 'white',
-                padding: 2,
-                borderRadius: 1,
-                minHeight: 200,
-                maxHeight: 300,
-                transition: 'all 0.3s ease-in-out'
-              }}
-            />
-          </Card>
-        </Box>
-      ))}
-    </Box>
-  </Grid>
-)}
+                <Grid item xs={12}>
+                  <Box sx={{ 
+                    display: 'grid',
+                    gridTemplateColumns: { 
+                      xs: '1fr',
+                      sm: 'repeat(2, 1fr)',
+                      md: 'repeat(3, 1fr)' 
+                    },
+                    gap: 4,
+                    mt: 3,
+                    p: 2
+                  }}>
+                    {section.content.imageGallery.map((image, idx) => (
+                      <Box 
+                        key={idx}
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          mb: 4,
+                          position: 'relative', // Added for zoom functionality
+                          zIndex: 1, // Base z-index
+                          '&:hover': {
+                            zIndex: 999 // Ensure hovered image stays on top
+                          }
+                        }}
+                      >
+                        <Typography 
+                          variant="h6" 
+                          color="primary"
+                          sx={{ 
+                            mb: 2,
+                            textAlign: 'center',
+                            width: '100%',
+                            borderBottom: `2px solid ${theme.palette.primary.main}`,
+                            pb: 1
+                          }}
+                        >
+                          {image.title}
+                        </Typography>
+                        <Card 
+                          sx={{ 
+                            width: '100%',
+                            backgroundColor: 'transparent',
+                            position: 'relative',
+                            transition: 'all 0.3s ease-in-out',
+                            '&:hover': {
+                              transform: 'scale(1.5)', // Increased zoom factor
+                              boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+                              zIndex: 1000,
+                              backgroundColor: 'transparent'
+                            }
+                          }}
+                        >
+                          <CardMedia
+                            component="img"
+                            image={image.src}
+                            alt={image.alt}
+                            sx={{ 
+                              objectFit: 'contain',
+                              backgroundColor: 'white',
+                              padding: 2,
+                              borderRadius: 1,
+                              minHeight: 200,
+                              maxHeight: 300,
+                              transition: 'all 0.3s ease-in-out'
+                            }}
+                          />
+                        </Card>
+                      </Box>
+                    ))}
+                  </Box>
+                </Grid>
+              )}
 
               {section.content.images && (
                 <Grid item xs={12}>
@@ -696,14 +696,15 @@ function LockGuide() {
                     display: 'flex', 
                     gap: 2, 
                     flexDirection: { xs: 'column', md: 'row' },
-                    mb: 3
+                    mb: 1
                   }}>
                     {section.content.images.map((image, idx) => (
                       <Card 
                         key={idx}
                         sx={{ 
                           flex: 1,
-                          backgroundColor: 'transparent'
+                          backgroundColor: 'transparent',
+                          maxHeight: 400
                         }}
                       >
                         <CardMedia
@@ -712,8 +713,9 @@ function LockGuide() {
                           alt={image.alt}
                           sx={{ 
                             objectFit: 'contain',
-                            maxHeight: 400,
                             width: '100%',
+                            height: '400px',  // Reduced from previous height
+                            maxHeight: '400px', // Added max height constraint
                             backgroundColor: 'white',
                             padding: 2,
                             borderRadius: 1
@@ -722,7 +724,7 @@ function LockGuide() {
                         <Typography 
                           variant="caption" 
                           sx={{ 
-                            color: 'white',
+                            color: 'black',
                             textAlign: 'center',
                             display: 'block',
                             mt: 1

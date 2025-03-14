@@ -91,7 +91,7 @@ function StormDoors() {
             <Grid item xs={12} sm={6} md={4} key={guide.id}>
               <StaggeredFadeIn delay={index * 0.1}>
                 <Card 
-                  onClick={() => navigate(`/archives/storm-doors-windows/${guide.id}`)}
+                  onClick={() => navigate(`/archives/storm-doors-and-windows/${guide.id}`)}
                   sx={{ 
                     height: '100%',
                     cursor: 'pointer',

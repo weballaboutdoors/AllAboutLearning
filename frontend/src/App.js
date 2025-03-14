@@ -17,6 +17,10 @@ import MultiPointLocks from './components/MultiPointLocks';
 import LockGuide from './components/LockGuide';
 import StormDoors from './components/StormDoors';
 import StormGuide from './components/StormGuide';
+import WebDepartment from './components/WebDepartment';
+import CustomerService from './components/CustomerService';
+import Shipping from './components/Shipping';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -131,7 +135,12 @@ function App() {
                 <Route path="/archives/storm-doors-and-windows" element={<StormDoors />} />
                 <Route path="/archives/storm-doors-and-windows/:guideId" element={<StormGuide />} />
                 <Route path="/landing" element={<LandingPage />} />
-                <Route 
+                <Route path="/training" element={<TrainingDocs />} />
+                <Route path="/training/web" element={<WebDepartment />} />
+                <Route path="/training/customer-service" element={<CustomerService />} />
+                <Route path="/training/shipping" element={<Shipping />} />
+                
+                              <Route 
                   path="/" 
                   element={
                     <ProtectedRoute>
