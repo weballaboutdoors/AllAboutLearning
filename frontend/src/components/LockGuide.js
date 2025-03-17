@@ -178,7 +178,7 @@ function LockGuide() {
         },
         {
           id: 'panic-function',
-          title: 'Panic Function Installation Guide',
+          title: 'Panic Function',
           icon: <WarningIcon sx={{ color: theme.palette.primary.main }} />,
           content: {
             mainText: 'This lock has a panic release function for Egress. The interior side of the door is always Unlocked. The inside has the Panic Function that allows exiting by pushing down on lever.',
