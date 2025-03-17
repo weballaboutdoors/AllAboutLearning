@@ -667,7 +667,7 @@ function AdminDashboard() {
             <Tab label="User Management" />
             <Tab label="Document Management" />
             <Tab label="System Settings" />
-            <Tab label="Training Documents" />
+            {/*<Tab label="Training Documents" />*/}
           </Tabs>
 
           {tabValue === 0 && (
@@ -818,149 +818,146 @@ function AdminDashboard() {
             </Box>
           )}
 
-{tabValue === 2 && (
-  <Box sx={{ p: 3 }}>
-    <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
-        System Activity Logs
-      </Typography>
-      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-        <Typography sx={{ color: 'white' }}>
-          Total Logs: {totalLogs}
-        </Typography>
-        <Button
-          startIcon={<DeleteSweepIcon />}
-          onClick={handleClearLogs}
-          sx={{
-            backgroundColor: theme.palette.primary.main,
-            color: 'white',
-            '&:hover': {
-              backgroundColor: theme.palette.primary.dark
-            }
-          }}
-        >
-          Clear Logs
-        </Button>
-      </Box>
-    </Box>
+            {tabValue === 2 && (
+              <Box sx={{ p: 3 }}>
+                <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
+                    System Activity Logs
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                    <Typography sx={{ color: 'white' }}>
+                      Total Logs: {totalLogs}
+                    </Typography>
+                    <Button
+                      startIcon={<DeleteSweepIcon />}
+                      onClick={handleClearLogs}
+                      sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        color: 'white',
+                        '&:hover': {
+                          backgroundColor: theme.palette.primary.dark
+                        }
+                      }}
+                    >
+                      Clear Logs
+                    </Button>
+                  </Box>
+                </Box>
+                  <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Timestamp</TableCell>
+                      <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>User</TableCell>
+                      <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Action</TableCell>
+                      <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Details</TableCell>
+                      <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>IP Address</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {isLoading ? (
+                      <TableRow>
+                        <TableCell colSpan={5} align="center">
+                          <CircularProgress sx={{ color: theme.palette.primary.main }} />
+                        </TableCell>
+                      </TableRow>
+                    ) : auditLogs && auditLogs.length > 0 ? (
+                      auditLogs.map((log) => (
+                        <TableRow 
+                          key={log.id}
+                          sx={{
+                            '&:hover': {
+                              backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                            },
+                            transition: 'background-color 0.2s'
+                          }}
+                        >
+                          <TableCell sx={{ color: 'white' }}>
+                            {new Date(log.timestamp).toLocaleString('en-US', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              hour12: true
+                            })}
+                          </TableCell>
+                          <TableCell sx={{ color: 'white' }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <AccountCircleIcon sx={{ color: theme.palette.primary.main }} />
+                              {log.user_email}
+                            </Box>
+                          </TableCell>
+                          <TableCell>
+                            <Chip 
+                              icon={getActionConfig(log.action_type).icon}
+                              label={getActionConfig(log.action_type).label}
+                              sx={{
+                                backgroundColor: getActionConfig(log.action_type).color,
+                                color: 'white',
+                                '& .MuiChip-icon': {
+                                  color: 'white'
+                                }
+                              }}
+                            />
+                          </TableCell>
+                          <TableCell sx={{ color: 'white' }}>{log.action_detail}</TableCell>
+                          <TableCell>
+                            <Tooltip title="IP Address" placement="left">
+                              <Chip
+                                icon={<RouterIcon fontSize="small" />}
+                                label={log.ip_address}
+                                variant="outlined"
+                                sx={{
+                                  color: 'white',
+                                  borderColor: 'rgba(255,255,255,0.3)',
+                                  '& .MuiChip-icon': {
+                                    color: 'white'
+                                  }
+                                }}
+                              />
+                            </Tooltip>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={5} align="center" sx={{ color: 'white' }}>
+                          No logs found
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-    
-
-    <TableContainer>
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Timestamp</TableCell>
-        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>User</TableCell>
-        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Action</TableCell>
-        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Details</TableCell>
-        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>IP Address</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {isLoading ? (
-        <TableRow>
-          <TableCell colSpan={5} align="center">
-            <CircularProgress sx={{ color: theme.palette.primary.main }} />
-          </TableCell>
-        </TableRow>
-      ) : auditLogs && auditLogs.length > 0 ? (
-        auditLogs.map((log) => (
-          <TableRow 
-            key={log.id}
-            sx={{
-              '&:hover': {
-                backgroundColor: 'rgba(75, 172, 82, 0.1)',
-              },
-              transition: 'background-color 0.2s'
-            }}
-          >
-            <TableCell sx={{ color: 'white' }}>
-              {new Date(log.timestamp).toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-              })}
-            </TableCell>
-            <TableCell sx={{ color: 'white' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <AccountCircleIcon sx={{ color: theme.palette.primary.main }} />
-                {log.user_email}
-              </Box>
-            </TableCell>
-            <TableCell>
-              <Chip 
-                icon={getActionConfig(log.action_type).icon}
-                label={getActionConfig(log.action_type).label}
-                sx={{
-                  backgroundColor: getActionConfig(log.action_type).color,
-                  color: 'white',
-                  '& .MuiChip-icon': {
-                    color: 'white'
-                  }
-                }}
-              />
-            </TableCell>
-            <TableCell sx={{ color: 'white' }}>{log.action_detail}</TableCell>
-            <TableCell>
-              <Tooltip title="IP Address" placement="left">
-                <Chip
-                  icon={<RouterIcon fontSize="small" />}
-                  label={log.ip_address}
-                  variant="outlined"
-                  sx={{
-                    color: 'white',
-                    borderColor: 'rgba(255,255,255,0.3)',
-                    '& .MuiChip-icon': {
-                      color: 'white'
+                  <TablePagination
+                    component="div"
+                    count={totalLogs}
+                    page={page}
+                    onPageChange={(e, newPage) => setPage(newPage)}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={(e) => {
+                      setRowsPerPage(parseInt(e.target.value, 10));
+                      setPage(0);
+                    }}
+                    labelDisplayedRows={({ from, to, count }) => 
+                      `${from}-${to} of ${count !== -1 ? count : 'more than ' + to}`
                     }
-                  }}
-                />
-              </Tooltip>
-            </TableCell>
-          </TableRow>
-        ))
-      ) : (
-        <TableRow>
-          <TableCell colSpan={5} align="center" sx={{ color: 'white' }}>
-            No logs found
-          </TableCell>
-        </TableRow>
-      )}
-    </TableBody>
-  </Table>
-</TableContainer>
+                    sx={{
+                      color: 'white',
+                      '.MuiTablePagination-selectIcon': {
+                        color: 'white'
+                      },
+                      '.MuiTablePagination-select': {
+                        color: 'white'
+                      }
+                    }}
+                  />
+                </Box>
+              )}
 
-    <TablePagination
-      component="div"
-      count={totalLogs}
-      page={page}
-      onPageChange={(e, newPage) => setPage(newPage)}
-      rowsPerPage={rowsPerPage}
-      onRowsPerPageChange={(e) => {
-        setRowsPerPage(parseInt(e.target.value, 10));
-        setPage(0);
-      }}
-      labelDisplayedRows={({ from, to, count }) => 
-        `${from}-${to} of ${count !== -1 ? count : 'more than ' + to}`
-      }
-      sx={{
-        color: 'white',
-        '.MuiTablePagination-selectIcon': {
-          color: 'white'
-        },
-        '.MuiTablePagination-select': {
-          color: 'white'
-        }
-      }}
-    />
-  </Box>
-)}
-
-
+          
           {tabValue === 3 && (
             <Box sx={{ p: 3 }}>
               <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -1035,8 +1032,9 @@ function AdminDashboard() {
               </TableContainer>
             </Box>
           )}
+            
         </Paper>
-
+          
       
 
 
