@@ -28,12 +28,29 @@ import {
 import { Add as AddIcon, Delete as DeleteIcon, Edit as EditIcon, Upload as UploadIcon } from '@mui/icons-material';
 import axios from 'axios';
 import { useTheme } from '@mui/material/styles';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import TablePagination from '@mui/material/TablePagination';
+import CircularProgress from '@mui/material/CircularProgress';
+import Chip from '@mui/material/Chip';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import InfoIcon from '@mui/icons-material/Info';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import RouterIcon from '@mui/icons-material/Router';
+import Tooltip from '@mui/material/Tooltip';
 
 function AdminDashboard() {
   const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
+  const [totalLogs, setTotalLogs] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [openDialog, setOpenDialog] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [userForm, setUserForm] = useState({
     email: '',
     password: '',
@@ -74,6 +91,41 @@ function AdminDashboard() {
     fetchDocuments();
     fetchTrainingDocs();
   }, []);
+
+  useEffect(() => {
+    if (tabValue === 2) {  // Only fetch when on System Settings tab
+      fetchAuditLogs();
+    }
+  }, [tabValue, page, rowsPerPage]);
+
+
+  const handleClearLogs = async () => {
+    if (!window.confirm('Are you sure you want to clear all activity logs? This cannot be undone.')) {
+      return;
+    }
+  
+    try {
+      const token = localStorage.getItem('token');
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_PROD_API_URL 
+        : process.env.REACT_APP_API_URL;
+  
+      await axios.delete(
+        `${apiUrl}/api/admin/audit-logs`,
+        {
+          headers: { 
+            'Authorization': token
+          }
+        }
+      );
+  
+      setAuditLogs([]); // Clear logs from state
+      setSuccess('Activity logs cleared successfully');
+    } catch (error) {
+      console.error('Error clearing logs:', error);
+      setError('Failed to clear activity logs');
+    }
+  };
 
   const handleEditUser = (user) => {
     setSelectedUser(user);
@@ -220,12 +272,6 @@ function AdminDashboard() {
     }
   };
   
-  // Add useEffect to fetch users when component mounts
-  useEffect(() => {
-    fetchUsers();
-    fetchAuditLogs();
-    fetchTrainingDocs();
-  }, []);
   const DOCUMENT_CATEGORIES = [
     { id: 'multipoint-locks', name: 'Multi-Point Locks' },
     { id: 'door-closers', name: 'Door Closers' },
@@ -450,20 +496,70 @@ function AdminDashboard() {
   };
   
   const fetchAuditLogs = async () => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_PROD_API_URL 
+        : process.env.REACT_APP_API_URL;
+  
       const response = await axios.get(
-        `${baseUrl}/api/admin/audit-logs`,
+        `${baseUrl}/api/admin/audit-logs?skip=${page * rowsPerPage}&limit=${rowsPerPage}`,
         {
           headers: { Authorization: token }
         }
       );
-      setAuditLogs(response.data);
+      
+      setAuditLogs(response.data.logs);
+      setTotalLogs(response.data.total);
     } catch (error) {
       console.error('Error fetching audit logs:', error);
       setError('Failed to fetch audit logs');
+    } finally {
+      setIsLoading(false);
     }
+  };
+  
+  // Add the action config helper
+  const getActionConfig = (actionType) => {
+    const configs = {
+      'LOGIN': {
+        color: '#4caf50',
+        icon: <LoginIcon fontSize="small" />,
+        label: 'Login'
+      },
+      'LOGOUT': {
+        color: '#757575',
+        icon: <LogoutIcon fontSize="small" />,
+        label: 'Logout'
+      },
+      'CREATE_USER': {
+        color: '#2196f3',
+        icon: <PersonAddIcon fontSize="small" />,
+        label: 'Create User'
+      },
+      'UPDATE_USER': {
+        color: '#ff9800',
+        icon: <EditIcon fontSize="small" />,
+        label: 'Update User'
+      },
+      'DELETE_USER': {
+        color: '#f44336',
+        icon: <DeleteIcon fontSize="small" />,
+        label: 'Delete User'
+      },
+      'UPLOAD_DOC': {
+        color: '#9c27b0',
+        icon: <UploadFileIcon fontSize="small" />,
+        label: 'Upload Document'
+      },
+      'DEFAULT': {
+        color: '#607d8b',
+        icon: <InfoIcon fontSize="small" />,
+        label: 'Action'
+      }
+    };
+    return configs[actionType] || configs.DEFAULT;
   };
 
 
@@ -717,40 +813,152 @@ function AdminDashboard() {
                   </TableBody>
                 </Table>
               </TableContainer>
+              
+              
             </Box>
           )}
 
-          {tabValue === 2 && (
-            <Box sx={{ p: 3 }}>
-              <Typography variant="h6" sx={{ mb: 3, fontFamily: 'Roboto, sans-serif', color: 'white' }}>
-                System Activity Logs
-              </Typography>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow sx={{ backgroundColor: 'rgba(75, 172, 82, 0.1)' }}>
-                      <TableCell sx={{ color: 'white' }}>Timestamp</TableCell>
-                      <TableCell sx={{ color: 'white' }}>User</TableCell>
-                      <TableCell sx={{ color: 'white' }}>Action</TableCell>
-                      <TableCell sx={{ color: 'white' }}>Details</TableCell>
-                      <TableCell sx={{ color: 'white' }}>IP Address</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {auditLogs.map((log) => (
-                      <TableRow key={log.id}>
-                        <TableCell sx={{ color: 'white' }}>{new Date(log.timestamp).toLocaleString()}</TableCell>
-                        <TableCell sx={{ color: 'white' }}>{log.user_email}</TableCell>
-                        <TableCell sx={{ color: 'white' }}>{log.action_type}</TableCell>
-                        <TableCell sx={{ color: 'white' }}>{log.action_detail}</TableCell>
-                        <TableCell sx={{ color: 'white' }}>{log.ip_address}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          )}
+{tabValue === 2 && (
+  <Box sx={{ p: 3 }}>
+    <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
+        System Activity Logs
+      </Typography>
+      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        <Typography sx={{ color: 'white' }}>
+          Total Logs: {totalLogs}
+        </Typography>
+        <Button
+          startIcon={<DeleteSweepIcon />}
+          onClick={handleClearLogs}
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            color: 'white',
+            '&:hover': {
+              backgroundColor: theme.palette.primary.dark
+            }
+          }}
+        >
+          Clear Logs
+        </Button>
+      </Box>
+    </Box>
+
+    
+
+    <TableContainer>
+  <Table>
+    <TableHead>
+      <TableRow>
+        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Timestamp</TableCell>
+        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>User</TableCell>
+        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Action</TableCell>
+        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Details</TableCell>
+        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>IP Address</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {isLoading ? (
+        <TableRow>
+          <TableCell colSpan={5} align="center">
+            <CircularProgress sx={{ color: theme.palette.primary.main }} />
+          </TableCell>
+        </TableRow>
+      ) : auditLogs && auditLogs.length > 0 ? (
+        auditLogs.map((log) => (
+          <TableRow 
+            key={log.id}
+            sx={{
+              '&:hover': {
+                backgroundColor: 'rgba(75, 172, 82, 0.1)',
+              },
+              transition: 'background-color 0.2s'
+            }}
+          >
+            <TableCell sx={{ color: 'white' }}>
+              {new Date(log.timestamp).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+              })}
+            </TableCell>
+            <TableCell sx={{ color: 'white' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <AccountCircleIcon sx={{ color: theme.palette.primary.main }} />
+                {log.user_email}
+              </Box>
+            </TableCell>
+            <TableCell>
+              <Chip 
+                icon={getActionConfig(log.action_type).icon}
+                label={getActionConfig(log.action_type).label}
+                sx={{
+                  backgroundColor: getActionConfig(log.action_type).color,
+                  color: 'white',
+                  '& .MuiChip-icon': {
+                    color: 'white'
+                  }
+                }}
+              />
+            </TableCell>
+            <TableCell sx={{ color: 'white' }}>{log.action_detail}</TableCell>
+            <TableCell>
+              <Tooltip title="IP Address" placement="left">
+                <Chip
+                  icon={<RouterIcon fontSize="small" />}
+                  label={log.ip_address}
+                  variant="outlined"
+                  sx={{
+                    color: 'white',
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    '& .MuiChip-icon': {
+                      color: 'white'
+                    }
+                  }}
+                />
+              </Tooltip>
+            </TableCell>
+          </TableRow>
+        ))
+      ) : (
+        <TableRow>
+          <TableCell colSpan={5} align="center" sx={{ color: 'white' }}>
+            No logs found
+          </TableCell>
+        </TableRow>
+      )}
+    </TableBody>
+  </Table>
+</TableContainer>
+
+    <TablePagination
+      component="div"
+      count={totalLogs}
+      page={page}
+      onPageChange={(e, newPage) => setPage(newPage)}
+      rowsPerPage={rowsPerPage}
+      onRowsPerPageChange={(e) => {
+        setRowsPerPage(parseInt(e.target.value, 10));
+        setPage(0);
+      }}
+      labelDisplayedRows={({ from, to, count }) => 
+        `${from}-${to} of ${count !== -1 ? count : 'more than ' + to}`
+      }
+      sx={{
+        color: 'white',
+        '.MuiTablePagination-selectIcon': {
+          color: 'white'
+        },
+        '.MuiTablePagination-select': {
+          color: 'white'
+        }
+      }}
+    />
+  </Box>
+)}
 
 
           {tabValue === 3 && (
@@ -943,59 +1151,185 @@ function AdminDashboard() {
       </Dialog>
 
       {/* Document Upload Dialog */}
-      <Dialog open={openDocumentDialog} onClose={() => setOpenDocumentDialog(false)}>
-        <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
-          Upload New Document
-        </DialogTitle>
-        <DialogContent>
-          <TextField
-            select
-            margin="dense"
-            label="Category"
-            fullWidth
-            value={documentForm.categoryId}
-            onChange={(e) => setDocumentForm({ ...documentForm, categoryId: e.target.value })}
-            sx={{ mb: 2 }}
-          >
-            {DOCUMENT_CATEGORIES.map((category) => (
-              <MenuItem key={category.id} value={category.id}>
-                {category.name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            margin="dense"
-            label="Title"
-            fullWidth
-            value={documentForm.title}
-            onChange={(e) => setDocumentForm({ ...documentForm, title: e.target.value })}
-          />
-          <TextField
-            margin="dense"
-            label="Description"
-            fullWidth
-            multiline
-            rows={4}
-            value={documentForm.description}
-            onChange={(e) => setDocumentForm({ ...documentForm, description: e.target.value })}
-          />
-          <input
-            accept="application/pdf"
-            type="file"
-            onChange={(e) => setDocumentForm({ ...documentForm, file: e.target.files[0] })}
-            style={{ marginTop: '16px' }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDocumentDialog(false)}>Cancel</Button>
-          <Button 
-            onClick={handleDocumentUpload}
-            disabled={!documentForm.categoryId || !documentForm.file}
-          >
-            Upload
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Dialog 
+  open={openDocumentDialog} 
+  onClose={() => setOpenDocumentDialog(false)}
+  PaperProps={{
+    sx: {
+      backgroundColor: 'white',  // Changed from dark to white background
+      p: 3,
+      borderRadius: 2
+    }
+  }}
+>
+  <DialogTitle 
+    sx={{ 
+      color: 'black',  // Changed from white to black
+      fontSize: '1.5rem',
+      pb: 2,
+      borderBottom: `2px solid ${theme.palette.primary.main}`
+    }}
+  >
+    Upload New Document
+  </DialogTitle>
+  <DialogContent sx={{ mt: 2 }}>
+    <Typography 
+      variant="subtitle1" 
+      sx={{ 
+        color: theme.palette.primary.main,
+        mb: 1 
+      }}
+    >
+      Category
+    </Typography>
+    <TextField
+      select
+      fullWidth
+      value={documentForm.categoryId}
+      onChange={(e) => setDocumentForm({ ...documentForm, categoryId: e.target.value })}
+      sx={{ 
+        mb: 2,
+        backgroundColor: 'white',
+        '& .MuiOutlinedInput-root': {
+          backgroundColor: 'white',  // Added this
+          '& fieldset': {
+            borderColor: theme.palette.primary.main,
+          },
+        },
+        '& .MuiSelect-select': {  // Added this
+          backgroundColor: 'white',
+        },
+        '& .MuiMenu-paper': {  // Added this
+          backgroundColor: 'white',
+        }
+      }}
+    >
+      {DOCUMENT_CATEGORIES.map((category) => (
+        <MenuItem 
+          key={category.id} 
+          value={category.id}
+          sx={{ 
+            backgroundColor: 'white',
+            '&:hover': {
+              backgroundColor: '#4bAC52'
+            }
+          }}
+        >
+          {category.name}
+        </MenuItem>
+      ))}
+    </TextField>
+
+    <Typography 
+      variant="subtitle1" 
+      sx={{ 
+        color: theme.palette.primary.main,
+        mb: 1 
+      }}
+    >
+      Title
+    </Typography>
+    <TextField
+      fullWidth
+      value={documentForm.title}
+      onChange={(e) => setDocumentForm({ ...documentForm, title: e.target.value })}
+      sx={{ 
+        mb: 2,
+        backgroundColor: 'white',
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: theme.palette.primary.main,
+          },
+        },
+      }}
+    />
+
+    <Typography 
+      variant="subtitle1" 
+      sx={{ 
+        color: theme.palette.primary.main,
+        mb: 1 
+      }}
+    >
+      Description
+    </Typography>
+    <TextField
+      fullWidth
+      multiline
+      rows={4}
+      value={documentForm.description}
+      onChange={(e) => setDocumentForm({ ...documentForm, description: e.target.value })}
+      sx={{ 
+        mb: 2,
+        backgroundColor: 'white',
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: theme.palette.primary.main,
+          },
+        },
+      }}
+    />
+
+    <Button
+      variant="contained"
+      component="label"
+      sx={{
+        mt: 2,
+        backgroundColor: 'white',
+        color: 'black',
+        border: `1px solid ${theme.palette.primary.main}`,
+        '&:hover': {
+          backgroundColor: theme.palette.primary.main,
+          color: 'white'
+        }
+      }}
+    >
+      Choose File
+      <input
+        type="file"
+        accept="application/pdf, .doc, .docx"
+        hidden
+        onChange={(e) => {
+          const file = e.target.files[0];
+          if (file) {
+            setDocumentForm(prev => ({
+              ...prev,
+              file: file
+            }));
+          }
+        }}
+      />
+    </Button>
+  </DialogContent>
+
+  <DialogActions sx={{ mt: 2, p: 2 }}>
+    <Button 
+      onClick={() => setOpenDocumentDialog(false)}
+      sx={{ 
+        color: theme.palette.primary.main,
+        '&:hover': {
+          backgroundColor: 'rgba(75, 172, 82, 0.1)'
+        }
+      }}
+    >
+      Cancel
+    </Button>
+    <Button 
+      onClick={handleDocumentUpload}
+      disabled={!documentForm.categoryId || !documentForm.file}
+      variant="contained"
+      sx={{ 
+        backgroundColor: theme.palette.primary.main,
+        color: 'white',
+        '&:hover': {
+          backgroundColor: theme.palette.primary.dark
+        }
+      }}
+    >
+      Upload
+    </Button>
+  </DialogActions>
+</Dialog>
 
       <Dialog open={openTrainingDocDialog} onClose={handleCloseTrainingDocDialog}>
         <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
