@@ -15,7 +15,7 @@ function MultiPointLocks() {
       id: 'Hoppe HLS7 MPL',
       title: 'Hoppe HLS7',
       description: 'Comprehensive guide for the Hoppe HLS7 multi-point lock system',
-      image: '/AllAboutLearning/images/multipointlock.jpg'
+      image: '/AllAboutLearning/images/multipointlock.png'
     },
     {
       id: 'Amesbury Truth MPL',
