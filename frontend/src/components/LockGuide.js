@@ -177,6 +177,27 @@ function LockGuide() {
           }
         },
         {
+          id: 'panic-function',
+          title: 'Panic Function Installation Guide',
+          icon: <WarningIcon sx={{ color: theme.palette.primary.main }} />,
+          content: {
+            mainText: 'This lock has a panic release function for Egress. The interior side of the door is always Unlocked. The inside has the Panic Function that allows exiting by pushing down on lever.',
+            bulletPoints: [
+              'Check panic function before installing lock',
+              'Spring latch can be pulled out with pliers to reverse latch for inswing or outswing doors',
+              'If panic function is on wrong side of lock, it can be changed:',
+              '- Remove A screw, Flip lock over and install in Y side',
+              '- Remove Z screw, Flip lock over and install in B Side'
+            ],
+            images: [
+              {
+                src: '/AllAboutLearning/images/panic-function.png',  // Update with actual image path
+                alt: 'Panic function mechanism and installation diagram'
+              }
+            ]
+          }
+        },
+        {
           id: 'proper-alignment',
           title: 'Proper Alignment Guide',
           icon: <BuildIcon sx={{ color: theme.palette.primary.main }} />,
