@@ -180,7 +180,7 @@ function Homepage() {
                           justifyContent: 'center',  // Added
                           alignItems: 'center',       // Added
                           '& img': {  // Add filter to the image
-                            filter: 'brightness(0.9) contrast(1.1) saturate(1.1)',  // Subtle enhancement
+                            filter: 'brightness(0.8) contrast(1.4) saturate(1.6)',  // Subtle enhancement
                             // OR try these alternatives:
                             // filter: 'grayscale(100%)',  // Black and white
                             // filter: 'sepia(50%)',  // Vintage look
@@ -189,7 +189,7 @@ function Homepage() {
                             // filter: 'hue-rotate(45deg)',  // Color shift
                             transition: 'filter 0.3s ease',  // Smooth transition
                             '&:hover': {
-                              filter: 'brightness(0.9) contrast(1.1) saturate(1.1)'  // Remove filter on hover
+                              filter: 'brightness(0.8) contrast(1.4) saturate(1.6)'  // Remove filter on hover
                               // OR
                               // filter: 'brightness(1.1)',  // Brighten on hover
                             }
