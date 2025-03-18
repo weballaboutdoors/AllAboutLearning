@@ -15,6 +15,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';  // Add this import
 import CloseIcon from '@mui/icons-material/Close';
+import HomeIcon from '@mui/icons-material/Home';
+
 function Navbar() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();  // Add this
@@ -92,7 +94,7 @@ function Navbar() {
             }}
             onClick={() => navigate('/')}
           >
-            The All About Archives
+            Learning at All About
           </Typography>
     
           {isMobile ? (
@@ -126,7 +128,7 @@ function Navbar() {
                 onClose={handleClose}
                 sx={{
                   '& .MuiPaper-root': {
-                    backgroundColor: 'white',
+                    backgroundColor: theme.palette.secondary.main,
                     width: '100vw',
                     height: '100vh',
                     maxWidth: '100%',
@@ -138,7 +140,8 @@ function Navbar() {
                     borderRadius: 0,
                     display: 'flex',
                     flexDirection: 'column',
-                    background: 'white'
+                    background: 'white',
+                    pt: 10
                   },
                   '& .MuiList-root': {
                     width: '100%',
@@ -280,30 +283,45 @@ function Navbar() {
               </Menu>
             </>
           ) : (
-            <Box sx={{ marginLeft: 'auto' }}>
-              <Button 
+            <Box sx={{ 
+              marginLeft: 'auto',
+              marginRight: '1rem', // Add this to create space from the right
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: { sm: 1, md: 1 },
+              justifyContent: 'flex-end',
+              position: 'relative', // Add this
+              zIndex: 1 // Add this to ensure buttons stay above other elements
+            }}>
+              <IconButton
                 sx={{ 
-                  color: 'white',
-                  fontSize: '1rem',
-                  fontFamily: 'Roboto, sans-serif',
+                  color: theme.palette.primary.main,
                   border: `1px solid ${theme.palette.primary.main}`,
-                  margin: '0 8px',
+                  marginRight: { sm: 1, md: 1 },
                   '&:hover': {
                     backgroundColor: theme.palette.primary.main,
-                    borderColor: 'white'
-                  }
+                    '& .MuiSvgIcon-root': {
+                      color: 'white',
+                    }
+                  },
+                  transition: 'all 0.2s ease'
                 }}
                 onClick={() => navigate('/')}
               >
-                Home
-              </Button>
+                <HomeIcon sx={{ 
+                  fontSize: { sm: '1.1rem', md: '1.4rem' },
+                  transition: 'all 0.2s ease'
+                }} />
+              </IconButton>
               <Button 
                 sx={{ 
                   color: 'white',
-                  fontSize: '1rem',
+                  fontSize: { sm: '0.8rem', md: '1rem' },
                   fontFamily: 'Roboto, sans-serif',
                   border: `1px solid ${theme.palette.primary.main}`,
-                  margin: '0 8px',
+                  padding: { sm: '4px 8px', md: '6px 10px' },
+                  minWidth: 'auto',
+                  whiteSpace: 'nowrap',
                   '&:hover': {
                     backgroundColor: theme.palette.primary.main,
                     borderColor: 'white'
@@ -313,15 +331,17 @@ function Navbar() {
               >
                 Archives
               </Button>
-    
+          
               {user && (
                 <Button 
                   sx={{ 
                     color: 'white',
-                    fontSize: '1rem',
+                    fontSize: { sm: '0.8rem', md: '1rem' },
                     fontFamily: 'Roboto, sans-serif',
                     border: `1px solid ${theme.palette.primary.main}`,
-                    margin: '0 8px',
+                    padding: { sm: '4px 8px', md: '6px 10px' },
+                    minWidth: 'auto',
+                    whiteSpace: 'nowrap',
                     '&:hover': {
                       backgroundColor: theme.palette.primary.main,
                       borderColor: 'white'
@@ -332,15 +352,17 @@ function Navbar() {
                   Training & SOPs
                 </Button>
               )}
-    
+          
               {user?.is_admin && (
                 <Button 
                   sx={{ 
                     color: 'white',
-                    fontSize: '1rem',
+                    fontSize: { sm: '0.8rem', md: '1rem' },
                     fontFamily: 'Roboto, sans-serif',
                     border: `1px solid ${theme.palette.primary.main}`,
-                    margin: '0 8px',
+                    padding: { sm: '4px 8px', md: '6px 10px' },
+                    minWidth: 'auto',
+                    whiteSpace: 'nowrap',
                     '&:hover': {
                       backgroundColor: theme.palette.primary.main,
                       borderColor: 'white'
@@ -351,15 +373,17 @@ function Navbar() {
                   Admin Dashboard
                 </Button>
               )}
-    
+          
               {user ? (
                 <Button 
                   sx={{ 
                     color: 'white',
-                    fontSize: '1rem',
+                    fontSize: { sm: '0.8rem', md: '1rem' },
                     fontFamily: 'Roboto, sans-serif',
                     border: `1px solid ${theme.palette.primary.main}`,
-                    margin: '0 8px',
+                    padding: { sm: '4px 8px', md: '6px 10px' },
+                    minWidth: 'auto',
+                    whiteSpace: 'nowrap',
                     '&:hover': {
                       backgroundColor: theme.palette.primary.main,
                       borderColor: 'white'
@@ -373,10 +397,12 @@ function Navbar() {
                 <Button 
                   sx={{ 
                     color: 'white',
-                    fontSize: '1rem',
+                    fontSize: { sm: '0.8rem', md: '1rem' },
                     fontFamily: 'Roboto, sans-serif',
                     border: `1px solid ${theme.palette.primary.main}`,
-                    margin: '0 8px',
+                    padding: { sm: '4px 8px', md: '6px 10px' },
+                    minWidth: 'auto',
+                    whiteSpace: 'nowrap',
                     '&:hover': {
                       backgroundColor: theme.palette.primary.main,
                       borderColor: 'white'

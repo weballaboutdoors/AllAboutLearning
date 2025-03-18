@@ -40,20 +40,20 @@ function Homepage() {
     />,
       path: '/documents',
       color: 'white',
-      details: `The Archives section serves as your comprehensive resource for all hardware-related documentation. 
-      Here you'll find detailed specifications, installation guides, and technical documentation for:
+      details: `The Archives section is your go-to resource for accessing all class materials and documentation from our weekly training sessions. 
+      Here you'll find comprehensive information covered in our owner-led classes, including:
       
-      - Multipoint Locks
-      - Door Closers
-      - Hinges
-      - Sliding Hardware
-      - Window Hardware
-      - Door Hardware
-      - Weatherstripping
-      - Thresholds
-      - Operators
+      - Multipoint Lock Installation & Troubleshooting
+      - Door Closer Setup & Adjustments
+      - Hinge Selection & Applications
+      - Sliding Door Hardware Systems
+      - Window Hardware Solutions
+      - Door Hardware Best Practices
+      - Weatherstripping Installation
+      - Threshold Types & Installation
+      - Automatic Door Operators
       
-      Each document is carefully categorized to help you quickly find the information you need.`
+      Each section contains detailed notes, specifications, and technical documentation from our weekly training sessions, allowing you to review and reference the material at any time. Stay up-to-date with our latest training materials and enhance your product knowledge through these valuable resources.`
     },
     {
       title: 'Training & SOPs',
@@ -204,13 +204,11 @@ function Homepage() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Box 
-              onClick={() => navigate(section.path)}
               sx={{ 
                 p: 3, 
                 height: '100%',
                 display: 'flex',
-                alignItems: 'center',
-                cursor: 'pointer'
+                alignItems: 'center'
               }}>
                 <Typography
                   sx={{
