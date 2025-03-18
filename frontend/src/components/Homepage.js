@@ -75,23 +75,19 @@ function Homepage() {
     />,
       path: '/training',
       color: 'white',
-      details: `The Training & SOPs section is your go-to resource for professional development and standardized procedures. 
-      This section includes:
+      details: `The Training & SOPs section is your comprehensive learning hub, featuring materials from our weekly training sessions and essential company procedures. 
       
       Standard Operating Procedures (SOPs)
-      - Step-by-step guides for common processes
-      - Quality control procedures
-      - Safety protocols
+      - Quality assurance checklists
+      - Safety protocols and best practices
+      - Company policies and procedures
       
-      Training Materials
-      - New employee onboarding documents
-      - Skill development resources
-      - Best practices guides
+      Professional Development
+      - Industry standards and updates
+      - Advanced troubleshooting techniques
+      - Product knowledge assessments
       
-      Reference Materials
-      - Quick reference guides
-      - Process flowcharts
-      - Troubleshooting guides`
+      Stay current with our latest training materials and enhance your expertise through our regularly updated resources. Access everything you need to excel in your role and deliver outstanding service to our customers.`
     }
   ];
 
@@ -142,9 +138,10 @@ function Homepage() {
               sx={{ 
                 height: '100%',
                 maxWidth: '800px',
+                maxHeight: '595px',
                 backgroundColor: '#F8F9FA',
                 border: '1px solid black',
-                borderRadius: '12px', // More rounded corners
+                borderRadius: '10px', // More rounded corners
                 transition: 'transform 0.2s ease-in-out',
                 cursor: 'pointer',
                 '&:hover': {
@@ -154,7 +151,7 @@ function Homepage() {
               }}
             >
               <CardContent sx={{ 
-                p: 8,
+                p: 9,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -171,34 +168,21 @@ function Homepage() {
                       color: 'black',
                       fontFamily: 'Roboto, sans-serif',
                       mb: 1
+                      
                     }}
                   >
                     {section.title}
                   </Typography>
                   <Typography 
                     sx={{ 
-                      mb: 2,
+                      mb: 1,
                       color: 'black',
                       fontFamily: 'Roboto, sans-serif'
                     }}
                   >
                     {section.description}
                   </Typography>
-                  <Button
-                    variant="outlined"
-                    onClick={() => navigate(section.path)}
-                    sx={{
-                      color: 'black',
-                      borderColor: 'black',
-                      '&:hover': {
-                        backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                        borderColor: 'black'
-                      },
-                      fontFamily: 'Roboto, sans-serif'
-                    }}
-                  >
-                    Access {section.title}
-                  </Button>
+                  
                 </CardContent>
               </Card>
             </Grid>
@@ -207,6 +191,7 @@ function Homepage() {
               sx={{ 
                 p: 3, 
                 height: '100%',
+                maxHeight: '595px',
                 display: 'flex',
                 alignItems: 'center'
               }}>
@@ -215,7 +200,7 @@ function Homepage() {
                     color: 'black',
                     fontFamily: 'Roboto, sans-serif',
                     whiteSpace: 'pre-line',
-                    lineHeight: 1.8
+                    lineHeight: 1.9
                   }}
                 >
                   {section.details}
