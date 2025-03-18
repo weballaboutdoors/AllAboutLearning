@@ -360,7 +360,7 @@ function Navbar() {
                     fontSize: { sm: '0.8rem', md: '1rem' },
                     fontFamily: 'Roboto, sans-serif',
                     border: `1px solid ${theme.palette.primary.main}`,
-                    padding: { sm: '4px 8px', md: '6px 10px' },
+                    padding: { sm: '4px 8px', md: '6px 16px' },
                     minWidth: 'auto',
                     whiteSpace: 'nowrap',
                     '&:hover': {
@@ -381,7 +381,7 @@ function Navbar() {
                     fontSize: { sm: '0.8rem', md: '1rem' },
                     fontFamily: 'Roboto, sans-serif',
                     border: `1px solid ${theme.palette.primary.main}`,
-                    padding: { sm: '4px 8px', md: '6px 10px' },
+                    padding: { sm: '4px 8px', md: '6px 16px' },
                     minWidth: 'auto',
                     whiteSpace: 'nowrap',
                     '&:hover': {
@@ -400,7 +400,7 @@ function Navbar() {
                     fontSize: { sm: '0.8rem', md: '1rem' },
                     fontFamily: 'Roboto, sans-serif',
                     border: `1px solid ${theme.palette.primary.main}`,
-                    padding: { sm: '4px 8px', md: '6px 10px' },
+                    padding: { sm: '4px 8px', md: '6px 16px' },
                     minWidth: 'auto',
                     whiteSpace: 'nowrap',
                     '&:hover': {

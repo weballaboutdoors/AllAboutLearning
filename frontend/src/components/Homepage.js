@@ -28,7 +28,7 @@ function Homepage() {
       title: 'Archives',
       description: 'Access Door & Window Part Documents and Records',
       icon: <img 
-      src="/AllAboutLearning/images/vecteezy-archive.png"
+      src="/AllAboutLearning/images/warehouse-archive.png"
       alt="Archives" 
       style={{ 
         width: '500px',  // Increased size
@@ -178,7 +178,22 @@ function Homepage() {
                           width: '100%',    // Added
                           display: 'flex',  // Added
                           justifyContent: 'center',  // Added
-                          alignItems: 'center'       // Added
+                          alignItems: 'center',       // Added
+                          '& img': {  // Add filter to the image
+                            filter: 'brightness(0.9) contrast(1.1) saturate(1.1)',  // Subtle enhancement
+                            // OR try these alternatives:
+                            // filter: 'grayscale(100%)',  // Black and white
+                            // filter: 'sepia(50%)',  // Vintage look
+                            // filter: 'opacity(0.8)',  // Slightly faded
+                            // filter: 'brightness(0.8) contrast(1.2) saturate(1.2)',  // Rich and deep
+                            // filter: 'hue-rotate(45deg)',  // Color shift
+                            transition: 'filter 0.3s ease',  // Smooth transition
+                            '&:hover': {
+                              filter: 'brightness(0.9) contrast(1.1) saturate(1.1)'  // Remove filter on hover
+                              // OR
+                              // filter: 'brightness(1.1)',  // Brighten on hover
+                            }
+                          }
                         }}>
                           {section.icon}
                         </Box>
