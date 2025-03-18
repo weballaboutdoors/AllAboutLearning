@@ -761,7 +761,7 @@ function WebDepartment() {
                         color: 'white',
                         textAlign: 'center',
                         transition: 'color 0.3s ease',
-                        fontSize: '0.9rem',
+                        fontSize: '1rem',
                         fontWeight: 500
                     }}
                     >
@@ -786,7 +786,20 @@ function WebDepartment() {
                     }
                 }}
                 >
-                <Typography sx={{ color: theme.palette.primary.main, px: 2 }}>
+                <Typography 
+                    variant="h1"  // You can use h4, h5, h6, etc.
+                    sx={{ 
+                        color: theme.palette.primary.main, 
+                        px: .9,
+                        fontSize: { 
+                            xs: '1rem',  // Size for extra small screens
+                            sm: '1.1rem',  // Size for small screens
+                            md: '1.2rem'   // Size for medium and up screens
+                        },
+                        fontWeight: 500   // Optional: adjust font weight
+                          // Optional: make text uppercase
+                    }}
+                >
                     {sectionContent[section.id].title}
                 </Typography>
                 </Divider>
@@ -811,7 +824,7 @@ function WebDepartment() {
                                 color: 'black', 
                                 lineHeight: 2,
                                 whiteSpace: 'pre-line',  // This preserves formatting
-                                fontSize: '1rem',     // Adjust font size (you can change this value)
+                                fontSize: '1.1rem',     // Adjust font size (you can change this value)
                                 fontFamily: 'Roboto, sans-serif'
                             }}
                         >
