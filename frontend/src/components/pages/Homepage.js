@@ -13,8 +13,8 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import { useAuth } from '../context/AuthContext';
-import StaggeredFadeIn from './StaggeredFadeIn';
+import { useAuth } from '../../context/AuthContext';
+import StaggeredFadeIn from '../common/StaggeredFadeIn';
 import { useTheme } from '@mui/material/styles';
 
 

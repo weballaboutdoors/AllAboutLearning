@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';  // Add this import
+import { useAuth } from '../../context/AuthContext';  // Add this import
 import CloseIcon from '@mui/icons-material/Close';
 import HomeIcon from '@mui/icons-material/Home';
 
@@ -45,34 +45,38 @@ function Navbar() {
   
     return (
       <AppBar position="static" sx={{ 
-        backgroundColor: 'secondary.main',  // Black background
-        borderBottom: `3px solid ${theme.palette.primary.main}`  // Green border
+        backgroundColor: 'secondary.main',
+        borderBottom: `3px solid ${theme.palette.primary.main}`
       }}>
         <Toolbar sx={{ 
-          height: { xs: 70, md: 100 },
+          height: { xs: 60, sm: 70, md: 100 }, // Reduced height on mobile
           display: 'flex',
           justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: { xs: '0 8px', sm: '0 16px', md: '0 24px' },
           position: 'relative'
-        }}> 
+        }}>
+          {/* Logo Section */}
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: 4
+            flexShrink: 0,
+            maxWidth: { xs: '120px', sm: '150px', md: 'auto' } // Control logo size
           }}>
             <Box 
               component="img"
               src="/AllAboutLearning/images/all-about-archives-logo-2.png"
               alt="Logo"
               sx={{ 
-                height: { xs: 50, md: 80 },
+                height: { xs: 40, sm: 50, md: 80 },
                 width: 'auto',
-                display: 'block',
                 cursor: 'pointer'
               }}
               onClick={() => navigate('/')}
             />
           </Box>
     
+          {/* Center Title - Hide on very small screens */}
           <Typography 
             variant="h5"
             component="div" 
@@ -87,7 +91,9 @@ function Navbar() {
               textTransform: 'uppercase',
               borderBottom: `2px solid ${theme.palette.primary.main}`,
               paddingBottom: '4px',
-              fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
+              fontSize: { xs: '0.8rem', sm: '1.1rem', md: '1.5rem' },
+              display: { xs: 'none', sm: 'block' }, // Hide on mobile
+              whiteSpace: 'nowrap',
               '&:hover': {
                 color: theme.palette.primary.main
               }
@@ -288,10 +294,11 @@ function Navbar() {
               marginRight: '1rem', // Add this to create space from the right
               display: 'flex',
               flexWrap: 'wrap',
-              gap: { sm: 1, md: 1 },
+              gap: { xs: 0.5, sm: 1, md: 1 },
               justifyContent: 'flex-end',
               position: 'relative', // Add this
-              zIndex: 1 // Add this to ensure buttons stay above other elements
+              zIndex: 1, // Add this to ensure buttons stay above other elements
+              maxWidth: { xs: '100%', sm: '80%', md: 'auto' }
             }}>
               <IconButton
                 sx={{ 
@@ -316,12 +323,13 @@ function Navbar() {
               <Button 
                 sx={{ 
                   color: 'white',
-                  fontSize: { sm: '0.8rem', md: '1rem' },
+                  fontSize: { xs: '0.6rem', sm: '0.8rem', md: '1rem', lg: '1rem' },
                   fontFamily: 'Roboto, sans-serif',
                   border: `1px solid ${theme.palette.primary.main}`,
                   padding: { sm: '4px 8px', md: '6px 8px' },
                   minWidth: 'auto',
                   whiteSpace: 'nowrap',
+                  
                   '&:hover': {
                     backgroundColor: theme.palette.primary.main,
                     borderColor: 'white'

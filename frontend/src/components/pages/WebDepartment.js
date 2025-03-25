@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import StaggeredFadeIn from './StaggeredFadeIn';
+import StaggeredFadeIn from '../common/StaggeredFadeIn';
 import { Article, Image, Description, Assignment, 
 Compare, Inventory, ViewModule, Dashboard, Category } from '@mui/icons-material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -1400,15 +1400,15 @@ function WebDepartment() {
                         bottom: 24,    // Increased from 16 to 24 for better spacing
                         right: 24,     // Increased from 16 to 24 for better spacing
                         backgroundColor: '#4bac52',
-                        width: 48,     // Added explicit width
-                        height: 48,    // Added explicit height
+                        width: 58,     // Added explicit width
+                        height: 58,    // Added explicit height
                         '&:hover': {
                             backgroundColor: '#3d8a42'
                         }
                     }}
                     aria-label="scroll back to top"
                 >
-                    <KeyboardArrowUpIcon sx={{ fontSize: 28 }} />
+                    <KeyboardArrowUpIcon sx={{ fontSize: '2rem' }} />
                 </Fab>
             </Zoom>
         </Container>

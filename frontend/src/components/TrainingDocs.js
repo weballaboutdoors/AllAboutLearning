@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Typography, Grid, Card, CardContent, CardMedia, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import StaggeredFadeIn from './StaggeredFadeIn';
+import StaggeredFadeIn from './common/StaggeredFadeIn';
 
 function TrainingDocs() {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import  StaggeredFadeIn  from './StaggeredFadeIn';
+import  StaggeredFadeIn  from './common/StaggeredFadeIn';
 import BuildIcon from '@mui/icons-material/Build';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SettingsIcon from '@mui/icons-material/Settings';

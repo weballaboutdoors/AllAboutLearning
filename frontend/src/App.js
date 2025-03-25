@@ -1,25 +1,27 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container, CssBaseline, ThemeProvider, createTheme, Box } from '@mui/material';
-import Navbar from './components/Navbar';
-import DocumentList from './components/DocumentList';
-import Login from './components/Login';
-import Footer from './components/Footer';
-import DocumentDetail from './components/DocumentDetail';
-import CreateAccount from './components/CreateAccount';
+import Navbar from './components/layout/Navbar.js';
+import DocumentList from './components/documents/DocumentList.js';
+import Login from './components/auth/Login.js';
+import Footer from './components/layout/Footer.js';
+import DocumentDetail from './components/documents/DocumentDetail.js';
+import CreateAccount from './components/auth/CreateAccount.js';
 import { AuthProvider } from './context/AuthContext';
-import LandingPage from './components/LandingPage';
-import ProtectedRoute from './components/ProtectedRoute';  // Add this import
-import AdminDashboard from './components/AdminDashboard';
+import LandingPage from './components/pages/LandingPage.js';
+import ProtectedRoute from './components/auth/ProtectedRoute';  // Add this import
+import AdminDashboard from './components/admin/AdminDashboard.js';
 import TrainingDocs from './components/TrainingDocs';
-import Homepage from './components/Homepage.js';
+import Homepage from './components/pages/Homepage.js';
 import MultiPointLocks from './components/MultiPointLocks';
 import LockGuide from './components/LockGuide';
 import StormDoors from './components/StormDoors';
 import StormGuide from './components/StormGuide';
-import WebDepartment from './components/WebDepartment';
-import CustomerService from './components/CustomerService';
-import Shipping from './components/Shipping';
+import WebDepartment from './components/pages/WebDepartment.js';
+import CustomerService from './components/services/CustomerService.js';
+import Shipping from './components/services/Shipping.js';
+import { EditableContentProvider } from './context/EditableContentContext';
+import { GuideContentProvider } from './context/GuideContentContext';  // Add this import
 
 const theme = createTheme({
   palette: {
@@ -117,8 +119,10 @@ function App() {
   return (
     <Router basename="/AllAboutLearning">
       <AuthProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+        <EditableContentProvider>
+          <GuideContentProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
           <Box sx={{ 
             display: 'flex', 
             flexDirection: 'column', 
@@ -177,6 +181,8 @@ function App() {
             <Footer />
           </Box>
         </ThemeProvider>
+        </GuideContentProvider>
+        </EditableContentProvider>
       </AuthProvider>
     </Router>
   );

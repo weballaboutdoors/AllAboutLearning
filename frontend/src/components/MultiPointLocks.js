@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Grid, Card, CardContent, CardMedia, Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import StaggeredFadeIn from './StaggeredFadeIn';
+import StaggeredFadeIn from './common/StaggeredFadeIn';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
 
 
