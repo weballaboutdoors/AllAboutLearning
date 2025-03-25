@@ -269,7 +269,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             bulletPoints: [
               {
@@ -312,7 +312,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.2rem' }}
+                sx={{ fontSize: '1.1rem' }}
               />
             )),
             notes: <EditableText
@@ -328,7 +328,7 @@ function LockGuide() {
                 content: newContent,
                 section: "notes"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             images: [
               {
@@ -378,7 +378,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             bulletPoints: [
               {
@@ -416,7 +416,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.2rem' }}
+                sx={{ fontSize: '1.1rem' }}
               />
             )),
             images: [
@@ -467,7 +467,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             sections: [
               {
@@ -484,7 +484,7 @@ function LockGuide() {
                     content: newContent,
                     section: "subtitle-1"
                   })}
-                  sx={{ fontSize: '1.2rem' }}
+                  sx={{ fontSize: '1.1rem' }}
                 />,
                 points: [
                   {
@@ -517,7 +517,7 @@ function LockGuide() {
                       content: newContent,
                       section: `section1-point-${point.pointNumber}`
                     })}
-                    sx={{ fontSize: '1.2rem' }}
+                    sx={{ fontSize: '1.1rem' }}
                   />
                 ))
               },
@@ -535,7 +535,7 @@ function LockGuide() {
                     content: newContent,
                     section: "subtitle-2"
                   })}
-                  sx={{ fontSize: '1.2rem' }}
+                  sx={{ fontSize: '1.1rem' }}
                 />,
                 points: [
                   {
@@ -563,7 +563,55 @@ function LockGuide() {
                       content: newContent,
                       section: `section2-point-${point.pointNumber}`
                     })}
-                    sx={{ fontSize: '1.2rem' }}
+                    sx={{ fontSize: '1.1rem' }}
+                  />
+                ))
+              },
+              {
+                title: <EditableText 
+                  id="specs-section3-title" 
+                  defaultContent="Standard Specifications:"
+                  variant="h6"
+                  getContent={() => getContentFromDatabase({
+                    id: "specs-section3-title",
+                    section: "subtitle-3"
+                  })}
+                  onSave={(newContent) => saveContentToDatabase({
+                    id: "specs-section3-title",
+                    content: newContent,
+                    section: "subtitle-3"
+                  })}
+                  sx={{ fontSize: '1.1rem' }}
+                />,
+                points: [
+                  {
+                    id: "specs-section3-details",
+                    defaultContent: `The HLS7 is only available with the following specifications:
+        • 5/8" (16mm) faceplate
+        • 1-3/4" (45mm) backset
+        • 3-5/8" (92mm) handle to cylinder spacing (PZ)
+        • Egress, Panic Function (the action of going out or leaving)`,
+                    pointNumber: 1
+                  }
+                ].map((point) => (
+                  <EditableText 
+                    key={point.pointNumber}
+                    id={point.id}
+                    defaultContent={point.defaultContent}
+                    variant="body2"
+                    getContent={() => getContentFromDatabase({
+                      id: point.id,
+                      section: `section3-details`
+                    })}
+                    onSave={(newContent) => saveContentToDatabase({
+                      id: point.id,
+                      content: newContent,
+                      section: `section3-details`
+                    })}
+                    sx={{ 
+                      fontSize: '1.1rem',
+                      whiteSpace: 'pre-line'
+                    }}
                   />
                 ))
               }
@@ -633,7 +681,7 @@ function LockGuide() {
           content: {
             mainText: <EditableText
               id="door-handing-maintext"
-              defaultContent="Door handing is always determined from the exterior (outside) of the door."
+              defaultContent="Door handing is always determined from the outside or exterior of the door."
               variant="body1"
               getContent={() => getContentFromDatabase({
                 id: "door-handing-maintext",
@@ -644,7 +692,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             sections: [
               {
@@ -663,7 +711,7 @@ function LockGuide() {
                   })}
                   sx={{ 
                     mb: 1,
-                    fontSize: '1.2rem'
+                    fontSize: '1.1rem'
                   }}
                 />,
                 points: [
@@ -686,6 +734,16 @@ function LockGuide() {
                     id: "door-handing-point4",
                     defaultContent: "Spring latch can be pulled out to reverse handing",
                     pointNumber: 4
+                  },
+                  {
+                    id: "door-handing-point5",
+                    defaultContent: "T15 Torx Screws in 'A' position is RIGHT HAND (RH)",
+                    pointNumber: 5
+                  },
+                  {
+                    id: "door-handing-point6",
+                    defaultContent: "T15 Torx Screws in 'B' position is LEFT HAND (LH)",
+                    pointNumber: 6
                   }
                 ].map((point) => (
                   <EditableText 
@@ -702,7 +760,7 @@ function LockGuide() {
                       content: newContent,
                       section: `point-${point.pointNumber}`
                     })}
-                    sx={{ fontSize: '1.2rem' }}
+                    sx={{ fontSize: '1.1rem' }}
                   />
                 ))
               }
@@ -732,7 +790,7 @@ function LockGuide() {
                 content: newContent,
                 section: "notes"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />
           }
         },
@@ -776,7 +834,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             bulletPoints: [
               {
@@ -819,7 +877,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.2rem' }}
+                sx={{ fontSize: '1.1rem' }}
               />
             )),
             images: [
@@ -869,7 +927,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             bulletPoints: [
               {
@@ -913,7 +971,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.2rem' }}
+                sx={{ fontSize: '1.1rem' }}
               />
             )),
             images: [
@@ -969,7 +1027,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             bulletPoints: [
               {
@@ -1003,6 +1061,39 @@ function LockGuide() {
                 id: "operation-inside-unlock3",
                 defaultContent: "Optional: turn thumb latch, depress lever",
                 bulletNumber: 6
+              },
+              // Adding new sections
+              {
+                id: "operation-section3-title",
+                defaultContent: "To Lock door from Outside:",
+                bulletNumber: 7,
+                variant: "body1"
+              },
+              {
+                id: "operation-outside-lock1",
+                defaultContent: "Insert key and turn towards door jamb",
+                bulletNumber: 8
+              },
+              {
+                id: "operation-outside-lock2",
+                defaultContent: "Lift handle to engage additional locking devices",
+                bulletNumber: 9
+              },
+              {
+                id: "operation-section4-title",
+                defaultContent: "To Unlock door from Outside:",
+                bulletNumber: 10,
+                variant: "body1"
+              },
+              {
+                id: "operation-outside-unlock1",
+                defaultContent: "Insert key and turn toward hinges",
+                bulletNumber: 11
+              },
+              {
+                id: "operation-outside-unlock2",
+                defaultContent: "Depress lever to open door",
+                bulletNumber: 12
               }
             ].map((bullet) => (
               <EditableText 
@@ -1019,7 +1110,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.2rem' }}
+                sx={{ fontSize: '1.1rem' }}
               />
             )),
             images: [
@@ -1090,7 +1181,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />,
             bulletPoints: [
               {
@@ -1150,7 +1241,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.2rem' }}
+                sx={{ fontSize: '1.1rem' }}
               />
             )),
             images: [
@@ -1178,7 +1269,7 @@ function LockGuide() {
                 content: newContent,
                 section: "notes"
               })}
-              sx={{ fontSize: '1.2rem' }}
+              sx={{ fontSize: '1.1rem' }}
             />
           }
         },
@@ -1441,7 +1532,8 @@ function LockGuide() {
                                 })}
                               />
                             </Box>
-                            {subsection.title.props?.defaultContent?.includes("Door Handing Basics") ||  
+                            {subsection.title.props?.defaultContent?.includes("Door Handing Basics") || 
+                             subsection.title.props?.defaultContent?.includes("Standard Specifications:") ||
                              subsection.title.props?.defaultContent?.includes("3-Point Lock System - Choose From:") ||
                              subsection.title.props?.defaultContent?.includes("5-Point Lock System - Available in:") ? (
                               <Box 
@@ -1478,7 +1570,7 @@ function LockGuide() {
                     )}
   
                     {section.content.bulletPoints && (
-                      <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                      <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
                         {section.content.bulletPoints.map((point, idx) => (
                           <Box key={idx}>
                             <Box 
@@ -1500,12 +1592,14 @@ function LockGuide() {
                               point.props?.defaultContent?.includes("Euro Groove Parts Packs (Off-Center):") ||
                               point.props?.defaultContent?.includes("Locking from Inside:") ||
                               point.props?.defaultContent?.includes("Half-Moon Slot Positioning:") ||
+                              point.props?.defaultContent?.includes("To Lock door from Outside:") ||
+                              point.props?.defaultContent?.includes("To Unlock door from Outside:") ||
                               point.props?.defaultContent?.includes("If")) && (
                               <Box 
                                 sx={{ 
                                   borderBottom: `2px solid ${theme.palette.primary.main}`,
                                   width: '90%',
-                                  mt: 0.25,
+                                  mt: 0.5,
                                   mb: 1
                                 }} 
                               />

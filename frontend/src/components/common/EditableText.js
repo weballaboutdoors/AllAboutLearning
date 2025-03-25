@@ -21,51 +21,51 @@ const EditableText = ({ id, defaultContent, onSave, variant, sx = {}, getContent
 
   
   useEffect(() => {
-    const loadContent = async () => {
-      if (getContent && !contentRef.current) {
-        setIsLoading(true);
-        try {
-          const cacheKey = section ? `guide-content-${id}-${section}` : `guide-content-${id}`;
-          console.log('Checking cache for:', cacheKey);
-          const cachedData = sessionStorage.getItem(cacheKey);
-          
-          if (cachedData && cachedData !== 'undefined') {  // Add check for 'undefined'
-            try {
-              const parsed = JSON.parse(cachedData);
-              console.log('Found in cache:', id);
-              setContent(parsed);
-              setTempContent(parsed);
-              setError(null);
-              contentRef.current = true;
-              return;
-            } catch (parseError) {
-              console.log('Invalid cache data, removing:', cacheKey);
-              sessionStorage.removeItem(cacheKey);  // Clear invalid cache
-            }
-          }
-          
-          const savedContent = await getContent();
-          if (savedContent !== null) {
-            setContent(savedContent);
-            setTempContent(savedContent);
-            // Only cache valid content
-            if (savedContent !== undefined) {
-              sessionStorage.setItem(cacheKey, JSON.stringify(savedContent));
-            }
+  const loadContent = async () => {
+    if (getContent && !contentRef.current) {
+      setIsLoading(true);
+      try {
+        const cacheKey = section ? `guide-content-${id}-${section}` : `guide-content-${id}`;
+        console.log('Checking cache for:', cacheKey);
+        const cachedData = sessionStorage.getItem(cacheKey);
+        
+        if (cachedData && cachedData !== 'undefined') {  // Add check for 'undefined'
+          try {
+            const parsed = JSON.parse(cachedData);
+            console.log('Found in cache:', id);
+            setContent(parsed);
+            setTempContent(parsed);
             setError(null);
+            contentRef.current = true;
+            return;
+          } catch (parseError) {
+            console.log('Invalid cache data, removing:', cacheKey);
+            sessionStorage.removeItem(cacheKey);  // Clear invalid cache
           }
-          contentRef.current = true;
-        } catch (error) {
-          console.error('Error loading content:', error);
-          setError('Failed to load content');
-        } finally {
-          setIsLoading(false);
         }
+        
+        const savedContent = await getContent();
+        if (savedContent !== null) {
+          setContent(savedContent);
+          setTempContent(savedContent);
+          // Only cache valid content
+          if (savedContent !== undefined) {
+            sessionStorage.setItem(cacheKey, JSON.stringify(savedContent));
+          }
+          setError(null);
+        }
+        contentRef.current = true;
+      } catch (error) {
+        console.error('Error loading content:', error);
+        setError('Failed to load content');
+      } finally {
+        setIsLoading(false);
       }
-    };
-    
-    loadContent();
-  }, [getContent, id, section]);
+    }
+  };
+  
+  loadContent();
+}, [getContent, id, section]);
 
   const handleSave = async (newContent) => {
     setIsLoading(true);
@@ -133,7 +133,7 @@ const EditableText = ({ id, defaultContent, onSave, variant, sx = {}, getContent
         <Box sx={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          gap: 1,
+          gap: 0.5,  // Reduced from 1
           width: '100%'
         }}>
           <TextField
@@ -150,6 +150,10 @@ const EditableText = ({ id, defaultContent, onSave, variant, sx = {}, getContent
                   borderColor: theme.palette.primary.main,
                 },
               },
+              '& .MuiInputBase-input': {
+                p: '4px 8px',  // Added tighter padding
+                lineHeight: 'normal'
+              }
             }}
           />
           <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
@@ -188,14 +192,14 @@ const EditableText = ({ id, defaultContent, onSave, variant, sx = {}, getContent
         </Box>
       );
     }
-
+    
     // Admin default view
     return (
       <Box sx={{ 
         position: 'relative',
         display: 'flex',
-        alignItems: 'flex-start',
-        gap: 2,
+        alignItems: 'center',  // Changed from flex-start
+        gap: 0.5,  // Reduced from 2
         width: '100%',
         '& .edit-button': { 
           opacity: 0.6,
@@ -213,31 +217,28 @@ const EditableText = ({ id, defaultContent, onSave, variant, sx = {}, getContent
           sx={{
             ...sx,
             flex: 1,
-            minHeight: '1.5em',
-            p: 1,
+            minHeight: '1.2em',  // Reduced from 1.5em
+            p: 0.5,  // Reduced from 1
           }}
         >
           {content || defaultContent}
         </Typography>
-        <IconButton
+        <EditIcon 
           className="edit-button"
-          size="small"
+          fontSize="small"
           onClick={() => setIsEditing(true)}
           disabled={isLoading}
           sx={{
-            flexShrink: 0,
-            mt: 1,
+            cursor: 'pointer',
             color: theme.palette.primary.main,
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            boxShadow: 1,
+            opacity: 0.7,
+            fontSize: '1rem',
+            flexShrink: 0,
             '&:hover': {
-              backgroundColor: 'rgba(255, 255, 255, 1)',
-              boxShadow: 2,
+              opacity: 1
             }
           }}
-        >
-          <EditIcon fontSize="small" />
-        </IconButton>
+        />
       </Box>
     );
   };
