@@ -25,7 +25,7 @@ function LockGuide() {
   const API_URL = process.env.NODE_ENV === 'production' 
   ? process.env.REACT_APP_PROD_API_URL 
   : process.env.REACT_APP_API_URL;
-  
+
   const handleBackToTop = () => {
     window.scrollTo({
       top: 0,
@@ -269,7 +269,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             bulletPoints: [
               {
@@ -312,7 +312,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.1rem' }}
+                sx={{ fontSize: '1.2rem' }}
               />
             )),
             notes: <EditableText
@@ -328,7 +328,7 @@ function LockGuide() {
                 content: newContent,
                 section: "notes"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             images: [
               {
@@ -378,7 +378,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             bulletPoints: [
               {
@@ -416,7 +416,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.1rem' }}
+                sx={{ fontSize: '1.2rem' }}
               />
             )),
             images: [
@@ -467,7 +467,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             sections: [
               {
@@ -484,7 +484,7 @@ function LockGuide() {
                     content: newContent,
                     section: "subtitle-1"
                   })}
-                  sx={{ fontSize: '1.1rem' }}
+                  sx={{ fontSize: '1.2rem' }}
                 />,
                 points: [
                   {
@@ -517,7 +517,7 @@ function LockGuide() {
                       content: newContent,
                       section: `section1-point-${point.pointNumber}`
                     })}
-                    sx={{ fontSize: '1.1rem' }}
+                    sx={{ fontSize: '1.2rem' }}
                   />
                 ))
               },
@@ -535,7 +535,7 @@ function LockGuide() {
                     content: newContent,
                     section: "subtitle-2"
                   })}
-                  sx={{ fontSize: '1.1rem' }}
+                  sx={{ fontSize: '1.2rem' }}
                 />,
                 points: [
                   {
@@ -563,7 +563,7 @@ function LockGuide() {
                       content: newContent,
                       section: `section2-point-${point.pointNumber}`
                     })}
-                    sx={{ fontSize: '1.1rem' }}
+                    sx={{ fontSize: '1.2rem' }}
                   />
                 ))
               }
@@ -644,7 +644,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             sections: [
               {
@@ -662,8 +662,8 @@ function LockGuide() {
                     section: "subtitle"
                   })}
                   sx={{ 
-                    mb: 2,
-                    fontSize: '1.1rem'
+                    mb: 1,
+                    fontSize: '1.2rem'
                   }}
                 />,
                 points: [
@@ -702,7 +702,7 @@ function LockGuide() {
                       content: newContent,
                       section: `point-${point.pointNumber}`
                     })}
-                    sx={{ fontSize: '1.1rem' }}
+                    sx={{ fontSize: '1.2rem' }}
                   />
                 ))
               }
@@ -732,7 +732,7 @@ function LockGuide() {
                 content: newContent,
                 section: "notes"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />
           }
         },
@@ -776,7 +776,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             bulletPoints: [
               {
@@ -819,7 +819,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.1rem' }}
+                sx={{ fontSize: '1.2rem' }}
               />
             )),
             images: [
@@ -869,7 +869,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             bulletPoints: [
               {
@@ -913,7 +913,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.1rem' }}
+                sx={{ fontSize: '1.2rem' }}
               />
             )),
             images: [
@@ -969,7 +969,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             bulletPoints: [
               {
@@ -1019,7 +1019,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.1rem' }}
+                sx={{ fontSize: '1.2rem' }}
               />
             )),
             images: [
@@ -1047,7 +1047,7 @@ function LockGuide() {
                 content: newContent,
                 section: "notes"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />
           }
         },
@@ -1090,7 +1090,7 @@ function LockGuide() {
                 content: newContent,
                 section: "mainText"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />,
             bulletPoints: [
               {
@@ -1150,7 +1150,7 @@ function LockGuide() {
                   content: newContent,
                   section: `bullet-${bullet.bulletNumber}`
                 })}
-                sx={{ fontSize: '1.1rem' }}
+                sx={{ fontSize: '1.2rem' }}
               />
             )),
             images: [
@@ -1178,7 +1178,7 @@ function LockGuide() {
                 content: newContent,
                 section: "notes"
               })}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1.2rem' }}
             />
           }
         },
@@ -1398,7 +1398,7 @@ function LockGuide() {
               </Box>
             ) : (
               <Grid container spacing={4}>
-                <Grid item xs={12} md={7}>
+                <Grid item xs={12} md={6}>
                   <Box
                     sx={{
                       backgroundColor: 'white',
@@ -1517,7 +1517,7 @@ function LockGuide() {
                   </Box>
                 </Grid>
   
-                <Grid item xs={12} md={5}>
+                <Grid item xs={12} md={6}>
                   <Box
                     sx={{
                       display: 'flex',
