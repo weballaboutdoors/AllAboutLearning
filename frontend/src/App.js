@@ -22,6 +22,8 @@ import CustomerService from './components/services/CustomerService.js';
 import Shipping from './components/services/Shipping.js';
 import { EditableContentProvider } from './context/EditableContentContext';
 import { GuideContentProvider } from './context/GuideContentContext';  // Add this import
+import DoorBottoms from './components/DoorBottoms';
+import DoorBottomGuide from './components/DoorBottomGuide';
 
 const theme = createTheme({
   palette: {
@@ -138,6 +140,8 @@ function App() {
                 <Route path="/archives/multipoint-locks" element={<MultiPointLocks />} />
                 <Route path="/archives/storm-doors-and-windows" element={<StormDoors />} />
                 <Route path="/archives/storm-doors-and-windows/:guideId" element={<StormGuide />} />
+                <Route path="/archives/door-bottoms" element={<DoorBottoms />} />
+                <Route path="/archives/door-bottoms/door-bottoms-guide" element={<DoorBottomGuide />} />
                 <Route path="/landing" element={<LandingPage />} />
                 <Route path="/training" element={<TrainingDocs />} />
                 <Route path="/training/web" element={<WebDepartment />} />

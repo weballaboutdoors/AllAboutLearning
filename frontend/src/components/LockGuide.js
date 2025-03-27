@@ -215,7 +215,7 @@ function LockGuide() {
       />,
       subtitle: <EditableText
         id="hoppe-guide-subtitle"  // This ID matches what we see in the GET requests
-        defaultContent="HOPPE HLS7 Multi-Point Lock System - Technical Guide | Rory Snow | March 2025"
+        defaultContent="HOPPE HLS7 Multi-Point Lock System - Technical Guide | Rory Snow | March 11, 2025"
         variant="subtitle1"
         sx={{ color: 'black' }}
         getContent={() => getContentFromDatabase({
@@ -1636,15 +1636,7 @@ function LockGuide() {
                           display: 'flex',
                           flexDirection: 'column',
                           alignItems: 'center',
-                          overflow: 'hidden',
-                          position: 'relative',
-                          transition: 'transform 0.3s ease-in-out',
-                          '&:hover': {
-                            transform: 'scale(1.2)',
-                            zIndex: 999,
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-                          }
+                          
                         }}
                       >
                         <Card 
@@ -1652,9 +1644,19 @@ function LockGuide() {
                             width: '100%',
                             height: '100%',
                             maxHeight: '610px',
-                            backgroundColor: 'transparent',
+                            backgroundColor: 'white',
                             boxShadow: 'none',
                             position: 'relative',
+                            border: `1px solid ${theme.palette.primary.main}`,
+                            overflow: 'hidden',
+                            position: 'relative',
+                            transition: 'transform 0.3s ease-in-out',
+                            '&:hover': {
+                              transform: 'scale(1.2)',
+                              zIndex: 999,
+                              cursor: 'pointer',
+                              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                            }
                           }}
                         >
                           <CardMedia

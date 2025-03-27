@@ -112,9 +112,9 @@ function DocumentDetail() {
         }
       ]
     },
-    'sliding-hardware': {
-      title: 'Sliding Hardware',
-      description: 'Installation and maintenance of sliding door systems',
+    'door-bottoms': {
+      title: 'Door Bottoms & Sweeps',
+      description: 'Installation and maintenance of door bottoms and sweeps',
       resources: [
         { 
           title: 'Installation Guide', 

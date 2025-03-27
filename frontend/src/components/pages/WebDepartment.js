@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Container, Typography, Box, Grid, Card, CardContent, 
-  Button, Divider, Paper, List, ListItem, ListItemText, Zoom, IconButton, Tooltip
+  Button, Divider, Paper, List, ListItem, ListItemText, Zoom, IconButton, Tooltip, Accordion, AccordionSummary, AccordionDetails
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
@@ -12,11 +12,16 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useState, useEffect } from 'react';
 import { Fab } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { CheckCircle, ArrowDownward } from '@mui/icons-material';
+import { Collapse } from '@mui/material';
+import { ExpandMore, ExpandLess } from '@mui/icons-material';
+
 
 function WebDepartment() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [showScroll, setShowScroll] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
     // Add this useEffect for scroll detection
     useEffect(() => {
@@ -681,98 +686,199 @@ function WebDepartment() {
             pb: 2
           }}
         >
-          Web Department Training Manual
+          Web Department Training Guide
+        </Typography>
+        <Box sx={{ mb: 4 }}>
+    <Typography variant="body1" sx={{ 
+        fontSize: '1.1rem',
+        mb: 3,
+        maxWidth: '1100px',
+        fontFamily: 'Roboto, sans-serif',
+        lineHeight: 1.6
+    }}>
+        Welcome to the All About Doors & Windows Web Department Training Guide! This resource provides comprehensive information about managing our online presence, from product listings and images to category organization and system navigation. See our key principles below that guide our work and ensure customer satisfaction.
+    </Typography>
+
+    <Box sx={{
+        backgroundColor: 'rgba(75, 172, 82, 0.05)',  // Light green background
+        borderRadius: 2,
+        border: `1px solid ${theme.palette.primary.main}`,
+        p: 3,
+        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+        position: 'relative',
+        overflow: 'hidden'
+    }}>
+        {/* Optional decorative element */}
+        <Box sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '4px',
+            height: '100%',
+            backgroundColor: theme.palette.primary.main
+        }} />
+
+        <Typography variant="h6" sx={{ 
+            mb: 2,
+            fontFamily: 'Roboto, sans-serif',
+            color: theme.palette.primary.main,
+            fontWeight: 500
+        }}>
+            Our Key Principles
         </Typography>
 
-        {/* Table of Contents Card */}
-        <Card 
-          sx={{ 
-            mb: 6,
-            backgroundColor: 'background.paper',
-            border: `1px solid ${theme.palette.primary.main}`,
-            p: 3
-        }}
-        >
-        <Typography 
-            variant="h6" 
-            sx={{ 
-            color: theme.palette.primary.main,
-            mb: 4,
-            textAlign: 'center',
-            fontWeight: 600
-            }}
-        >
-            Table of Contents
-        </Typography>
-        <Grid container spacing={2}>
-            {sections.map((section, index) => (
-            <Grid item xs={12} sm={6} md={4} key={section.id}>
-                <Zoom in={true} style={{ transitionDelay: `${index * 100}ms` }}>
-                <Box
-                    component="a"
-                    href={`#${section.id}`}
-                    sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    p: 2,
-                    backgroundColor: 'background.paper',
-                    border: `1px solid ${theme.palette.primary.main}`,
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    textDecoration: 'none',
-                    height: '100%',
-                    '&:hover': {
-                        transform: 'translateY(-4px)',
-                        backgroundColor: 'rgba(75, 172, 82, 0.1)',
-                        boxShadow: 3,
-                        '& .icon': {
-                        transform: 'scale(1.2)',
-                        },
-                        '& .title': {
-                        color: theme.palette.primary.main,
-                        }
-                    }
-                    }}
-                >
-                    <Box
-                    className="icon"
-                    sx={{
-                        color: theme.palette.primary.main,
-                        mb: 2,
-                        fontSize: '2rem',
-                        transition: 'transform 0.3s ease',
-                        p: 1,
-                        borderRadius: '50%',
-                        backgroundColor: 'rgba(75, 172, 82, 0.1)',
+        <Box sx={{ pl: 1 }}>
+            <ul style={{ 
+                listStyle: 'none',
+                padding: 0,
+                margin: 0
+            }}>
+                {[
+                    { title: 'Product Clarity', desc: 'Providing detailed, accurate information so customers make confident purchasing decisions' },
+                    { title: 'Accuracy', desc: 'Maintaining precise product data and specifications to prevent ordering errors' },
+                    { title: 'Recommendations', desc: 'Suggesting complementary products to enhance customer solutions and increase sales' },
+                    { title: 'Timely Support', desc: 'Delivering fast, knowledgeable assistance to minimize customer wait times' },
+                    { title: 'Satisfaction', desc: 'Ensuring customer satisfaction leads to repeat business and referrals' }
+                ].map((item, index) => (
+                    <li key={index} style={{ 
+                        marginBottom: index === 4 ? 0 : '12px',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        width: 60,
-                        height: 60
+                        gap: '8px'
+                    }}>
+                        <CheckCircle sx={{ 
+                            color: theme.palette.primary.main,
+                            fontSize: '1.1rem'
+                        }} />
+                        <span>
+                            <strong>{item.title}</strong> - {item.desc}
+                        </span>
+                    </li>
+                ))}
+            </ul>
+        </Box>
+    </Box>
+</Box>
+            <Divider 
+                sx={{ 
+                    mb: 4,
+                    borderColor: theme.palette.primary.main,
+                    borderWidth: .5
+                }} 
+                />
+
+                <Card 
+                sx={{ 
+                    mb: 6,
+                    backgroundColor: 'black',
+                    border: `1px solid ${theme.palette.primary.main}`,
+                    p: 3
+                }}
+                >
+                <Box
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    mb: 2
                     }}
-                    >
-                    {sectionIcons[section.id]}
-                    </Box>
-                    <Typography
-                    className="title"
-                    sx={{
-                        color: 'white',
+                >
+                    <Typography 
+                    variant="h6" 
+                    sx={{ 
+                        color: theme.palette.primary.main,
                         textAlign: 'center',
-                        transition: 'color 0.3s ease',
-                        fontSize: '1rem',
-                        fontWeight: 500
+                        fontWeight: 600
                     }}
                     >
-                    {section.title}
+                    Table of Contents
                     </Typography>
+                    <Box sx={{ 
+                    position: 'absolute',
+                    right: 0,
+                    color: theme.palette.primary.main,
+                    transition: 'transform 0.3s ease'
+                    }}>
+                    {isExpanded ? <ExpandLess /> : <ExpandMore />}
+                    </Box>
                 </Box>
-                </Zoom>
-            </Grid>
-            ))}
-        </Grid>
-        </Card>
+
+                {/* Table of Contents Sections */}
+
+                <Collapse in={isExpanded}>
+                    <Grid container spacing={2}>
+                    {sections.map((section, index) => (
+                        <Grid item xs={12} sm={6} md={4} key={section.id}>
+                        <Zoom in={true} style={{ transitionDelay: `${index * 100}ms` }}>
+                            <Box
+                            component="a"
+                            href={`#${section.id}`}
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                p: 2,
+                                backgroundColor: 'background.paper',
+                                border: `1px solid ${theme.palette.primary.main}`,
+                                borderRadius: '12px',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                                textDecoration: 'none',
+                                height: '100%',
+                                '&:hover': {
+                                transform: 'translateY(-4px)',
+                                backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                                boxShadow: 3,
+                                '& .icon': {
+                                    transform: 'scale(1.2)',
+                                },
+                                '& .title': {
+                                    color: theme.palette.primary.main,
+                                }
+                                }
+                            }}
+                            >
+                            <Box
+                                className="icon"
+                                sx={{
+                                color: theme.palette.primary.main,
+                                mb: 2,
+                                fontSize: '2rem',
+                                transition: 'transform 0.3s ease',
+                                p: 1,
+                                borderRadius: '50%',
+                                backgroundColor: 'rgba(75, 172, 82, 0.1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: 60,
+                                height: 60
+                                }}
+                            >
+                                {sectionIcons[section.id]}
+                            </Box>
+                            <Typography
+                                className="title"
+                                sx={{
+                                color: 'white',
+                                textAlign: 'center',
+                                transition: 'color 0.3s ease',
+                                fontSize: '1rem',
+                                fontWeight: 500
+                                }}
+                            >
+                                {section.title}
+                            </Typography>
+                            </Box>
+                        </Zoom>
+                        </Grid>
+                    ))}
+                    </Grid>
+                </Collapse>
+                </Card>
 
         {/* Content Sections */}
         {sections.map((section) => (
@@ -838,7 +944,7 @@ function WebDepartment() {
                         sx={{ 
                             p: 2,
                             border: `1px solid ${theme.palette.primary.main}`,
-                            backgroundColor: 'background.paper',
+                            backgroundColor: '#faf9f6',
                             position: 'relative',
                             
                         }}
@@ -924,7 +1030,7 @@ function WebDepartment() {
                                           cursor: 'pointer',
                                           transition: 'transform 0.3s ease-in-out', // Transition for the whole box
                                           '&:hover': {
-                                            transform: 'scale(1.5)', // Entire box zooms to 102%
+                                            transform: 'scale(1.2)', // Entire box zooms to 102%
                                             boxShadow: '0 4px 20px rgba(0,0,0,0.1)', // Optional: adds shadow on hover
                                           }
                                         }}
@@ -990,7 +1096,7 @@ function WebDepartment() {
                                           cursor: 'pointer',
                                           transition: 'transform 0.3s ease-in-out', // Transition for the whole box
                                           '&:hover': {
-                                            transform: 'scale(1.5)', // Entire box zooms to 102%
+                                            transform: 'scale(1.2)', // Entire box zooms to 102%
                                             boxShadow: '0 4px 20px rgba(0,0,0,0.1)', // Optional: adds shadow on hover
                                           }
                                         }}
@@ -1066,6 +1172,8 @@ function WebDepartment() {
                             style={{ 
                                 width: '100%',
                                 height: '100%',
+                                border: `2px solid ${theme.palette.primary.main}`,
+                                borderRadius: '6px',
                                 objectFit: 'contain',
                                 padding: '16px',
                                 transition: 'transform 0.3s ease-in-out'
@@ -1268,8 +1376,8 @@ function WebDepartment() {
                                           display: 'flex',
                                           justifyContent: 'center',
                                           alignItems: 'center',
-                                          border: `1px solid ${theme.palette.primary.main}`,
-                                          borderRadius: '2px',
+                                          border: `2px solid ${theme.palette.primary.main}`,
+                                          borderRadius: '6px',
                                           overflow: 'hidden',
                                           backgroundColor: '#fff',
                                           cursor: 'pointer',
@@ -1305,7 +1413,7 @@ function WebDepartment() {
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     border: `1px solid ${theme.palette.primary.main}`,
-                                    borderRadius: '4px',
+                                    borderRadius: '5px',
                                     overflow: 'hidden',
                                     backgroundColor: '#f5f5f5',
                                     '&:hover': {
