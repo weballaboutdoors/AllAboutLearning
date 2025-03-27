@@ -255,7 +255,7 @@ function DoorBottomGuide() {
                   image: {  // Changed from images array to single image object
                     src: "/AllAboutLearning/images/general-info-section2.png",  // Updated path to match your structure
                     alt: "Door Bottom Overview",
-                    caption: "Common Door Bottom Profiles"
+                    
                   }
                 }
               ]
@@ -278,7 +278,7 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
-                      defaultContent: "Slide-On Door Bottoms",
+                      
                       id: "slide-on-title"
                     }
                   },
@@ -324,7 +324,6 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
-                      defaultContent: "Snap-In Door Bottoms",
                       id: "snap-in-title"
                     }
                   },
@@ -363,7 +362,7 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
-                      defaultContent: "Wrap-Around Door Bottoms",
+                      
                       id: "wrap-around-title"
                     }
                   },
@@ -423,7 +422,6 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
-                      defaultContent: "L-Shape Door Bottoms",
                       id: "l-shape-title"
                     }
                   },
@@ -462,7 +460,6 @@ function DoorBottomGuide() {
                     title: {
                       props: {
                         variant: "h6",
-                        defaultContent: "Staple-On Door Bottoms",
                         id: "staple-on-title"
                       }
                     },
@@ -579,8 +576,7 @@ function DoorBottomGuide() {
                   ],
                   image: {  // Added image at the subsection level to match structure
                     src: "/AllAboutLearning/images/peachtree-bottom.png",
-                    alt: "Peachtree Door Bottom",
-                    caption: "Peachtree Door Bottom Components"
+                    alt: "Peachtree Door Bottom"
                   }
                 }
               ]
@@ -632,21 +628,18 @@ function DoorBottomGuide() {
                   ],
                   image: {  // Side image that appears next to text
                     src: "/AllAboutLearning/images/sweeps-neoprene.png",
-                    alt: "Door Sweep Types Overview",
-                    caption: "Neoprene Door Sweep"
+                    alt: "Door Sweep Types Overview"
                   }
                 }
               ],
               images: [  // Bottom images in grid
                 {
                   src: "/AllAboutLearning/images/sweep2.png",
-                  alt: "Door Sweep Types",
-                  caption: "Different Types of Door Sweeps"
+                  alt: "Door Sweep Types"
                 },
                 {
                   src: "/AllAboutLearning/images/sweep.png",  // Make sure this image exists
-                  alt: "Door Sweep Types",
-                  caption: "Different Types of Door Sweeps"
+                  alt: "Door Sweep Types"
                 }
               ],
               notes: {
@@ -704,8 +697,7 @@ function DoorBottomGuide() {
                   ],
                   image: {  // Move the image here to appear next to text
                     src: "/AllAboutLearning/images/thresholds.png",
-                    alt: "Thresholds and Sills",
-                    caption: "Common Threshold Types"
+                    alt: "Thresholds and Sills"
                   }
                 }
               ],

@@ -44,6 +44,13 @@ function DocumentList() {
       image: '/AllAboutLearning/images/multipointlock.jpg'
     },
     { 
+      id: 'door-bottoms', 
+      name: 'Door Bottoms & Sweeps', 
+      type: 'presentation', 
+      description: 'Installation and maintenance of door bottoms and sweeps',
+      image: '/AllAboutLearning/images/door-bottoms.png'
+    },
+    { 
       id: 'storm-doors-and-windows', 
       name: 'Storm Doors & Windows', 
       type: 'pdf', 
@@ -57,13 +64,7 @@ function DocumentList() {
       description: 'Specifications and installation guides for various hinge types',
       image: '/AllAboutLearning/images/hinge.jpg'
     },
-    { 
-      id: 'door-bottoms', 
-      name: 'Door Bottoms & Sweeps', 
-      type: 'presentation', 
-      description: 'Installation and maintenance of door bottoms and sweeps',
-      image: '/AllAboutLearning/images/door-bottoms.png'
-    },
+    
     /*
     { 
       id: 'sliding-hardware', 
