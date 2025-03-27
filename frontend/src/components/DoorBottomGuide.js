@@ -278,7 +278,7 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
-                      
+                      defaultContent: "Slide-On Door Bottoms",
                       id: "slide-on-title"
                     }
                   },
@@ -324,6 +324,7 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
+                      defaultContent: "Snap-In Door Bottoms",
                       id: "snap-in-title"
                     }
                   },
@@ -362,7 +363,7 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
-                      
+                      defaultContent: "Wrap-Around Door Bottoms",
                       id: "wrap-around-title"
                     }
                   },
@@ -422,6 +423,7 @@ function DoorBottomGuide() {
                   title: {
                     props: {
                       variant: "h6",
+                      defaultContent: "L-Shape Door Bottoms",
                       id: "l-shape-title"
                     }
                   },
@@ -460,6 +462,7 @@ function DoorBottomGuide() {
                     title: {
                       props: {
                         variant: "h6",
+                        defaultContent: "Staple-On Door Bottoms",
                         id: "staple-on-title"
                       }
                     },
@@ -530,6 +533,51 @@ function DoorBottomGuide() {
                 ]
               }
             },
+            {
+                id: "pocket-bottoms",
+                icon: <BuildIcon sx={{ fontSize: '2rem', color: theme.palette.primary.main, mr: 2 }} />,
+                title: {
+                  props: {
+                    variant: "h5",
+                    sx: { fontWeight: 500 },
+                    defaultContent: "Pocket Door Bottoms",
+                    id: "pocket-title"
+                  }
+                },
+                content: {
+                  sections: [
+                    {
+                      title: {
+                        props: {
+                          variant: "h6",
+                          defaultContent: "Pocket Type Door Bottoms:",
+                          id: "pocket-bottom-title"
+                        }
+                      },
+                      points: [
+                        {
+                          props: {
+                            variant: "body1",
+                            defaultContent: "Requires removing the door from the frame",
+                            id: "pocket-point-1"
+                          }
+                        },
+                        {
+                          props: {
+                            variant: "body1",
+                            defaultContent: "This type of door bottom is generally found on Commercial steel doors",
+                            id: "pocket-point-2"
+                          }
+                        }
+                      ],
+                      image: {
+                        src: "/AllAboutLearning/images/pocket-bottom.png",
+                        alt: "Pocket Door Bottom"
+                      }
+                    }
+                  ]
+                }
+              },
           {
             id: "peachtree-bottoms",
             icon: <BuildIcon sx={{ fontSize: '2rem', color: theme.palette.primary.main, mr: 2 }} />,
@@ -872,7 +920,7 @@ function DoorBottomGuide() {
                         <Paper 
                         elevation={1}
                         sx={{ 
-                            p: 3, 
+                            p: 2, 
                             height: '100%',
                             
                             backgroundColor: 'white',
@@ -895,25 +943,29 @@ function DoorBottomGuide() {
                                 alt={subsection.image ? subsection.image.alt : subsection.title.props.defaultContent}
                                 sx={{ 
                                     objectFit: 'contain',
+                                    mt: 1,
+                                    
+                                    
                                     width: '100%',
                                     height: '100%',
-                                    maxHeight: '400px',
+                                    maxHeight: '660px',
                                     backgroundColor: 'white',
                                     border: `1px solid ${theme.palette.primary.main}`,
                                     borderRadius: 2,
                                     maxWidth: '800px',
                                     '&:hover': {
-                                    transform: 'scale(1.2)',
+                                    transform: 'scale(1.3)',
                                     transition: 'transform 0.3s ease-in-out',
                                     cursor: 'pointer',
-                                    backgroundColor: 'white'
+                                    backgroundColor: 'white',
+                                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
                                     }
                                 }}
                                 />
                                 <Typography
                                 variant="caption"
                                 sx={{ 
-                                    mt: 2,
+                                    mt: 1,
                                     textAlign: 'center',
                                     color: theme.palette.text.secondary,
                                     backgroundColor: 'white'
