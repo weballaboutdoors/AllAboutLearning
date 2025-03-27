@@ -572,6 +572,7 @@ function DoorBottomGuide() {
                       ],
                       image: {
                         src: "/AllAboutLearning/images/pocket-bottom.png",
+                        caption: "Pocket Door Bottom Components",
                         alt: "Pocket Door Bottom"
                       }
                     }
@@ -624,6 +625,7 @@ function DoorBottomGuide() {
                   ],
                   image: {  // Added image at the subsection level to match structure
                     src: "/AllAboutLearning/images/peachtree-bottom.png",
+                    caption: "Peachtree Door Bottom Components",
                     alt: "Peachtree Door Bottom"
                   }
                 }
@@ -676,6 +678,7 @@ function DoorBottomGuide() {
                   ],
                   image: {  // Side image that appears next to text
                     src: "/AllAboutLearning/images/sweeps-neoprene.png",
+                    caption: "Neoprene Door Sweep",
                     alt: "Door Sweep Types Overview"
                   }
                 }
@@ -683,10 +686,12 @@ function DoorBottomGuide() {
               images: [  // Bottom images in grid
                 {
                   src: "/AllAboutLearning/images/sweep2.png",
+                  caption: "Drop-Down Door Sweep",
                   alt: "Door Sweep Types"
                 },
                 {
                   src: "/AllAboutLearning/images/sweep.png",  // Make sure this image exists
+                  caption: "Automatic Drop-Down Door Sweep",
                   alt: "Door Sweep Types"
                 }
               ],
@@ -745,6 +750,7 @@ function DoorBottomGuide() {
                   ],
                   image: {  // Move the image here to appear next to text
                     src: "/AllAboutLearning/images/thresholds.png",
+                    caption: "Thresholds and Sills",
                     alt: "Thresholds and Sills"
                   }
                 }
