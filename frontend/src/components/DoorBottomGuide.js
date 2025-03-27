@@ -502,34 +502,42 @@ function DoorBottomGuide() {
                         {
                           props: {
                             variant: "body1",
-                            defaultContent: "1. Remove the Hinge Pins from the Door. Lay door on its edge. Be careful not to position the door where it can fall or become scratched.",
+                            defaultContent: "1. Remove door from hinges and lay on edge in a secure position to prevent damage.",
                             id: "staple-on-install-1"
                           }
                         },
                         {
                           props: {
                             variant: "body1",
-                            defaultContent: "2. Cut to length as needed. Position onto bottom of door. Note: The staple-on door bottom may seal better if a small spot of adhesive or caulk is applied to the bottom of the door before installing. Use just enough to touch both surfaces.",
+                            defaultContent: "2. Cut door bottom to length and position. Optional: Apply small amount of adhesive to improve seal.",
                             id: "staple-on-install-2"
                           }
                         },
                         {
                           props: {
                             variant: "body1",
-                            defaultContent: "3. Staple from the center and work your way to both ends. This will reduce the likely hood of ripples in the door bottom when applied. It is also best if the staples are staggered to both the inside and outside of the door sweep.",
+                            defaultContent: "3. Install staples starting from center outward, staggering them on inside and outside edges to prevent ripples.",
                             id: "staple-on-install-3"
                           }
                         },
                         {
-                          props: {
-                            variant: "body1",
-                            defaultContent: "4. Re-install door. Note: If replacing door by yourself, be careful not to hurt yourself. Some wood doors are very heavy. The use of shims under the door may help with alignment when connecting hinges.",
-                            id: "staple-on-install-4"
+                            props: {
+                              variant: "body1",
+                              defaultContent: "4. Re-install door.",
+                              id: "staple-on-install-4"
+                            }
                           }
+                        ]
+                      },
+                      notes: {
+                        props: {
+                          variant: "body1",
+                          defaultContent: "If replacing door by yourself, be careful. Some doors are very heavy. Use shims under the door to help with alignment when connecting hinges.",
+                          id: "staple-on-install-note"
                         }
-                      ]
+                      }
                     }
-                  }
+                  
                 ]
               }
             },
@@ -849,7 +857,7 @@ function DoorBottomGuide() {
                 </Box>
     
                 {section.content.sections?.map((subsection, subIndex) => (
-                    <Box key={`subsection-${subIndex}`} sx={{ mb: 4 }}>
+                    <Box key={`subsection-${subIndex}`} sx={{ mb: 2 }}>
                         {/* Title with EditableText */}
                         {subsection.title && (
                         <Typography
@@ -983,6 +991,37 @@ function DoorBottomGuide() {
                         </Paper>
                     </Grid>
                     </Grid>
+                    {/* Section Note - Outside Grid container */}
+                    {subsection.notes && (
+                            <Box 
+                                sx={{ 
+                                    backgroundColor: '#fff9f0',
+                                    borderLeft: '4px solid #ffc107',
+                                    p: 1.5,
+                                    width: '100%',
+                                    mt: 2,
+                                    
+                                    minHeight: '50px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    fontStyle: 'italic'
+                                }}
+                            >
+                                <EditableText 
+                                    {...subsection.notes.props}
+                                    onSave={(newContent) => saveContentToDatabase({
+                                        id: subsection.notes.props.id,
+                                        content: newContent,
+                                        section: `section-${section.id}-subsection-${subIndex}-note`
+                                    })}
+                                    loadContent={() => getContentFromDatabase({
+                                        id: subsection.notes.props.id,
+                                        section: `section-${section.id}-subsection-${subIndex}-note`
+                                    })}
+                                />
+                            </Box>
+                        )}
+                    
                 </Box>
                 ))}
                 {section.content.points?.map((point, pointIndex) => (
@@ -1078,7 +1117,7 @@ function DoorBottomGuide() {
                       borderLeft: '4px solid #ffc107',
                       p: 1.5,
                       width: '100%',
-                      mt: 3,
+                      mt: 2,
                       minHeight: '50px',
                       display: 'flex',
                       alignItems: 'center',

@@ -332,7 +332,7 @@ function LockGuide() {
             />,
             images: [
               {
-                src: '/AllAboutLearning/images/general-information.png',
+                src: '/AllAboutLearning/images/multipointlock2.png',
                 alt: 'Hoppe HLS7 MPL',
                 caption: 'Hoppe HLS7 MPL'
               }
@@ -421,7 +421,7 @@ function LockGuide() {
             )),
             images: [
               {
-                src: '/AllAboutLearning/images/lock-system-components.png',
+                src: '/AllAboutLearning/images/lock-system-components-2.png',
                 alt: 'Multi-point lock components',
                 caption: 'Lock Components'
               }
@@ -882,7 +882,7 @@ function LockGuide() {
             )),
             images: [
               {
-                src: '/AllAboutLearning/images/panic-function.png',
+                src: '/AllAboutLearning/images/panic-function-2.png',
                 alt: 'Panic function mechanism and installation diagram'
               }
             ]
