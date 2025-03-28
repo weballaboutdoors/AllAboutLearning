@@ -1040,8 +1040,22 @@ function AdminDashboard() {
 
 
       {/* Create User Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
+      <Dialog 
+        open={openDialog} 
+        onClose={() => setOpenDialog(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: '#f1f8e9',
+            border: `1px solid ${theme.palette.primary.main}`,
+          }
+        }}
+      >
+        <DialogTitle sx={{ 
+          fontFamily: 'Roboto, sans-serif', 
+          color: theme.palette.primary.main,  // Changed from white to green
+          borderBottom: `2px solid ${theme.palette.primary.main}`,
+          mb: 2
+        }}>
           Create New Employee Account
         </DialogTitle>
         <DialogContent>
@@ -1053,7 +1067,24 @@ function AdminDashboard() {
             fullWidth
             value={userForm.email}
             onChange={(e) => setUserForm({ ...userForm, email: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',
+              },
+            }}
           />
+          {/* Apply the same styling to other TextFields */}
           <TextField
             margin="dense"
             label="Password"
@@ -1061,6 +1092,22 @@ function AdminDashboard() {
             fullWidth
             value={userForm.password}
             onChange={(e) => setUserForm({ ...userForm, password: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#f1f8e9',
+              },
+            }}
           />
           <TextField
             margin="dense"
@@ -1068,6 +1115,22 @@ function AdminDashboard() {
             fullWidth
             value={userForm.firstName}
             onChange={(e) => setUserForm({ ...userForm, firstName: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',
+              },
+            }}
           />
           <TextField
             margin="dense"
@@ -1075,39 +1138,69 @@ function AdminDashboard() {
             fullWidth
             value={userForm.lastName}
             onChange={(e) => setUserForm({ ...userForm, lastName: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',
+              },
+            }}
           />
         </DialogContent>
         <DialogActions>
-              <Button 
-                onClick={() => setOpenDialog(false)}
-                sx={{ 
-                  color: theme.palette.primary.main,  // Changed to green
-                  '&:hover': {
-                    backgroundColor: 'rgba(75, 172, 82, 0.1)'  // Light green background
-                  }
-                }}
-              >
-                Cancel
-              </Button>
-              <Button 
-                onClick={handleCreateUser}
-                sx={{
-                  backgroundColor: theme.palette.primary.main,  // Changed to green
-                  color: 'white',
-                  '&:hover': {
-                    backgroundColor: theme.palette.primary.dark  // Darker green
-                  }
-                }}
-              >
-                Create
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <Button 
+            onClick={() => setOpenDialog(false)}
+            sx={{ 
+              color: theme.palette.primary.main,
+              '&:hover': {
+                backgroundColor: 'rgba(75, 172, 82, 0.1)'
+              }
+            }}
+          >
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleCreateUser}
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              color: 'white',
+              '&:hover': {
+                backgroundColor: theme.palette.primary.dark
+              }
+            }}
+          >
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
 
 
       {/* Edit User Dialog */}
-      <Dialog open={editDialog} onClose={() => setEditDialog(false)}>
-        <DialogTitle sx={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
+      <Dialog 
+        open={editDialog} 
+        onClose={() => setEditDialog(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: '#f1f8e9',
+            border: `1px solid ${theme.palette.primary.main}`,
+          }
+        }}
+      >
+        <DialogTitle sx={{ 
+          fontFamily: 'Roboto, sans-serif', 
+          color: theme.palette.primary.main,
+          borderBottom: `2px solid ${theme.palette.primary.main}`,
+          mb: 2
+        }}>
           Edit Employee Account
         </DialogTitle>
         <DialogContent>
@@ -1119,6 +1212,22 @@ function AdminDashboard() {
             fullWidth
             value={editForm.email}
             onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',
+              },
+            }}
           />
           <TextField
             margin="dense"
@@ -1126,6 +1235,22 @@ function AdminDashboard() {
             fullWidth
             value={editForm.firstName}
             onChange={(e) => setEditForm({ ...editForm, firstName: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',
+              },
+            }}
           />
           <TextField
             margin="dense"
@@ -1133,6 +1258,22 @@ function AdminDashboard() {
             fullWidth
             value={editForm.lastName}
             onChange={(e) => setEditForm({ ...editForm, lastName: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',
+              },
+            }}
           />
           <TextField
             margin="dense"
@@ -1141,11 +1282,48 @@ function AdminDashboard() {
             fullWidth
             value={editForm.password}
             onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: theme.palette.primary.main,
+                },
+                '&:hover fieldset': {
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.palette.primary.main,
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',
+              },
+            }}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditDialog(false)}>Cancel</Button>
-          <Button onClick={handleUpdateUser}>Save Changes</Button>
+          <Button 
+            onClick={() => setEditDialog(false)}
+            sx={{ 
+              color: theme.palette.primary.main,
+              '&:hover': {
+                backgroundColor: 'rgba(75, 172, 82, 0.1)'
+              }
+            }}
+          >
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleUpdateUser}
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              color: 'white',
+              '&:hover': {
+                backgroundColor: theme.palette.primary.dark
+              }
+            }}
+          >
+            Save Changes
+          </Button>
         </DialogActions>
       </Dialog>
 

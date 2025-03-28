@@ -111,7 +111,7 @@ function CreateAccount() {
 
   const textFieldStyle = {
     '& .MuiOutlinedInput-root': {
-      backgroundColor: 'rgba(75, 172, 82, 0.05)',
+      backgroundColor: 'white',
       '& fieldset': {
         borderColor: 'primary.main',
       },
@@ -153,7 +153,7 @@ function CreateAccount() {
             p: 4,
             width: '100%',
             borderRadius: 2,
-            backgroundColor: 'background.paper',
+            backgroundColor: 'white',
             border: '1px solid',
             borderColor: 'primary.main',
           }}
@@ -164,10 +164,10 @@ function CreateAccount() {
             align="center"
             sx={{ 
               mb: 3,
-              color: 'white',
+              color: '#4bac52',
               fontWeight: 600,
               borderBottom: '2px solid',
-              borderColor: 'primary.main',
+              borderColor: '#4bac52',
               pb: 2
             }}
           >
