@@ -24,20 +24,7 @@ function DoorBottomGuide() {
       ? process.env.REACT_APP_PROD_API_URL 
       : process.env.REACT_APP_API_URL;
   
-    // Add scroll trigger
-    const trigger = useScrollTrigger({
-      threshold: 100,
-      disableHysteresis: true
-    });
-  
-    const handleBackToTop = () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    };
-  
-    // Add content loading functions
+    // Add these functions from LockGuide
     const loadAllGuideContent = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -87,37 +74,45 @@ function DoorBottomGuide() {
         }
     
         const cacheKey = `guide-content-${id}-${section}`;
+        console.log('Fetching content for:', { id, section, cacheKey });
+    
         const cachedData = sessionStorage.getItem(cacheKey);
         if (cachedData && cachedData !== 'undefined') {
           try {
             const parsed = JSON.parse(cachedData);
-            if (parsed && parsed.data) return parsed.data;
-            if (parsed) return parsed;
+            if (parsed && parsed.data) {
+              return parsed.data;
+            }
+            if (parsed) {
+              return parsed;
+            }
           } catch (parseError) {
             sessionStorage.removeItem(cacheKey);
           }
         }
     
-        const response = await fetch(
-          `${API_URL}/api/guide-content/${encodeURIComponent(id)}/${encodeURIComponent(section)}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            }
+        const url = `${API_URL}/api/guide-content/${encodeURIComponent(id)}/${encodeURIComponent(section)}`;
+        
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           }
-        );
+        });
     
         const data = await response.json();
+    
         if (!response.ok) {
           throw new Error(data.detail || 'Failed to fetch content');
         }
     
         if (data.content) {
-          sessionStorage.setItem(cacheKey, JSON.stringify({
+          const cacheData = {
             data: data.content,
             timestamp: Date.now()
-          }));
+          };
+          sessionStorage.setItem(cacheKey, JSON.stringify(cacheData));
           return data.content;
         }
         return null;
@@ -142,7 +137,7 @@ function DoorBottomGuide() {
             id,
             content,
             section,
-            guide_type: 'door-bottoms'  // Changed from 'hls7' to 'door-bottoms'
+            guide_type: 'door_bottoms'  // Changed from 'hls7' to 'door_bottoms'
           })
         });
   
@@ -165,7 +160,6 @@ function DoorBottomGuide() {
       }
     };
   
-    // Helper functions
     const isCacheExpired = (timestamp) => {
       const CACHE_DURATION = 1800000; // 30 minutes
       return Date.now() - timestamp > CACHE_DURATION;
@@ -174,6 +168,19 @@ function DoorBottomGuide() {
     const clearContentCache = () => {
       sessionStorage.removeItem(`guide-content-${guideId}`);
     };
+
+    // Add scroll trigger
+    const trigger = useScrollTrigger({
+        threshold: 100,
+        disableHysteresis: true
+      });
+    
+      const handleBackToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      };
 
   const guideContent = {
     'door-bottoms-guide': {
@@ -871,16 +878,16 @@ function DoorBottomGuide() {
                             }}
                         >
                             <EditableText
-                            {...subsection.title.props}
-                            onSave={(newContent) => saveContentToDatabase({
-                                id: subsection.title.props.id,
-                                content: newContent,
-                                section: `section-${section.id}-subsection-${subIndex}-title`
-                            })}
-                            loadContent={() => getContentFromDatabase({
-                                id: subsection.title.props.id,
-                                section: `section-${section.id}-subsection-${subIndex}-title`
-                            })}
+                                {...subsection.title.props}
+                                onSave={(newContent) => saveContentToDatabase({
+                                    id: subsection.title.props.id,
+                                    content: newContent,
+                                    section: `section-${section.id}-subsection-${subIndex}-title`
+                                })}
+                                getContent={() => getContentFromDatabase({  // Changed from loadContent to getContent
+                                    id: subsection.title.props.id,
+                                    section: `section-${section.id}-subsection-${subIndex}-title`
+                                })}
                             />
                         </Typography>
                         )}
@@ -894,20 +901,20 @@ function DoorBottomGuide() {
                                 <EditableText
                                     {...point.props}
                                     sx={{
-                                        fontSize: '1.1rem',  // Increase regular text size
-                                        lineHeight: 1.6,     // Adjust line height for better readability
+                                        fontSize: '1.1rem',
+                                        lineHeight: 1.6,
                                         '& .MuiTypography-root': {
-                                          fontSize: '1.2rem'  // Ensure Typography inside EditableText is also larger
+                                          fontSize: '1.2rem'
                                         }
-                                      }}
+                                    }}
                                     onSave={(newContent) => saveContentToDatabase({
-                                    id: point.props.id,
-                                    content: newContent,
-                                    section: `section-${section.id}-subsection-${subIndex}-point-${pointIndex}`
+                                        id: point.props.id,
+                                        content: newContent,
+                                        section: `section-${section.id}-subsection-${subIndex}-point-${pointIndex}`
                                     })}
-                                    loadContent={() => getContentFromDatabase({
-                                    id: point.props.id,
-                                    section: `section-${section.id}-subsection-${subIndex}-point-${pointIndex}`
+                                    getContent={() => getContentFromDatabase({  // Changed from loadContent to getContent
+                                        id: point.props.id,
+                                        section: `section-${section.id}-subsection-${subIndex}-point-${pointIndex}`
                                     })}
                                 />
                                 </Box>
