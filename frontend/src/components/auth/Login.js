@@ -106,7 +106,7 @@ function Login() {
 
   return (
     <Container maxWidth="sm">
-      <Box
+            <Box
         sx={{
           marginTop: 8,
           display: 'flex',
@@ -120,7 +120,8 @@ function Login() {
             p: 4,
             width: '100%',
             borderRadius: 2,
-            backgroundColor: 'background.paper'  // Make sure background is consistent
+            backgroundColor: '#f1f8e9',  // Changed to white
+            border: `1px solid ${theme.palette.primary.main}`,  // Added green border
           }}
         >
           <Typography 
@@ -128,10 +129,12 @@ function Login() {
             variant="h4" 
             align="center"
             sx={{ 
-              mb: 4,  // Increased margin bottom
-              color: 'white',  // Changed to black
+              mb: 3,
+              color: theme.palette.primary.main,  // Changed to green
               fontWeight: 600,
-              fontFamily: 'Roboto, sans-serif'
+              fontFamily: 'Roboto, sans-serif',
+              borderBottom: `2px solid ${theme.palette.primary.main}`,  // Added border bottom
+              pb: 2
             }}
           >
             Sign In
@@ -154,21 +157,19 @@ function Login() {
             sx={{ 
               mb: 2,
               '& .MuiInputLabel-root': {
-                color: theme.palette.primary.main,  // Green color for label
-                transform: 'none',  // Prevents floating
-                position: 'relative',  // Makes label stay in place
-                fontSize: '1rem'
+                color: theme.palette.primary.main,
               },
               '& .MuiOutlinedInput-root': {
-                mt: 1,  // Adds space between label and input
-                backgroundColor: 'white',
                 '& fieldset': {
                   borderColor: theme.palette.primary.main,
                 },
                 '&:hover fieldset': {
-                  borderColor: theme.palette.primary.dark,
-                }
-              }
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',  // Added black text color
+              },
             }}
           />
 
@@ -192,6 +193,7 @@ function Login() {
                     aria-label="toggle password visibility"
                     onClick={() => setShowPassword(!showPassword)}
                     edge="end"
+                    sx={{ color: theme.palette.primary.main }}  // Added green color to icon
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
@@ -201,21 +203,19 @@ function Login() {
             sx={{ 
               mb: 3,
               '& .MuiInputLabel-root': {
-                color: theme.palette.primary.main,  // Green color for label
-                transform: 'none',  // Prevents floating
-                position: 'relative',  // Makes label stay in place
-                fontSize: '1rem'
+                color: theme.palette.primary.main,
               },
               '& .MuiOutlinedInput-root': {
-                mt: 1,  // Adds space between label and input
-                backgroundColor: 'white',
                 '& fieldset': {
                   borderColor: theme.palette.primary.main,
                 },
                 '&:hover fieldset': {
-                  borderColor: theme.palette.primary.dark,
-                }
-              }
+                  borderColor: theme.palette.primary.light,
+                },
+              },
+              '& .MuiOutlinedInput-input': {
+                color: '#000000',  // Added black text color
+              },
             }}
           />
   
@@ -235,10 +235,10 @@ function Login() {
                 py: 1.5,
                 fontSize: '1.1rem',
                 fontWeight: 500,
-                backgroundColor: theme.palette.primary.main,  // Green background
+                backgroundColor: theme.palette.primary.main,
                 color: 'white',
                 '&:hover': {
-                  backgroundColor: theme.palette.primary.dark,  // Darker green on hover
+                  backgroundColor: theme.palette.primary.dark,
                 }
               }}
             >
@@ -249,10 +249,9 @@ function Login() {
               fullWidth
               onClick={() => navigate('/create-account')}
               sx={{
-                color: theme.palette.primary.main,  // Green text
+                color: theme.palette.primary.main,
                 '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: theme.palette.primary.dark,  // Darker green on hover
+                  backgroundColor: 'rgba(75, 172, 82, 0.1)',  // Added light green hover
                 }
               }}
             >
