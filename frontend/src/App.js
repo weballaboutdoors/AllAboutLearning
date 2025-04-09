@@ -24,6 +24,7 @@ import { EditableContentProvider } from './context/EditableContentContext';
 import { GuideContentProvider } from './context/GuideContentContext';  // Add this import
 import DoorBottoms from './components/DoorBottoms';
 import DoorBottomGuide from './components/DoorBottomGuide';
+import NewPartsEstimate from './components/training/NewPartsEstimate.js';
 
 const theme = createTheme({
   palette: {
@@ -147,7 +148,7 @@ function App() {
                 <Route path="/training/web" element={<WebDepartment />} />
                 <Route path="/training/customer-service" element={<CustomerService />} />
                 <Route path="/training/shipping" element={<Shipping />} />
-                
+                <Route path="/training/new-parts-estimate" element={<NewPartsEstimate />} />                
                               <Route 
                   path="/" 
                   element={

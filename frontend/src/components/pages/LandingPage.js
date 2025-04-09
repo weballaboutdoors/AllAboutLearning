@@ -31,11 +31,11 @@ function LandingPage() {
         }}
       >
         <Paper
-          elevation={0}
+          elevation={3}
           sx={{
             p: isMobile ? 3 : 6,
             backgroundColor: 'transparent',
-            border: '3px double black',
+            border: `3px double ${theme.palette.primary.main}`,
             maxWidth: isMobile ? '100%' : 800,
             margin: isMobile ? 2 : 'auto',
             width: isMobile ? '90%' : 'auto'

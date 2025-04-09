@@ -241,7 +241,7 @@ function Navbar() {
                       }
                     }}
                   >
-                    Training & SOPs
+                    Training & SOP's
                   </MenuItem>
                 )}
     
@@ -357,7 +357,7 @@ function Navbar() {
                   }}
                   onClick={() => navigate('/training')}
                 >
-                  Training & SOPs
+                  Training & SOP's
                 </Button>
               )}
           

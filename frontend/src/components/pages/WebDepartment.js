@@ -671,7 +671,7 @@ function WebDepartment() {
           '&:hover': { backgroundColor: 'rgba(75, 172, 82, 0.1)' }
         }}
       >
-        ← Back to Departments
+        ← Back to Training & SOP's
       </Button>
 
       {/* Header */}

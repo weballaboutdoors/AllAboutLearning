@@ -24,13 +24,19 @@ function TrainingDocs() {
       path: '/training/customer-service'
     },
     {
+      id: 'new-parts-estimate',
+      title: 'New Parts Estimate',
+      description: 'Inventory management, receiving procedures, and warehouse operations training.',
+      image: '/AllAboutLearning/images/new-parts-estimate.jpg',
+      path: '/training/new-parts-estimate'
+    },
+    {
       id: 'shipping',
       title: 'Shipping',
       description: 'Shipping procedures, packaging guidelines, and logistics training materials.',
       image: '/AllAboutLearning/images/shipping-training.png',
       path: '/training/shipping'
     },
-    /*
     {
       id: 'receiving',
       title: 'Receiving',
@@ -38,7 +44,6 @@ function TrainingDocs() {
       image: '/AllAboutLearning/images/receiving-training.png',
       path: '/training/receiving'
     }
-    */
   ];
 
   return (

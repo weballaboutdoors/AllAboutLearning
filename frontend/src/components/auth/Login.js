@@ -245,18 +245,7 @@ function Login() {
               Sign In
             </Button>
   
-            <Button
-              fullWidth
-              onClick={() => navigate('/create-account')}
-              sx={{
-                color: theme.palette.primary.main,
-                '&:hover': {
-                  backgroundColor: 'rgba(75, 172, 82, 0.1)',  // Added light green hover
-                }
-              }}
-            >
-              Don't have an account? Create one
-            </Button>
+            
           </form>
         </Paper>
       </Box>

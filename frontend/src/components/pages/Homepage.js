@@ -17,7 +17,6 @@ import { useAuth } from '../../context/AuthContext';
 import StaggeredFadeIn from '../common/StaggeredFadeIn';
 import { useTheme } from '@mui/material/styles';
 
-
 function Homepage() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -96,7 +95,7 @@ function Homepage() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, }}>
       <StaggeredFadeIn delay={0}>
         <Box sx={{ mb: 4 }}>
           <Typography 
