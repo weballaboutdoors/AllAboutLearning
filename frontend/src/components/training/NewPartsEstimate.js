@@ -15,6 +15,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import InfoIcon from '@mui/icons-material/Info';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import GraphicEqIcon from '@mui/icons-material/GraphicEq'; 
 
 function NewPartsEstimate() {
     const theme = useTheme();
@@ -58,7 +59,7 @@ function NewPartsEstimate() {
   Creating estimates in NetSuite is crucial for effective business operations:
   
   • Accurate estimates help in budgeting and forecasting
-  • They enhance customer relationships by providing clear expectations
+  • Builds customer trust through clear expectations
   • Estimates are the foundation of successful sales processes
   • Essential for streamlined business operations`,
           imagePath: '/AllAboutLearning/images/netsuite-overview-3.png',
@@ -106,13 +107,13 @@ function NewPartsEstimate() {
   • Title
 
   Vendor Description Guidelines:
-• Enter the exact item name as shown on vendor's PO
-• Include vendor-provided specifications:
-  - Weight
-  - Shipping codes
-  - Technical specifications
-• Keep personal notes in Communication tab only
-• Use only for vendor-specific information`,
+  • Enter the exact item name as shown on vendor's PO
+  • Include vendor-provided specifications:
+    - Weight
+    - Shipping codes
+    - Technical specifications
+  • Keep personal notes in Communication tab only
+  • Use only for vendor-specific information`,
           imagePath: '/AllAboutLearning/images/creating-estimate-1.png',
           imagePath2: '/AllAboutLearning/images/creating-estimates-3.png',
           imageAlt: 'Estimate Creation Process',
@@ -139,49 +140,49 @@ function NewPartsEstimate() {
   • Set appropriate shipping method
   
   Important Note:
-• You can Save the estimate at this point
-• DO NOT use Save/Email yet
-• Wait to email customer until estimate is complete`,
-          imagePath: '/AllAboutLearning/images/add-to-estimate.png',
-          imageAlt: 'Add to Estimate',
-          imageAlt2: 'Item Details Form'
-      },
-      files: {
-          title: 'Files & Tasks',
-          content: `File Management:
-  
-  Adding Files to Estimates:
-  • Navigate to Communication tab > Files > New File
-  • Each file name must be unique to avoid overwriting
-  • Store all relevant documents within the estimate:
-    - Pictures
-    - PDFs
-    - Vendor documentation
-    - Customer correspondence
-  • Keeping all information in one place helps others complete their tasks
-  • Avoid extremely large file sizes
-  • Ensure comprehensive documentation
+  • You can Save the estimate at this point
+  • DO NOT use Save/Email yet
+  • Wait to email customer until estimate is complete`,
+            imagePath: '/AllAboutLearning/images/add-to-estimate.png',
+            imageAlt: 'Add to Estimate',
+            imageAlt2: 'Item Details Form'
+        },
+        files: {
+            title: 'Files & Tasks',
+            content: `File Management:
+    
+    Adding Files to Estimates:
+    • Navigate to Communication tab > Files > New File
+    • Each file name must be unique to avoid overwriting
+    • Store all relevant documents within the estimate:
+      - Pictures
+      - PDFs
+      - Vendor documentation
+      - Customer correspondence
+    • Centralized files improve team efficiency
+    • Avoid extremely large file sizes
+    • Ensure comprehensive documentation
 
-  How to Add Files:
-  1. Select "Add File" button
-  2. Choose your file:
-   - Browse your computer OR
-   - Drag & drop file
-  3. Verify file name is unique
-  4. Click "Save"
+    How to Add Files:
+    1. Select "Add File" button
+    2. Choose your file:
+    - Browse your computer OR
+    - Drag & drop file
+    3. Verify file name is unique
+    4. Click "Save"
 
-Pro Tip: Rename files on your computer before uploading for better organization
+  Pro Tip: Rename files on your computer before uploading for better organization
 
-Remember: Repeat these steps for each file that needs to be attached to the estimate.
+  Remember: Repeat these steps for each file that needs to be attached to the estimate.
 
-  Task Creation Process:
-  • Go to Communication > Activities > New Task
-  • Set appropriate Title (e.g., "Estimate 25539")
-  • Assign to next responsible person
-  • Include clear instructions in Message
-  • Set Priority and Due Date
-  • Update Status appropriately
-  • Check "Notify Assignee By Email"`,
+    Task Creation Process:
+    • Go to Communication > Activities > New Task
+    • Set appropriate Title (e.g., "Estimate 25539")
+    • Assign to next responsible person
+    • Include clear instructions in Message
+    • Set Priority and Due Date
+    • Update Status appropriately
+    • Check "Notify Assignee By Email"`,
           imagePath: '/AllAboutLearning/images/add-files.png',
           imagePath2: '/AllAboutLearning/images/add-files-2.png',
           imagePath3: '/AllAboutLearning/images/create-tasks-1.png',
@@ -196,70 +197,70 @@ Remember: Repeat these steps for each file that needs to be attached to the esti
           content: `Messaging Options:
   
   Message Box (Not Available in New Estimate Form):
-• Standard message typing and sending
-• Commonly used by Customer Service
-• Basic email functionality
-• Includes estimate attachment
+  • Standard message typing and sending
+  • Commonly used by Customer Service
+  • Basic email functionality
+  • Includes estimate attachment
 
-Email Templates (Recommended Method):
-• Currently available: "New Part Estimate Transaction Email Temp"
-• Benefits:
-  - Reduces errors
-  - Maintains consistency
-  - Professional appearance
-  - Automated information filling
-  - Read receipt tracking
-  - Multiple recipient options (CC/BCC)
+  Email Templates (Recommended Method):
+  • "New Part Estimate Transaction Email Temp"
+  • Benefits:
+    - Reduces errors
+    - Maintains consistency
+    - Professional appearance
+    - Automated information filling
+    - Read receipt tracking
+    - Multiple recipient options (CC/BCC)
 
-Using Email Templates:
-1. Go to Communication > Messages > Email
-2. Recipients Section:
-   • Customer email auto-populates
-   • Add additional email addresses if needed
-   • Use CC/BCC options as required
+  Using Email Templates:
+  1. Go to Communication > Messages > Email
+  2. Recipients Section:
+    • Customer email auto-populates
+    • Add additional email addresses if needed
+    • Use CC/BCC options as required
 
-3. Message Tab:
-   • Select "New Part Estimate Transaction Email Temp"
-   • Do not modify \${...} fields (auto-fill markers)
-   • Check "Request Read Receipt" box
+  3. Message Tab:
+    • Select "New Part Estimate Transaction Email Temp"
+    • Do not modify \${...} fields (auto-fill markers)
+    • Check "Request Read Receipt" box
 
-4. Attachments Tab:
-   • "Include transaction" automatically checked
-   • Choose Type:
-     - Default: HTML format (browser viewable)
-     - PDF: Attached document format
+  4. Attachments Tab:
+    • "Include transaction" automatically checked
+    • Choose Type:
+      - Default: HTML format (browser viewable)
+      - PDF: Attached document format
 
-Important Notes:
-• Verify all information before using Merge & Send
-• For customer portal access:
-  - Edit > Communications > Messages
-  - Check "available in customer center"
-• Email settings:
-  - Initially turned off for review
-  - Enable when ready to send
-  - Use Save/Email when complete
+  Important Notes:
+  • Verify all information before using Merge & Send
+  • For customer portal access:
+    - Edit > Communications > Messages
+    - Check "available in customer center"
+  • Email settings:
+    - Initially turned off for review
+    - Enable when ready to send
+    - Use Save/Email when complete
 
-Read Receipt Benefits:
-• Tracks when customers open emails
-• Helps identify follow-up needs
-• Provides insights for:
-  - Forgotten quotes
-  - Pricing concerns
-  - Customer engagement
+  Read Receipt Benefits:
+  • Tracks when customers open emails
+  • Helps identify follow-up needs
+  • Provides insights for:
+    - Forgotten quotes
+    - Pricing concerns
+    - Customer engagement
 
-Template Customization:
-• Templates can be modified if needed
-• Submit revision requests to supervisor
-• Additional templates can be created`,
-          imagePath: '/AllAboutLearning/images/message-customer-4.png',
-          imagePath2: '/AllAboutLearning/images/message-customer-3.png',
-          imagePath3: '/AllAboutLearning/images/message-customer-5.png',
-          imagePath4: '/AllAboutLearning/images/message-customer.png',
-          imageAlt: 'Messaging Interface',
-          imageAlt2: 'Email Templates',
-          imageAlt3: 'Message Customer',
-          imageAlt4: 'Message Customer 2'
-      }
+  Template Customization:
+  • Templates can be modified if needed
+  • Submit revision requests to supervisor
+  • Additional templates can be created`,
+            imagePath: '/AllAboutLearning/images/message-customer-4.png',
+            imagePath2: '/AllAboutLearning/images/message-customer-3.png',
+            imagePath3: '/AllAboutLearning/images/message-customer-5.png',
+            imagePath4: '/AllAboutLearning/images/message-customer.png',
+            imageAlt: 'Messaging Interface',
+            imageAlt2: 'Email Templates',
+            imageAlt3: 'Message Customer',
+            imageAlt4: 'Message Customer 2'
+        }
   };
 
     return (
@@ -278,18 +279,49 @@ Template Customization:
 
             {/* Header */}
             <StaggeredFadeIn delay={0}>
-                <Typography 
-                    variant="h4" 
-                    sx={{ 
-                        mb: 4,
-                        color: 'black',
-                        fontFamily: 'Roboto, sans-serif',
-                        borderBottom: `3px solid ${theme.palette.primary.main}`,
-                        pb: 2
-                    }}
-                >
-                    New Parts Estimate Training
-                </Typography>
+                <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'flex-end', 
+                    justifyContent: 'space-between',
+                    borderBottom: `3px solid ${theme.palette.primary.main}`,
+                    pb: 2,
+                    mb: 4
+                }}>
+                    <Typography 
+                        variant="h4" 
+                        sx={{ 
+                            color: 'black',
+                            fontFamily: 'Roboto, sans-serif',
+                        }}
+                    >
+                        New Parts Estimate Training
+                    </Typography>
+                    
+                    <Box sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(75, 172, 82, 0.05)',
+                        border: `1px solid ${theme.palette.primary.main}`,
+                        borderRadius: 1,
+                        p: 1,
+                        maxWidth: '270px',
+                        mb: .5
+                    }}>
+                        <GraphicEqIcon sx={{ 
+                            color: 'black',
+                            mr: 1,
+                            fontSize: '1.2rem'
+                        }} />
+                        <audio
+                            controls
+                            style={{ height: '20px' }}
+                        >
+                            <source src="/AllAboutLearning/audio/new-parts-estimate.wav" type="audio/wav" />
+                            Your browser does not support the audio element.
+                        </audio>
+                    </Box>
+                </Box>
+                
 
                 {/* Introduction Box */}
                 <Box sx={{ mb: 4 }}>
@@ -363,8 +395,8 @@ Template Customization:
                     </Box>
                 </Box>
 
-                                {/* Table of Contents */}
-                                <Card sx={{ 
+                  {/* Table of Contents */}
+                  <Card sx={{ 
                     mb: 6,
                     backgroundColor: 'black',
                     border: `1px solid ${theme.palette.primary.main}`,
@@ -628,7 +660,9 @@ Template Customization:
                                     )}
                                 </Grid>
                             </Grid>
-                        </Grid>{(sectionContent[section.id].imagePath3 || sectionContent[section.id].imagePath4) && (
+                        </Grid>
+                        
+                        {(sectionContent[section.id].imagePath3 || sectionContent[section.id].imagePath4) && (
                             <Grid container spacing={4} sx={{ mt: 0 }}>
                                 {/* Third Image */}
                                 {sectionContent[section.id].imagePath3 && (
