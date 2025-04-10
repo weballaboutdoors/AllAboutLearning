@@ -22,8 +22,7 @@ function NewPartsEstimate() {
     const navigate = useNavigate();
     const [isExpanded, setIsExpanded] = useState(false);
     const [showScroll, setShowScroll] = useState(false);
-
-    
+    const [zoomedImages, setZoomedImages] = useState({});    
 
     const checkScrollTop = () => {
       if (!showScroll && window.pageYOffset > 400) {
@@ -104,7 +103,16 @@ function NewPartsEstimate() {
   • Vendor Min. Order Quantity
   • Approx Lead Time
   • Sales Rep
-  • Title`,
+  • Title
+
+  Vendor Description Guidelines:
+• Enter the exact item name as shown on vendor's PO
+• Include vendor-provided specifications:
+  - Weight
+  - Shipping codes
+  - Technical specifications
+• Keep personal notes in Communication tab only
+• Use only for vendor-specific information`,
           imagePath: '/AllAboutLearning/images/creating-estimate-1.png',
           imagePath2: '/AllAboutLearning/images/creating-estimates-3.png',
           imageAlt: 'Estimate Creation Process',
@@ -128,7 +136,12 @@ function NewPartsEstimate() {
   • Ensure description is clear and accurate
   • Add any special handling instructions
   • Include relevant part numbers
-  • Set appropriate shipping method`,
+  • Set appropriate shipping method
+  
+  Important Note:
+• You can Save the estimate at this point
+• DO NOT use Save/Email yet
+• Wait to email customer until estimate is complete`,
           imagePath: '/AllAboutLearning/images/add-to-estimate.png',
           imageAlt: 'Add to Estimate',
           imageAlt2: 'Item Details Form'
@@ -139,11 +152,28 @@ function NewPartsEstimate() {
   
   Adding Files to Estimates:
   • Navigate to Communication tab > Files > New File
-  • Use unique file names
-  • Store relevant pictures, PDFs, and documents
-  • Avoid large file sizes
+  • Each file name must be unique to avoid overwriting
+  • Store all relevant documents within the estimate:
+    - Pictures
+    - PDFs
+    - Vendor documentation
+    - Customer correspondence
+  • Keeping all information in one place helps others complete their tasks
+  • Avoid extremely large file sizes
   • Ensure comprehensive documentation
-  
+
+  How to Add Files:
+  1. Select "Add File" button
+  2. Choose your file:
+   - Browse your computer OR
+   - Drag & drop file
+  3. Verify file name is unique
+  4. Click "Save"
+
+Pro Tip: Rename files on your computer before uploading for better organization
+
+Remember: Repeat these steps for each file that needs to be attached to the estimate.
+
   Task Creation Process:
   • Go to Communication > Activities > New Task
   • Set appropriate Title (e.g., "Estimate 25539")
@@ -165,27 +195,66 @@ function NewPartsEstimate() {
           title: 'Customer Communication',
           content: `Messaging Options:
   
-  Direct Message Box:
-  • Standard message typing and sending
-  • Commonly used by Customer Service
-  • Includes estimate attachment
-  
-  Email Templates:
-  • "New Part Estimate Transaction Email Temp"
-  • Automated information filling
-  • Read receipt tracking
-  • Professional consistency
-  • Multiple recipient options (CC/BCC)
-  
-  Important Notes:
-  • Check "available in customer center" for portal access
-  • Verify all information before sending
-  • Use appropriate template type (HTML/PDF)
-  • Always review before final send`,
-          imagePath: '/AllAboutLearning/images/message-customer.png',
-          imagePath2: '/AllAboutLearning/images/message-customer-2.png',
-          imagePath3: '/AllAboutLearning/images/message-customer-3.png',
-          imagePath4: '/AllAboutLearning/images/message-customer-4.png',
+  Message Box (Not Available in New Estimate Form):
+• Standard message typing and sending
+• Commonly used by Customer Service
+• Basic email functionality
+• Includes estimate attachment
+
+Email Templates (Recommended Method):
+• Currently available: "New Part Estimate Transaction Email Temp"
+• Benefits:
+  - Reduces errors
+  - Maintains consistency
+  - Professional appearance
+  - Automated information filling
+  - Read receipt tracking
+  - Multiple recipient options (CC/BCC)
+
+Using Email Templates:
+1. Go to Communication > Messages > Email
+2. Recipients Section:
+   • Customer email auto-populates
+   • Add additional email addresses if needed
+   • Use CC/BCC options as required
+
+3. Message Tab:
+   • Select "New Part Estimate Transaction Email Temp"
+   • Do not modify \${...} fields (auto-fill markers)
+   • Check "Request Read Receipt" box
+
+4. Attachments Tab:
+   • "Include transaction" automatically checked
+   • Choose Type:
+     - Default: HTML format (browser viewable)
+     - PDF: Attached document format
+
+Important Notes:
+• Verify all information before using Merge & Send
+• For customer portal access:
+  - Edit > Communications > Messages
+  - Check "available in customer center"
+• Email settings:
+  - Initially turned off for review
+  - Enable when ready to send
+  - Use Save/Email when complete
+
+Read Receipt Benefits:
+• Tracks when customers open emails
+• Helps identify follow-up needs
+• Provides insights for:
+  - Forgotten quotes
+  - Pricing concerns
+  - Customer engagement
+
+Template Customization:
+• Templates can be modified if needed
+• Submit revision requests to supervisor
+• Additional templates can be created`,
+          imagePath: '/AllAboutLearning/images/message-customer-4.png',
+          imagePath2: '/AllAboutLearning/images/message-customer-3.png',
+          imagePath3: '/AllAboutLearning/images/message-customer-5.png',
+          imagePath4: '/AllAboutLearning/images/message-customer.png',
           imageAlt: 'Messaging Interface',
           imageAlt2: 'Email Templates',
           imageAlt3: 'Message Customer',
@@ -231,7 +300,7 @@ function NewPartsEstimate() {
                         fontFamily: 'Roboto, sans-serif',
                         lineHeight: 1.6
                     }}>
-                        Welcome to the New Parts Estimate training guide. This comprehensive resource covers inventory management, receiving procedures, and warehouse operations.
+                                                Welcome to the New Parts Estimate training guide. Creating accurate estimates in NetSuite is crucial for our business operations and customer relationships. This comprehensive resource covers inventory management, receiving procedures, and warehouse operations. Well-crafted estimates not only help in budgeting and forecasting but also provide clear expectations for our customers. As these estimates form the foundation of our sales process, let's explore how to create them efficiently and accurately!
                     </Typography>
 
                     {/* Key Principles Box */}
@@ -409,8 +478,8 @@ function NewPartsEstimate() {
                     </Collapse>
                 </Card>
 
-                                                               {/* Content Sections */}
-                                                               {sections.map((section) => (
+                  {/* Content Sections */}
+                  {sections.map((section) => (
                     <Box key={section.id} id={section.id} sx={{ mb: 6 }}>
                         <Divider 
                             sx={{ 
@@ -457,7 +526,7 @@ function NewPartsEstimate() {
                                     <Typography 
                                         sx={{ 
                                             color: 'black', 
-                                            lineHeight: 2,
+                                            lineHeight: 1.9,
                                             whiteSpace: 'pre-line',
                                             fontSize: '1.1rem',
                                             fontFamily: 'Roboto, sans-serif'
@@ -483,6 +552,7 @@ function NewPartsEstimate() {
                                             }}
                                         >
                                             <Box
+                                                onClick={() => setZoomedImages(prev => ({...prev, [`${section.id}-1`]: !prev[`${section.id}-1`]}))}
                                                 sx={{
                                                     height: sectionContent[section.id].imagePath2 ? '320px' : '500px',
                                                     display: 'flex',
@@ -492,12 +562,10 @@ function NewPartsEstimate() {
                                                     borderRadius: '5px',
                                                     backgroundColor: 'white',
                                                     position: 'relative',
-                                                    zIndex: 1,
-                                                    transition: 'transform 0.3s ease-in-out',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.75)',
-                                                        zIndex: 999
-                                                    }
+                                                    zIndex: zoomedImages[`${section.id}-1`] ? 9999 : 1,
+                                                    transition: 'all 0.3s ease-in-out',
+                                                    transform: zoomedImages[`${section.id}-1`] ? 'scale(1.75)' : 'scale(1)',
+                                                    cursor: zoomedImages[`${section.id}-1`] ? 'zoom-out' : 'zoom-in'
                                                 }}
                                             >
                                                 <img
@@ -507,8 +575,7 @@ function NewPartsEstimate() {
                                                         maxWidth: '100%',
                                                         maxHeight: '100%',
                                                         objectFit: 'contain',
-                                                        
-                                                        cursor: 'pointer'
+                                                        cursor: 'inherit'
                                                     }}
                                                 />
                                             </Box>
@@ -528,6 +595,7 @@ function NewPartsEstimate() {
                                                 }}
                                             >
                                                   <Box
+                                                    onClick={() => setZoomedImages(prev => ({...prev, [`${section.id}-2`]: !prev[`${section.id}-2`]}))}
                                                     sx={{
                                                         height: '320px',
                                                         display: 'flex',
@@ -537,12 +605,10 @@ function NewPartsEstimate() {
                                                         borderRadius: '4px',
                                                         backgroundColor: 'white',
                                                         position: 'relative',
-                                                        zIndex: 1,
-                                                        transition: 'transform 0.3s ease-in-out',
-                                                        '&:hover': {
-                                                            transform: 'scale(1.5)',
-                                                            zIndex: 999
-                                                        }
+                                                        zIndex: zoomedImages[`${section.id}-2`] ? 9999 : 1,
+                                                        transition: 'all 0.3s ease-in-out',
+                                                        transform: zoomedImages[`${section.id}-2`] ? 'scale(1.75)' : 'scale(1)',
+                                                        cursor: zoomedImages[`${section.id}-2`] ? 'zoom-out' : 'zoom-in'
                                                     }}
                                                 >
                                                     <img
@@ -552,7 +618,7 @@ function NewPartsEstimate() {
                                                             maxWidth: '100%',
                                                             maxHeight: '100%',
                                                             objectFit: 'contain',
-                                                            cursor: 'pointer'
+                                                            cursor: 'inherit'
                                                         }}
                                                     />
                                                 </Box>
@@ -577,6 +643,7 @@ function NewPartsEstimate() {
                                             }}
                                         >
                                             <Box
+                                                onClick={() => setZoomedImages(prev => ({...prev, [`${section.id}-3`]: !prev[`${section.id}-3`]}))}
                                                 sx={{
                                                     height: '320px',
                                                     display: 'flex',
@@ -586,12 +653,10 @@ function NewPartsEstimate() {
                                                     borderRadius: '4px',
                                                     backgroundColor: 'white',
                                                     position: 'relative',
-                                                    zIndex: 1,
-                                                    transition: 'transform 0.3s ease-in-out',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.75)',
-                                                        zIndex: 999
-                                                    }
+                                                    zIndex: zoomedImages[`${section.id}-3`] ? 9999 : 1,
+                                                    transition: 'all 0.3s ease-in-out',
+                                                    transform: zoomedImages[`${section.id}-3`] ? 'scale(1.75)' : 'scale(1)',
+                                                    cursor: zoomedImages[`${section.id}-3`] ? 'zoom-out' : 'zoom-in'
                                                 }}
                                             >
                                                 <img
@@ -601,7 +666,7 @@ function NewPartsEstimate() {
                                                         maxWidth: '100%',
                                                         maxHeight: '100%',
                                                         objectFit: 'contain',
-                                                        cursor: 'pointer'
+                                                        cursor: 'inherit'
                                                     }}
                                                 />
                                             </Box>
@@ -622,6 +687,7 @@ function NewPartsEstimate() {
                                             }}
                                         >
                                             <Box
+                                                onClick={() => setZoomedImages(prev => ({...prev, [`${section.id}-4`]: !prev[`${section.id}-4`]}))}
                                                 sx={{
                                                     height: '320px',
                                                     display: 'flex',
@@ -631,12 +697,10 @@ function NewPartsEstimate() {
                                                     borderRadius: '4px',
                                                     backgroundColor: 'white',
                                                     position: 'relative',
-                                                    zIndex: 1,
-                                                    transition: 'transform 0.3s ease-in-out',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.75)',
-                                                        zIndex: 999
-                                                    }
+                                                    zIndex: zoomedImages[`${section.id}-4`] ? 9999 : 1,
+                                                    transition: 'all 0.3s ease-in-out',
+                                                    transform: zoomedImages[`${section.id}-4`] ? 'scale(1.75)' : 'scale(1)',
+                                                    cursor: zoomedImages[`${section.id}-4`] ? 'zoom-out' : 'zoom-in'
                                                 }}
                                             >
                                                 <img
@@ -646,7 +710,7 @@ function NewPartsEstimate() {
                                                         maxWidth: '100%',
                                                         maxHeight: '100%',
                                                         objectFit: 'contain',
-                                                        cursor: 'pointer'
+                                                        cursor: 'inherit'
                                                     }}
                                                 />
                                             </Box>
@@ -657,7 +721,20 @@ function NewPartsEstimate() {
                         )}
                     </Box>
                 ))}
-                </StaggeredFadeIn>
+                <Typography 
+                    variant="caption" 
+                    sx={{ 
+                        mt: 4,
+                        pt: 2,
+                        borderTop: `1px solid ${theme.palette.divider}`,
+                        textAlign: 'center',
+                        display: 'block',
+                        color: 'text.secondary'
+                    }}
+                >
+                    New Parts Estimate process and training documentation created by Ben Kissinger
+                </Typography>
+            </StaggeredFadeIn>
 
                 {/* Back to Top Button */}
                 <Zoom in={showScroll}>
