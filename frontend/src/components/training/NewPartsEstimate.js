@@ -729,7 +729,8 @@ Template Customization:
                         borderTop: `1px solid ${theme.palette.divider}`,
                         textAlign: 'center',
                         display: 'block',
-                        color: 'text.secondary'
+                        color: 'text.secondary',
+                        fontStyle: 'italic'
                     }}
                 >
                     New Parts Estimate process and training documentation created by Ben Kissinger
