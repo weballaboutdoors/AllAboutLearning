@@ -25,6 +25,7 @@ import { GuideContentProvider } from './context/GuideContentContext';  // Add th
 import DoorBottoms from './components/DoorBottoms';
 import DoorBottomGuide from './components/DoorBottomGuide';
 import NewPartsEstimate from './components/training/NewPartsEstimate.js';
+import VideoLibrary from './components/training/VideoLibrary';  // Create this component
 
 const theme = createTheme({
   palette: {
@@ -181,6 +182,7 @@ function App() {
                     </ProtectedRoute>
                   } 
                 />
+                <Route path="/videos" element={<VideoLibrary />} />
               </Routes>
             </Container>
             <Footer />

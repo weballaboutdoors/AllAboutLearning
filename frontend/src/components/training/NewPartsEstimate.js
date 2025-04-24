@@ -332,7 +332,7 @@ function NewPartsEstimate() {
                         fontFamily: 'Roboto, sans-serif',
                         lineHeight: 1.6
                     }}>
-                                                Welcome to the New Parts Estimate training guide. Creating accurate estimates in NetSuite is crucial for our business operations and customer relationships. This comprehensive resource covers inventory management, receiving procedures, and warehouse operations. Well-crafted estimates not only help in budgeting and forecasting but also provide clear expectations for our customers. As these estimates form the foundation of our sales process, let's explore how to create them efficiently and accurately!
+                     Welcome to the New Parts Estimate training guide. Creating accurate estimates in NetSuite is crucial for our business operations and customer relationships. This comprehensive resource covers inventory management, receiving procedures, and warehouse operations. Well-crafted estimates not only help in budgeting and forecasting but also provide clear expectations for our customers. As these estimates form the foundation of our sales process, let's explore how to create them efficiently and accurately!
                     </Typography>
 
                     {/* Key Principles Box */}

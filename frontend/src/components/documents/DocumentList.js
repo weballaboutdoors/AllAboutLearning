@@ -34,6 +34,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import StaggeredFadeIn from '../common/StaggeredFadeIn';
+import VideoCard from '../training/VideoCard';
+
 function DocumentList() {
   const initialDocuments = [
     { 
@@ -64,15 +66,14 @@ function DocumentList() {
       description: 'Specifications and installation guides for various hinge types',
       image: '/AllAboutLearning/images/hinge.jpg'
     },
-    
-    /*
     { 
-      id: 'sliding-hardware', 
-      name: 'Sliding Door Hardware', 
-      type: 'presentation', 
-      description: 'Installation and maintenance of sliding door systems',
-      image: '/AllAboutLearning/images/sliding-hardware.jpg'
+      id: 'videos', 
+      name: 'Videos', 
+      type: 'video', 
+      description: 'Watch and Learn - Enhance Your Support Expertise',
+      image: '/AllAboutLearning/images/training-videos.png'
     },
+    /* Commented out until information is ready
     { 
       id: 'window-hardware', 
       name: 'Window Hardware', 
@@ -149,7 +150,11 @@ function DocumentList() {
   }, []);
 
   const handleCardClick = (categoryId) => {
-    navigate(`/archives/${categoryId}`);
+    if (categoryId === 'videos') {
+      navigate('/videos'); // This will route to the video component
+    } else {
+      navigate(`/archives/${categoryId}`);
+    }
   };
 
   const DocumentDialog = ({ open, onClose, categoryId }) => {
@@ -281,7 +286,7 @@ return (
       <Grid container spacing={3}>
         {initialDocuments.map((doc, index) => (
           <Grid item xs={12} sm={6} md={4} key={doc.id}>
-            <StaggeredFadeIn delay={index * 0.1}> {/* Added StaggeredFadeIn with delay */}
+            <StaggeredFadeIn delay={index * 0.1}>
               <Card 
                 sx={{ 
                   height: '100%',
