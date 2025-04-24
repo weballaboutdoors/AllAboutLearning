@@ -327,7 +327,6 @@ function Navbar() {
                     color: theme.palette.primary.main,
                     border: `1px solid ${theme.palette.primary.main}`,
                     marginRight: { sm: 1, md: 1 },
-                    padding: { sm: '4px', md: '6px' },
                     '&:hover': {
                       backgroundColor: theme.palette.primary.main,
                       '& .MuiSvgIcon-root': {
