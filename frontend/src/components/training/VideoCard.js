@@ -62,18 +62,20 @@ const VideoCard = ({ title, description, videoId }) => {
                 <Paper 
                     elevation={2}
                     sx={{ 
-                        p: 1,
+                        p: 0.5,
                         border: `1px solid ${theme.palette.primary.main}`,
                         backgroundColor: '#faf9f6',
                     }}
                 >
                     <Box sx={{
                         position: 'relative',
-                        paddingTop: '45%',
+                        paddingTop: '56.25%',
                         width: '100%',
                         border: `1px solid ${theme.palette.primary.main}`,
                         borderRadius: '4px',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        minHeight: '250px',
+                        maxHeight: '250px',
                     }}>
                         <iframe
                             style={{
@@ -82,10 +84,12 @@ const VideoCard = ({ title, description, videoId }) => {
                                 left: 0,
                                 width: '100%',
                                 height: '100%',
-                                border: 0
+                                border: 0,
+                                objectFit: 'cover'
                             }}
                             src={`https://www.youtube.com/embed/${videoId}`}
                             title={title}
+                            loading="lazy"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                         />

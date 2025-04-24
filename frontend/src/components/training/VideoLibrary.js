@@ -194,7 +194,7 @@ function VideoLibrary() {
       videos: [
         {
           title: 'Easily Install Window Weatherstripping',
-          description: 'Step-by-step guide for installing weatherstripping on windows',
+          description: 'Instructions for installing weatherstripping on windows',
           videoId: 'hTH0PMVg3_A'
         },
         {
@@ -231,7 +231,7 @@ function VideoLibrary() {
       videos: [
         {
           title: 'Awning Windows',
-          description: 'Complete guide to awning window types, hardware and operation',
+          description: 'A guide to awning window types, hardware and operation',
           videoId: '4Zn0WPvIsKQ'
         },
         {
@@ -311,6 +311,22 @@ function VideoLibrary() {
       });
     });
   }, []);
+
+  const renderCategoryVideos = (videos) => {
+    return (
+      <Grid container spacing={2}>
+        {videos.map((video, index) => (
+          <Grid item xs={12} sm={6} key={index}>
+            <VideoCard
+              title={video.title}
+              description={video.description}
+              videoId={video.videoId}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    );
+  };
 
   return (
     <Container maxWidth="md">
@@ -437,25 +453,19 @@ function VideoLibrary() {
 
         {/* Video Categories */}
         {videoCategories.map((category) => (
-          <Box key={category.id} id={category.id} sx={{ mb: 6 }}>
+          <Box 
+            key={category.id} 
+            id={category.id} 
+            sx={{ mb: 6 }}
+          >
             <Typography variant="h5" sx={{ 
               mb: 3,
-              color: theme.palette.primary.main,
+              color: 'black',
               fontWeight: 500 
             }}>
               {category.title}
             </Typography>
-            <Grid container spacing={2}>
-              {category.videos.map((video, index) => (
-                <Grid item xs={12} sm={6} key={index}>
-                  <VideoCard
-                    title={video.title}
-                    description={video.description}
-                    videoId={video.videoId}
-                  />
-                </Grid>
-              ))}
-            </Grid>
+            {renderCategoryVideos(category.videos)}
           </Box>
         ))}
       </StaggeredFadeIn>

@@ -24,7 +24,10 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.30.0",
     "react-scripts": "^5.0.1",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "react-virtualized-auto-sizer": "^1.0.26",
+    "react-window": "^1.8.11",
+    "react-window-infinite-loader": "^1.0.10"
   },
   "description": "",
   "browserslist": {
