@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';  // Add this import
 import CloseIcon from '@mui/icons-material/Close';
 import HomeIcon from '@mui/icons-material/Home';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -320,6 +321,30 @@ function Navbar() {
                   transition: 'all 0.2s ease'
                 }} />
               </IconButton>
+              {user?.is_admin && (
+                <IconButton
+                  sx={{ 
+                    color: theme.palette.primary.main,
+                    border: `1px solid ${theme.palette.primary.main}`,
+                    marginRight: { sm: 1, md: 1 },
+                    padding: { sm: '4px', md: '6px' },
+                    '&:hover': {
+                      backgroundColor: theme.palette.primary.main,
+                      '& .MuiSvgIcon-root': {
+                        color: 'white',
+                      }
+                    },
+                    transition: 'all 0.2s ease'
+                  }}
+                  onClick={() => navigate('/admin')}
+                  title="Admin Dashboard"
+                >
+                  <AdminPanelSettingsIcon sx={{ 
+                    fontSize: { sm: '1.1rem', md: '1.4rem' },
+                    transition: 'all 0.2s ease'
+                  }} />
+                </IconButton>
+              )}
               <Button 
                 sx={{ 
                   color: 'white',
@@ -358,27 +383,6 @@ function Navbar() {
                   onClick={() => navigate('/training')}
                 >
                   Training & SOP's
-                </Button>
-              )}
-          
-              {user?.is_admin && (
-                <Button 
-                  sx={{ 
-                    color: 'white',
-                    fontSize: { sm: '0.8rem', md: '1rem' },
-                    fontFamily: 'Roboto, sans-serif',
-                    border: `1px solid ${theme.palette.primary.main}`,
-                    padding: { sm: '4px 8px', md: '6px 8px' },
-                    minWidth: 'auto',
-                    whiteSpace: 'nowrap',
-                    '&:hover': {
-                      backgroundColor: theme.palette.primary.main,
-                      borderColor: 'white'
-                    }
-                  }}
-                  onClick={() => navigate('/admin')}
-                >
-                  Admin Dashboard
                 </Button>
               )}
           

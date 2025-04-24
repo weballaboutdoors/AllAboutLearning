@@ -303,6 +303,15 @@ function VideoLibrary() {
     */
   ];
 
+  useEffect(() => {
+    videoCategories.forEach(category => {
+      category.videos.forEach(video => {
+        const img = new Image();
+        img.src = `https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`;
+      });
+    });
+  }, []);
+
   return (
     <Container maxWidth="md">
       <StaggeredFadeIn delay={0}>
