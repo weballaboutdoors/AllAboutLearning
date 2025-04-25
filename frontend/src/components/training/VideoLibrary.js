@@ -329,7 +329,7 @@ function VideoLibrary() {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <StaggeredFadeIn delay={0}>
         {/* Back Button */}
         <Button 
@@ -370,7 +370,21 @@ function VideoLibrary() {
           }}
         />
 
-        {/* Table of Contents Card - Moved below Divider */}
+        {/* Introduction paragraph */}
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            fontSize: '1.1rem',
+            maxWidth: '1100px',
+            fontFamily: 'Roboto, sans-serif',
+            lineHeight: 1.6,
+            mb: 4  // Add margin to separate from Table of Contents
+          }}
+        >
+          Welcome to our video library! Here you'll find a comprehensive collection of instructional videos covering everything from door handle installations to window operations. Each video provides step-by-step guidance to help you understand our products and their proper installation techniques. Browse through our categorized sections below to find the specific information you need.
+        </Typography>
+
+        {/* Table of Contents Card */}
         <Card sx={{ 
           mb: 6,
           backgroundColor: 'black',
