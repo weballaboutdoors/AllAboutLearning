@@ -48,12 +48,12 @@ function VideoLibrary() {
         },
         {
           title: 'Handle Set Installation',
-          description: 'How to install a handleset in a door with an Andersen multipoint lock',
+          description: 'How to install a handle set in a door with an Andersen multi-point lock',
           videoId: '-HswsQJliCQ'
         },
         {
           title: 'Handle Sets',
-          description: 'Discussing the different types of handle sets for Multi-Point Locks',
+          description: 'Discussing the different types of handle sets for multi-point locks',
           videoId: 'GyiVA-Pm94A'
         },
         {
@@ -62,7 +62,7 @@ function VideoLibrary() {
           videoId: 'ud1Um0Abw_g'
         },
         {
-          title: 'Pella Sliding Door Handle Set ',
+          title: 'Pella Sliding Door Handle Set',
           description: 'How to install a Pella sliding door handle set',
           videoId: 'SBhOLfyEoxM'
         },
@@ -73,7 +73,7 @@ function VideoLibrary() {
         },
         {
           title: 'Kwikset Entry Handle',
-          description: 'How To change the handing on a kwikset entry handle',
+          description: 'How to change the handing on a Kwikset entry handle',
           videoId: 'QXP_9iXv1L0'
         }
       ]
@@ -231,7 +231,7 @@ function VideoLibrary() {
       videos: [
         {
           title: 'Awning Windows',
-          description: 'A guide to awning window types, hardware and operation',
+          description: 'A guide to awning window types, hardware, and operation',
           videoId: '4Zn0WPvIsKQ'
         },
         {
@@ -363,7 +363,7 @@ function VideoLibrary() {
           sx={{ 
             my: 4, 
             borderColor: theme.palette.primary.main,
-            borderWidth: '1px',
+            borderWidth: '1.5px',
             '&::before, &::after': {
               borderColor: theme.palette.primary.main,
             }
