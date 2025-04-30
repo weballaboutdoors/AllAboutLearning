@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, Grid, Button, Divider, Card, Fab, Zoom } from '@mui/material';
+import { Container, Typography, Box, Grid, Button, Divider, Card, Fab, Zoom, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import VideoCard from './VideoCard';
 import StaggeredFadeIn from '../common/StaggeredFadeIn';
@@ -7,12 +7,56 @@ import { useTheme } from '@mui/material/styles';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import Collapse from '@mui/material/Collapse';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import SearchBar from '../common/SearchBar';
+import searchIndex from '../../searchIndex';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import ArticleIcon from '@mui/icons-material/Article';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 function VideoLibrary() {
   const theme = useTheme();
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (query) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      setSearching(false);
+      return;
+    }
+    setSearching(true);
+    
+    const normalizedQuery = query.toLowerCase()
+      .replace(/-/g, '')
+      .replace(/\s+/g, '')
+      .replace(/[.,]/g, '');
+
+    const results = searchIndex.filter(item => {
+      const normalizedTitle = (item.title || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+      const normalizedDescription = (item.description || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+      const normalizedDetails = (item.details || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+
+      return (
+        normalizedTitle.includes(normalizedQuery) ||
+        normalizedDescription.includes(normalizedQuery) ||
+        normalizedDetails.includes(normalizedQuery)
+      );
+    });
+
+    setSearchResults(results);
+  };
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -317,11 +361,13 @@ function VideoLibrary() {
       <Grid container spacing={2}>
         {videos.map((video, index) => (
           <Grid item xs={12} sm={6} key={index}>
-            <VideoCard
-              title={video.title}
-              description={video.description}
-              videoId={video.videoId}
-            />
+            <Box id={video.videoId}>
+              <VideoCard
+                title={video.title}
+                description={video.description}
+                videoId={video.videoId}
+              />
+            </Box>
           </Grid>
         ))}
       </Grid>
@@ -344,31 +390,173 @@ function VideoLibrary() {
         </Button>
 
         {/* Header */}
-        <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          mb: 4 
-        }}>
-          <Typography variant="h4" component="h1" sx={{ 
-            fontWeight: 450,
-            fontFamily: 'Roboto, Arial, sans-serif',
-            fontSize: '2rem'
-          }}>
-            All About Videos
-          </Typography>
+        <Box
+          sx={{
+            mb: 1,
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            flexWrap: { xs: 'wrap', md: 'nowrap' },
+            gap: 2,
+          }}
+        >
+          <Box sx={{ width: 1, mb: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                gap: 2,
+                pb: 0,
+                borderBottom: '3px double #4bac52',
+                mb: 2
+              }}
+            >
+              <Typography 
+                variant="h4" 
+                sx={{ 
+                  color: 'black',
+                  fontFamily: 'Roboto, sans-serif',
+                  fontSize: '2.7rem',
+                  fontWeight: 500,
+                  mb: 1,
+                  lineHeight: 1.5
+                }}
+              >
+                All About Videos
+              </Typography>
+
+              <SearchBar 
+                onSearch={handleSearch}
+                sx={{
+                  backgroundColor: '#f1f8e9',
+                  border: '1.5px solid #4bac52',
+                  borderRadius: '8px',
+                  boxShadow: 'none',
+                  color: 'black',
+                  minWidth: '320px',
+                  alignSelf: 'flex-start',
+                  mt: .5,
+                  mb: 4,
+                  '& input': {
+                    color: 'black',
+                    fontFamily: 'Roboto, sans-serif',
+                  },
+                }}
+              />
+            </Box>
+          </Box>
         </Box>
 
-        <Divider 
-          sx={{ 
-            my: 4, 
-            borderColor: theme.palette.primary.main,
-            borderWidth: '1.5px',
-            '&::before, &::after': {
-              borderColor: theme.palette.primary.main,
-            }
-          }}
-        />
+        {/* Search Results Display */}
+        {searching && (
+          <Box sx={{ mt: 2, mb: 2 }}>
+            {searchResults.length > 0 ? (
+              <Paper sx={{ p: 2, backgroundColor: '#f1f8e9', border: '1px solid #4bac52' }}>
+                <Typography variant="subtitle1" sx={{ mb: 2, color: 'black', fontWeight: 500 }}>
+                  Search Results:
+                </Typography>
+                <Grid container spacing={3} maxWidth="lg">
+                  {searchResults.map((result, idx) => (
+                    <Grid item xs={12} md={6} key={result.title}>
+                      <Box
+                        sx={{
+                          height: '100%',
+                          p: 3,
+                          borderRadius: 2,
+                          backgroundColor: '#fff',
+                          border: '1px solid #e0e0e0',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 1,
+                          '&:hover': { 
+                            backgroundColor: '#e8f5e9',
+                            transform: 'translateY(-2px)',
+                            transition: 'all 0.2s ease-in-out',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                          }
+                        }}
+                        onClick={() => {
+                          if (result.type === 'video') {
+                            navigate(result.path);
+                            setTimeout(() => {
+                              const videoElement = document.getElementById(result.videoId);
+                              if (videoElement) {
+                                videoElement.scrollIntoView({ 
+                                  behavior: 'smooth',
+                                  block: 'center'
+                                });
+                                videoElement.style.transition = 'all 0.3s ease-in-out';
+                                videoElement.style.boxShadow = '0 0 20px rgba(75, 172, 82, 0.5)';
+                                setTimeout(() => {
+                                  videoElement.style.boxShadow = 'none';
+                                }, 2000);
+                              }
+                            }, 500);
+                          } else {
+                            navigate(result.path);
+                          }
+                        }}
+                      >
+                        <Box sx={{ 
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          mb: 1
+                        }}>
+                          <Box sx={{ 
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: result.type === 'video' 
+                              ? '#ff4444' 
+                              : result.type === 'document' 
+                              ? '#4bac52'
+                              : '#2196f3',
+                            fontSize: '2rem'
+                          }}>
+                            {result.type === 'video' ? (
+                              <VideoLibraryIcon sx={{ fontSize: 'inherit' }} />
+                            ) : result.type === 'document' ? (
+                              <ArticleIcon sx={{ fontSize: 'inherit' }} />
+                            ) : (
+                              <MenuBookIcon sx={{ fontSize: 'inherit' }} />
+                            )}
+                          </Box>
+                          <Typography variant="h6" sx={{ 
+                            color: result.type === 'video' 
+                              ? '#ff4444' 
+                              : result.type === 'document' 
+                              ? '#4bac52'
+                              : '#2196f3',
+                            fontWeight: 600,
+                            fontSize: '1rem',
+                            flexGrow: 1
+                          }}>
+                            {result.title}
+                          </Typography>
+                        </Box>
+                        <Typography sx={{ 
+                          color: 'black',
+                          fontSize: '0.9rem',
+                          flexGrow: 1
+                        }}>
+                          {result.description}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Paper>
+            ) : (
+              <Paper sx={{ p: 2, backgroundColor: '#fffbe6', border: '1px solid #ffe082' }}>
+                <Typography sx={{ color: '#b71c1c' }}>No results found.</Typography>
+              </Paper>
+            )}
+          </Box>
+        )}
 
         {/* Introduction paragraph */}
         <Typography 
@@ -378,7 +566,7 @@ function VideoLibrary() {
             maxWidth: '1100px',
             fontFamily: 'Roboto, sans-serif',
             lineHeight: 1.6,
-            mb: 4  // Add margin to separate from Table of Contents
+            mb: 4
           }}
         >
           Welcome to our video library! Here you'll find a comprehensive collection of instructional videos covering everything from door handle installations to window operations. Each video provides step-by-step guidance to help you understand our products and their proper installation techniques. Browse through our categorized sections below to find the specific information you need.

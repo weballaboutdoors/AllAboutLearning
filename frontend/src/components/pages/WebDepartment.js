@@ -15,6 +15,11 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { CheckCircle, ArrowDownward } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
 import { ExpandMore, ExpandLess } from '@mui/icons-material';
+import SearchBar from '../common/SearchBar';
+import searchIndex from '../../searchIndex';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import ArticleIcon from '@mui/icons-material/Article';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 
 function WebDepartment() {
@@ -22,6 +27,8 @@ function WebDepartment() {
   const theme = useTheme();
   const [showScroll, setShowScroll] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
     // Add this useEffect for scroll detection
     useEffect(() => {
@@ -660,105 +667,296 @@ function WebDepartment() {
 
   
 
+  const handleSearch = (query) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      setSearching(false);
+      return;
+    }
+    setSearching(true);
+    
+    const normalizedQuery = query.toLowerCase()
+      .replace(/-/g, '') // Remove hyphens
+      .replace(/\s+/g, '') // Remove spaces
+      .replace(/[.,]/g, ''); // Remove periods and commas
+
+    const results = searchIndex.filter(item => {
+      const normalizedTitle = (item.title || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+      const normalizedDescription = (item.description || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+      const normalizedDetails = (item.details || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+
+      return (
+        normalizedTitle.includes(normalizedQuery) ||
+        normalizedDescription.includes(normalizedQuery) ||
+        normalizedDetails.includes(normalizedQuery)
+      );
+    });
+
+    setSearchResults(results);
+  };
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      {/* Back Button */}
-      <Button 
-        onClick={() => navigate('/training')}
-        sx={{ 
-          mb: 3,
-          color: theme.palette.primary.main,
-          '&:hover': { backgroundColor: 'rgba(75, 172, 82, 0.1)' }
-        }}
-      >
-        ← Back to Training & SOP's
-      </Button>
-
-      {/* Header */}
       <StaggeredFadeIn delay={0}>
-        <Typography 
-          variant="h4" 
+        {/* Back Button */}
+        <Button 
+          onClick={() => navigate('/training')}
           sx={{ 
-            mb: 4,
-            color: 'black',
-            fontFamily: 'Roboto, sans-serif',
-            borderBottom: `3px solid ${theme.palette.primary.main}`,
-            pb: 2
+            mb: 3,
+            color: theme.palette.primary.main,
+            '&:hover': { backgroundColor: 'rgba(75, 172, 82, 0.1)' }
           }}
         >
-          Web Department Training Guide
-        </Typography>
-        <Box sx={{ mb: 4 }}>
-    <Typography variant="body1" sx={{ 
-        fontSize: '1.1rem',
-        mb: 3,
-        maxWidth: '1100px',
-        fontFamily: 'Roboto, sans-serif',
-        lineHeight: 1.6
-    }}>
-        Welcome to the All About Doors & Windows Web Department Training Guide! This resource provides comprehensive information about managing our online presence, from product listings and images to category organization and system navigation. See our key principles below that guide our work and ensure customer satisfaction.
-    </Typography>
+          ← Back to Training & SOP's
+        </Button>
 
-    <Box sx={{
-        backgroundColor: 'rgba(75, 172, 82, 0.05)',  // Light green background
-        borderRadius: 2,
-        border: `1px solid ${theme.palette.primary.main}`,
-        p: 3,
-        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-        position: 'relative',
-        overflow: 'hidden'
-    }}>
-        {/* Optional decorative element */}
-        <Box sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '4px',
-            height: '100%',
-            backgroundColor: theme.palette.primary.main
-        }} />
+        {/* Flex container for title and search bar */}
+        <Box
+          sx={{
+            mb: 1,
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            flexWrap: { xs: 'wrap', md: 'nowrap' },
+            gap: 2,
+          }}
+        >
+          <Box sx={{ width: 1, mb: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                gap: 2,
+                pb: 0,
+                borderBottom: '3px double black',
+                mb: 2
+              }}
+            >
+              <Typography 
+                variant="h4" 
+                sx={{ 
+                  color: 'black',
+                  fontFamily: 'Roboto, sans-serif',
+                  fontSize: '2.7rem',
+                  fontWeight: 500,
+                  mb: 1,
+                  lineHeight: 1.5
+                }}
+              >
+                Web Department Training Guide
+              </Typography>
 
-        <Typography variant="h6" sx={{ 
-            mb: 2,
-            fontFamily: 'Roboto, sans-serif',
-            color: theme.palette.primary.main,
-            fontWeight: 500
-        }}>
-            Our Key Principles
-        </Typography>
-
-        <Box sx={{ pl: 1 }}>
-            <ul style={{ 
-                listStyle: 'none',
-                padding: 0,
-                margin: 0
-            }}>
-                {[
-                    { title: 'Product Clarity', desc: 'Providing detailed, accurate information so customers make confident purchasing decisions' },
-                    { title: 'Accuracy', desc: 'Maintaining precise product data and specifications to prevent ordering errors' },
-                    { title: 'Recommendations', desc: 'Suggesting complementary products to enhance customer solutions and increase sales' },
-                    { title: 'Timely Support', desc: 'Delivering fast, knowledgeable assistance to minimize customer wait times' },
-                    { title: 'Satisfaction', desc: 'Ensuring customer satisfaction leads to repeat business and referrals' }
-                ].map((item, index) => (
-                    <li key={index} style={{ 
-                        marginBottom: index === 4 ? 0 : '12px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                    }}>
-                        <CheckCircle sx={{ 
-                            color: theme.palette.primary.main,
-                            fontSize: '1.1rem'
-                        }} />
-                        <span>
-                            <strong>{item.title}</strong> - {item.desc}
-                        </span>
-                    </li>
-                ))}
-            </ul>
+              <SearchBar 
+                onSearch={handleSearch}
+                sx={{
+                  backgroundColor: '#f1f8e9',
+                  border: '1.5px solid #4bac52',
+                  borderRadius: '8px',
+                  boxShadow: 'none',
+                  color: 'black',
+                  minWidth: '320px',
+                  alignSelf: 'flex-start',
+                  mt: .5,
+                  mb: 4,
+                  '& input': {
+                    color: 'black',
+                    fontFamily: 'Roboto, sans-serif',
+                  },
+                }}
+              />
+            </Box>
+          </Box>
         </Box>
-    </Box>
-</Box>
+
+        {/* Search Results Display */}
+        {searching && (
+          <Box sx={{ mt: 2, mb: 2 }}>
+            {searchResults.length > 0 ? (
+              <Paper sx={{ p: 2, backgroundColor: '#f1f8e9', border: '1px solid #4bac52' }}>
+                <Typography variant="subtitle1" sx={{ mb: 2, color: 'black', fontWeight: 500 }}>
+                  Search Results:
+                </Typography>
+                <Grid container spacing={3} maxWidth="lg">
+                  {searchResults.map((result, idx) => (
+                    <Grid item xs={12} md={6} key={result.title}>
+                      <Box
+                        sx={{
+                          height: '100%',
+                          p: 3,
+                          borderRadius: 2,
+                          backgroundColor: '#fff',
+                          border: '1px solid #e0e0e0',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 1,
+                          '&:hover': { 
+                            backgroundColor: '#e8f5e9',
+                            transform: 'translateY(-2px)',
+                            transition: 'all 0.2s ease-in-out',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                          }
+                        }}
+                        onClick={() => {
+                          if (result.type === 'video') {
+                            navigate(result.path);
+                            setTimeout(() => {
+                              const videoElement = document.getElementById(result.videoId);
+                              if (videoElement) {
+                                videoElement.scrollIntoView({ 
+                                  behavior: 'smooth',
+                                  block: 'center'
+                                });
+                                videoElement.style.transition = 'all 0.3s ease-in-out';
+                                videoElement.style.boxShadow = '0 0 20px rgba(75, 172, 82, 0.5)';
+                                setTimeout(() => {
+                                  videoElement.style.boxShadow = 'none';
+                                }, 2000);
+                              }
+                            }, 500);
+                          } else {
+                            navigate(result.path);
+                          }
+                        }}
+                      >
+                        <Box sx={{ 
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          mb: 1
+                        }}>
+                          <Box sx={{ 
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: result.type === 'video' 
+                              ? '#ff4444' 
+                              : result.type === 'document' 
+                              ? '#4bac52'
+                              : '#2196f3',
+                            fontSize: '2rem'
+                          }}>
+                            {result.type === 'video' ? (
+                              <VideoLibraryIcon sx={{ fontSize: 'inherit' }} />
+                            ) : result.type === 'document' ? (
+                              <ArticleIcon sx={{ fontSize: 'inherit' }} />
+                            ) : (
+                              <MenuBookIcon sx={{ fontSize: 'inherit' }} />
+                            )}
+                          </Box>
+                          <Typography variant="h6" sx={{ 
+                            color: result.type === 'video' 
+                              ? '#ff4444' 
+                              : result.type === 'document' 
+                              ? '#4bac52'
+                              : '#2196f3',
+                            fontWeight: 600,
+                            fontSize: '1rem',
+                            flexGrow: 1
+                          }}>
+                            {result.title}
+                          </Typography>
+                        </Box>
+                        <Typography sx={{ 
+                          color: 'black',
+                          fontSize: '0.9rem',
+                          flexGrow: 1
+                        }}>
+                          {result.description}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Paper>
+            ) : (
+              <Paper sx={{ p: 2, backgroundColor: '#fffbe6', border: '1px solid #ffe082' }}>
+                <Typography sx={{ color: '#b71c1c' }}>No results found.</Typography>
+              </Paper>
+            )}
+          </Box>
+        )}
+
+        <Typography variant="body1" sx={{ 
+            fontSize: '1.1rem',
+            mb: 3,
+            maxWidth: '1100px',
+            fontFamily: 'Roboto, sans-serif',
+            lineHeight: 1.6
+        }}>
+            Welcome to the All About Doors & Windows Web Department Training Guide! This resource provides comprehensive information about managing our online presence, from product listings and images to category organization and system navigation. See our key principles below that guide our work and ensure customer satisfaction.
+        </Typography>
+
+        <Box sx={{
+            backgroundColor: 'rgba(75, 172, 82, 0.05)',  // Light green background
+            borderRadius: 2,
+            border: `1px solid ${theme.palette.primary.main}`,
+            p: 3,
+            boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+            position: 'relative',
+            overflow: 'hidden'
+        }}>
+            {/* Optional decorative element */}
+            <Box sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '4px',
+                height: '100%',
+                backgroundColor: theme.palette.primary.main
+            }} />
+
+            <Typography variant="h6" sx={{ 
+                mb: 2,
+                fontFamily: 'Roboto, sans-serif',
+                color: theme.palette.primary.main,
+                fontWeight: 500
+            }}>
+                Our Key Principles
+            </Typography>
+
+            <Box sx={{ pl: 1 }}>
+                <ul style={{ 
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0
+                }}>
+                    {[
+                        { title: 'Product Clarity', desc: 'Providing detailed, accurate information so customers make confident purchasing decisions' },
+                        { title: 'Accuracy', desc: 'Maintaining precise product data and specifications to prevent ordering errors' },
+                        { title: 'Recommendations', desc: 'Suggesting complementary products to enhance customer solutions and increase sales' },
+                        { title: 'Timely Support', desc: 'Delivering fast, knowledgeable assistance to minimize customer wait times' },
+                        { title: 'Satisfaction', desc: 'Ensuring customer satisfaction leads to repeat business and referrals' }
+                    ].map((item, index) => (
+                        <li key={index} style={{ 
+                            marginBottom: index === 4 ? 0 : '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                        }}>
+                            <CheckCircle sx={{ 
+                                color: theme.palette.primary.main,
+                                fontSize: '1.1rem'
+                            }} />
+                            <span>
+                                <strong>{item.title}</strong> - {item.desc}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </Box>
+        </Box>
             <Divider 
                 sx={{ 
                     mb: 4,
