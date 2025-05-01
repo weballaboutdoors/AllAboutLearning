@@ -157,7 +157,7 @@ function Homepage() {
                 pb: 0,
                 borderBottom: '3px double #4bac52',
                 mb: 3,
-                mt: 2
+                mt: 1
               }}
             >
               <Typography 
@@ -168,7 +168,7 @@ function Homepage() {
                   fontSize: '2.7rem',
                   fontWeight: 500,
                   mb: 1,
-                  lineHeight: 1.8
+                  lineHeight: 1.7
                 }}
               >
                 Welcome, {user?.firstName} {user?.lastName}
@@ -185,7 +185,7 @@ function Homepage() {
                   minWidth: '320px',
                   alignSelf: 'flex-start',
                   mt: 1,
-                  mb: 4,
+                  mb: 2,
                   '& input': {
                     color: 'black',
                     fontFamily: 'Roboto, sans-serif',
