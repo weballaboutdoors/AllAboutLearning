@@ -28,8 +28,8 @@ function Homepage() {
   const theme = useTheme();
   const sections = [
     {
-      title: 'Archives',
-      description: 'Access Door & Window Part Documents & Videos',
+      title: 'Resources',
+      description: 'Access Door & Window Part Documents and Videos',
       icon: <img 
       src="/AllAboutLearning/images/warehouse-archive.png"
       alt="Archives" 
@@ -47,8 +47,7 @@ function Homepage() {
     />,
       path: '/documents',
       color: 'white',
-      details: `The Archives section is your go-to resource for accessing all class materials and documentation from our weekly training sessions. 
-      Here you'll find comprehensive information covered in our owner-led classes, including:
+      details: `The Resources section is your go-to resource for accessing all class materials and documentation from our weekly training sessions. Here you'll find comprehensive information covered in our owner-led classes, including:
       
       - Multipoint Lock Installation & Troubleshooting
       - Door Closer Setup & Adjustments
@@ -157,8 +156,8 @@ function Homepage() {
                 gap: 2,
                 pb: 0,
                 borderBottom: '3px double #4bac52',
-                mb: 2,
-                mt: 1
+                mb: 3,
+                mt: 2
               }}
             >
               <Typography 
@@ -185,7 +184,7 @@ function Homepage() {
                   color: 'black',
                   minWidth: '320px',
                   alignSelf: 'flex-start',
-                  mt: .5,
+                  mt: 1,
                   mb: 4,
                   '& input': {
                     color: 'black',
@@ -319,7 +318,7 @@ function Homepage() {
         )}
 
         {/* Divider now outside the flex container, will span full width */}
-        <Divider sx={{ mb: 3 }} />
+        <Divider sx={{ mb: 4 }} />
 
         {sections.map((section, index) => (
           <StaggeredFadeIn key={section.title} delay={0.2 * (index + 1)}>

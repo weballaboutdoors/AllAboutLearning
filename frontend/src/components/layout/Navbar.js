@@ -221,7 +221,7 @@ function Navbar() {
                     }
                   }}
                 >
-                  Archives
+                  Resources
                 </MenuItem>
     
                 {user && (
@@ -361,7 +361,7 @@ function Navbar() {
                 }}
                 onClick={() => navigate('/documents')}
               >
-                Archives
+                Resources
               </Button>
           
               {user && (

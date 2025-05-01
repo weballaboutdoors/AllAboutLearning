@@ -368,7 +368,7 @@ return (
                 lineHeight: 1.5
               }}
             >
-              Informational Archives
+              Informational Resources
             </Typography>
 
             <SearchBar 
