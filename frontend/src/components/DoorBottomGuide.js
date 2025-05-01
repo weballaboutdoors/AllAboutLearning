@@ -20,7 +20,7 @@ import EditableText from './common/EditableText';
 import { useParams } from 'react-router-dom';
 import { useScrollTrigger } from '@mui/material';
 import SearchBar from './common/SearchBar';
-
+import searchIndex from '../searchIndex';
 function DoorBottomGuide() {
     const theme = useTheme();
     const navigate = useNavigate();
@@ -793,22 +793,41 @@ function DoorBottomGuide() {
     const [searching, setSearching] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
 
-    const handleSearch = async (query) => {
-      setSearching(true);
-      try {
-        const results = await loadAllGuideContent();
-        if (results) {
-          const filteredResults = results.filter(item =>
-            item.title.toLowerCase().includes(query.toLowerCase()) ||
-            item.description.toLowerCase().includes(query.toLowerCase())
-          );
-          setSearchResults(filteredResults);
-        }
-      } catch (error) {
-        console.error('Error searching:', error);
-      } finally {
+    const handleSearch = (query) => {
+      if (!query.trim()) {
+        setSearchResults([]);
         setSearching(false);
+        return;
       }
+      setSearching(true);
+      
+      const normalizedQuery = query.toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+
+      const results = searchIndex.filter(item => {
+        const normalizedTitle = (item.title || '').toLowerCase()
+          .replace(/-/g, '')
+          .replace(/\s+/g, '')
+          .replace(/[.,]/g, '');
+        const normalizedDescription = (item.description || '').toLowerCase()
+          .replace(/-/g, '')
+          .replace(/\s+/g, '')
+          .replace(/[.,]/g, '');
+        const normalizedDetails = (item.details || '').toLowerCase()
+          .replace(/-/g, '')
+          .replace(/\s+/g, '')
+          .replace(/[.,]/g, '');
+
+        return (
+          normalizedTitle.includes(normalizedQuery) ||
+          normalizedDescription.includes(normalizedQuery) ||
+          normalizedDetails.includes(normalizedQuery)
+        );
+      });
+
+      setSearchResults(results);
     };
 
     return (
@@ -970,11 +989,11 @@ function DoorBottomGuide() {
                                 </Box>
                                 <Typography variant="h6" sx={{ 
                                   color: result.type === 'video' 
-                                    ? '#ff4444' 
+                                    ? '#000000' 
                                     : result.type === 'document' 
-                                    ? '#4bac52'
+                                    ? '#000000'
                                     : '#2196f3',
-                                  fontWeight: 600,
+                                  fontWeight: 590,
                                   fontSize: '1rem',
                                   flexGrow: 1
                                 }}>

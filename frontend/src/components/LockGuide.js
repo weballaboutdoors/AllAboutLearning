@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Container, Typography, Box, Button, Paper, Grid, Card, CardMedia, Fab, CardContent
 } from '@mui/material';
@@ -16,6 +16,11 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Fade from '@mui/material/Fade';
 import EditableText from './common/EditableText';
 import { useGuideContent } from '../context/GuideContentContext';
+import SearchBar from './common/SearchBar';
+import searchIndex from '../searchIndex';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import ArticleIcon from '@mui/icons-material/Article';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 function LockGuide() {
   const theme = useTheme();
@@ -25,6 +30,46 @@ function LockGuide() {
   const API_URL = process.env.NODE_ENV === 'production' 
   ? process.env.REACT_APP_PROD_API_URL 
   : process.env.REACT_APP_API_URL;
+
+  const [searching, setSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (query) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      setSearching(false);
+      return;
+    }
+    setSearching(true);
+    
+    const normalizedQuery = query.toLowerCase()
+      .replace(/-/g, '')
+      .replace(/\s+/g, '')
+      .replace(/[.,]/g, '');
+
+    const results = searchIndex.filter(item => {
+      const normalizedTitle = (item.title || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+      const normalizedDescription = (item.description || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+      const normalizedDetails = (item.details || '').toLowerCase()
+        .replace(/-/g, '')
+        .replace(/\s+/g, '')
+        .replace(/[.,]/g, '');
+
+      return (
+        normalizedTitle.includes(normalizedQuery) ||
+        normalizedDescription.includes(normalizedQuery) ||
+        normalizedDetails.includes(normalizedQuery)
+      );
+    });
+
+    setSearchResults(results);
+  };
 
   const handleBackToTop = () => {
     window.scrollTo({
@@ -1377,21 +1422,178 @@ function LockGuide() {
           >
             ← Back to Multi-Point Locks
           </Button>
-          {content?.title && (
-            <Typography
-              {...content.title.props}  
-              variant={content.title.props.variant}  
-              sx={content.title.props.sx}  
-            >
-              {content.title.props.defaultContent}
-            </Typography>
+
+          <Box
+            sx={{
+              mb: 1,
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'space-between',
+              flexWrap: { xs: 'wrap', md: 'nowrap' },
+              gap: 2,
+            }}
+          >
+            <Box sx={{ width: 1, mb: 2 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  gap: 2,
+                  pb: 0,
+                  borderBottom: '3px double #4bac52',
+                  mb: 2
+                }}
+              >
+                {content?.title && (
+                  <Typography
+                    {...content.title.props}  
+                    variant={content.title.props.variant}  
+                    sx={{
+                      ...content.title.props.sx,
+                      fontSize: '2.9rem',
+                      fontWeight: 500,
+                      mb: 1,
+                      lineHeight: 1.8
+                    }}
+                  >
+                    {content.title.props.defaultContent}
+                  </Typography>
+                )}
+
+                <SearchBar 
+                  onSearch={handleSearch}
+                  sx={{
+                    backgroundColor: '#f1f8e9',
+                    border: '1.5px solid #4bac52',
+                    borderRadius: '8px',
+                    boxShadow: 'none',
+                    color: 'black',
+                    minWidth: '320px',
+                    alignSelf: 'flex-start',
+                    mt: .5,
+                    mb: 4,
+                    '& input': {
+                      color: 'black',
+                      fontFamily: 'Roboto, sans-serif',
+                    },
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Search Results Display */}
+          {searching && (
+            <Box sx={{ mt: 2, mb: 2 }}>
+              {searchResults.length > 0 ? (
+                <Paper sx={{ p: 2, backgroundColor: '#f1f8e9', border: '1px solid #4bac52' }}>
+                  <Typography variant="subtitle1" sx={{ mb: 2, color: 'black', fontWeight: 500 }}>
+                    Search Results:
+                  </Typography>
+                  <Grid container spacing={3} maxWidth="lg">
+                    {searchResults.map((result, idx) => (
+                      <Grid item xs={12} md={6} key={result.title}>
+                        <Box
+                          sx={{
+                            height: '100%',
+                            p: 3,
+                            borderRadius: 2,
+                            backgroundColor: '#fff',
+                            border: '1px solid #e0e0e0',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 1,
+                            '&:hover': { 
+                              backgroundColor: '#e8f5e9',
+                              transform: 'translateY(-2px)',
+                              transition: 'all 0.2s ease-in-out',
+                              boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                            }
+                          }}
+                          onClick={() => {
+                            if (result.type === 'video') {
+                              navigate(result.path);
+                              setTimeout(() => {
+                                const videoElement = document.getElementById(result.videoId);
+                                if (videoElement) {
+                                  videoElement.scrollIntoView({ 
+                                    behavior: 'smooth',
+                                    block: 'center'
+                                  });
+                                  videoElement.style.transition = 'all 0.3s ease-in-out';
+                                  videoElement.style.boxShadow = '0 0 20px rgba(75, 172, 82, 0.5)';
+                                  setTimeout(() => {
+                                    videoElement.style.boxShadow = 'none';
+                                  }, 2000);
+                                }
+                              }, 500);
+                            } else {
+                              navigate(result.path);
+                            }
+                          }}
+                        >
+                          <Box sx={{ 
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1,
+                            mb: 1
+                          }}>
+                            <Box sx={{ 
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: result.type === 'video' 
+                                ? '#ff4444'  // Changed back to red for the icon
+                                : result.type === 'document' 
+                                ? '#4bac52'
+                                : '#2196f3',
+                              fontSize: '2rem'
+                            }}>
+                              {result.type === 'video' ? (
+                                <VideoLibraryIcon sx={{ fontSize: 'inherit' }} />
+                              ) : result.type === 'document' ? (
+                                <ArticleIcon sx={{ fontSize: 'inherit' }} />
+                              ) : (
+                                <MenuBookIcon sx={{ fontSize: 'inherit' }} />
+                              )}
+                            </Box>
+                            <Typography variant="h6" sx={{ 
+                              color: 'black',  // Keep heading text black for all types
+                              fontWeight: 590,
+                              fontSize: '1rem',
+                              flexGrow: 1
+                            }}>
+                              {result.title}
+                            </Typography>
+                          </Box>
+                          <Typography sx={{ 
+                            color: 'black',
+                            fontSize: '0.9rem',
+                            flexGrow: 1
+                          }}>
+                            {result.description}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Paper>
+              ) : (
+                <Paper sx={{ p: 2, backgroundColor: '#fffbe6', border: '1px solid #ffe082' }}>
+                  <Typography sx={{ color: '#b71c1c' }}>No results found.</Typography>
+                </Paper>
+              )}
+            </Box>
           )}
+
           <Box 
             sx={{ 
-              borderBottom: `2px solid ${theme.palette.primary.main}`,
               width: '100%',
-              mt: 2,
-              mb: 2
+              mt: .5,
+              mb: .5
             }} 
           />
           {content?.subtitle && (

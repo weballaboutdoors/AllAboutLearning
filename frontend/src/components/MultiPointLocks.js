@@ -113,7 +113,7 @@ function MultiPointLocks() {
           }}
         >
           <ArrowBackIcon sx={{ mr: 1 }} />
-          Back to Archives
+          Back to Resources
         </Button>
 
         <Box
@@ -252,11 +252,11 @@ function MultiPointLocks() {
                           </Box>
                           <Typography variant="h6" sx={{ 
                             color: result.type === 'video' 
-                              ? '#ff4444' 
+                              ? '#000000' 
                               : result.type === 'document' 
-                              ? '#4bac52'
+                              ? '#000000'
                               : '#2196f3',
-                            fontWeight: 600,
+                            fontWeight: 590,
                             fontSize: '1rem',
                             flexGrow: 1
                           }}>

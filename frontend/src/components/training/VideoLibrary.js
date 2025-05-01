@@ -386,7 +386,7 @@ function VideoLibrary() {
             '&:hover': { backgroundColor: 'rgba(75, 172, 82, 0.1)' }
           }}
         >
-          ← Back to Archives
+          ← Back to Resources
         </Button>
 
         {/* Header */}
@@ -527,11 +527,11 @@ function VideoLibrary() {
                           </Box>
                           <Typography variant="h6" sx={{ 
                             color: result.type === 'video' 
-                              ? '#ff4444' 
+                              ? '#000000' 
                               : result.type === 'document' 
-                              ? '#4bac52'
+                              ? '#000000'
                               : '#2196f3',
-                            fontWeight: 600,
+                            fontWeight: 590,
                             fontSize: '1rem',
                             flexGrow: 1
                           }}>

@@ -470,11 +470,11 @@ return (
                         </Box>
                         <Typography variant="h6" sx={{ 
                           color: result.type === 'video' 
-                            ? '#ff4444' 
+                            ? '#000000' 
                             : result.type === 'document' 
-                            ? '#4bac52'
+                            ? '#000000'
                             : '#2196f3',
-                          fontWeight: 600,
+                          fontWeight: 590,
                           fontSize: '1rem',
                           flexGrow: 1
                         }}>
@@ -515,14 +515,15 @@ return (
                 <Card 
                   sx={{ 
                     height: '100%',
-                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer',
                     '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: 3,
-                      transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
+                      transform: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'none' : 'scale(1.02)',
+                      boxShadow: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 1 : '0 8px 16px rgba(0,0,0,0.1)'
                     }
                   }}
-                  onClick={() => handleCardClick(doc.id)}
+                  onClick={(doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? undefined : () => handleCardClick(doc.id)}
                 >
                   <CardMedia
                     component="img"
@@ -533,13 +534,15 @@ return (
                       objectFit: 'cover',
                       borderBottom: '1px solid #eee',
                       backgroundColor: '#f5f5f5',
-                      cursor: 'pointer',
+                      cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer',
                       '&:hover': {
-                        opacity: .5
+                        opacity: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 1 : .5
                       }
                     }}
                   />
-                  <CardContent sx={{ cursor: 'pointer' }}>
+                  <CardContent sx={{ 
+                    cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer' 
+                  }}>
                     <Typography variant="h6" component="h2" sx={{ mb: 1, color: 'primary.main' }}>
                       {doc.name}
                     </Typography>
