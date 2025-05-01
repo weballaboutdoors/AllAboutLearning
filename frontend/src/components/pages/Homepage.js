@@ -29,71 +29,70 @@ function Homepage() {
   const sections = [
     {
       title: 'Resources',
-      description: 'Access Door & Window Part Documents and Videos',
+      description: 'Click here to access documents and videos',
       icon: <img 
       src="/AllAboutLearning/images/warehouse-archive.png"
       alt="Archives" 
       style={{ 
-        width: '500px',  // Increased size
-        height: '300px', // Increased size
+        width: '500px',
+        height: '300px',
         objectFit: 'cover',
-        borderRadius: '6px', // Rounded corners
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
+        borderRadius: '6px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
         transition: 'transform 0.3s ease',
         '&:hover': {
-          transform: 'scale(1.02)' // Slight zoom on hover
+          transform: 'scale(1.02)'
         }
       }} 
     />,
       path: '/documents',
       color: 'white',
-      details: `The Resources section is your go-to resource for accessing all class materials and documentation from our weekly training sessions. Here you'll find comprehensive information covered in our owner-led classes, including:
-      
-      - Multipoint Lock Installation & Troubleshooting
-      - Door Closer Setup & Adjustments
-      - Hinge Selection & Applications
-      - Sliding Door Hardware Systems
-      - Window Hardware Solutions
-      - Door Hardware Best Practices
-      - Weatherstripping Installation
-      - Threshold Types & Installation
-      - Automatic Door Operators
-      
-      Each section contains detailed notes, specifications, and technical documentation from our weekly training sessions, allowing you to review and reference the material at any time. Stay up-to-date with our latest training materials and enhance your product knowledge through these valuable resources.`
+      details: `Quick access to essential training materials and documentation:
+
+      Installation & Troubleshooting
+      - Multi-Point Locks
+      - Door Closers
+      - Hinges & Hardware
+      - Storm Doors & Windows
+      - Weatherstripping
+      - Door Bottoms & Thresholds
+      - Automatic Operators
+
+      All materials are regularly updated with the latest product information and best practices from our weekly training sessions.`
     },
     {
       title: 'Training & SOPs',
-      description: 'View Training Materials & Operating Procedures',
+      description: 'Click here to view Training Materials & Department Procedures',
       icon: <img 
       src="/AllAboutLearning/images/training-sop.png"
       alt="Archives" 
       style={{ 
-        width: '500px',  // Increased size
-        height: '300px', // Increased size
+        width: '500px',
+        height: '300px',
         objectFit: 'cover',
-        borderRadius: '6px', // Rounded corners
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
+        borderRadius: '6px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
         transition: 'transform 0.3s ease',
         '&:hover': {
-          transform: 'scale(1.02)' // Slight zoom on hover
+          transform: 'scale(1.02)'
         }
       }} 
     />,
       path: '/training',
       color: 'white',
-      details: `The Training & SOPs section is your comprehensive learning hub, featuring materials from our weekly training sessions and essential company procedures. 
-      
-      Standard Operating Procedures (SOPs)
-      - Quality assurance checklists
-      - Safety protocols and best practices
-      - Company policies and procedures
-      
+      details: `Quick access to company procedures and professional development:
+
+      Standard Operating Procedures
+      - Quality Assurance Guidelines
+      - Safety Protocols
+      - Company Policies
+      - Best Practices
+
       Professional Development
-      - Industry standards and updates
-      - Advanced troubleshooting techniques
-      - Product knowledge assessments
-      
-      Stay current with our latest training materials and enhance your expertise through our regularly updated resources. Access everything you need to excel in your role and deliver outstanding service to our customers.`
+      - Industry Standards
+      - Troubleshooting Guides
+
+      All materials are regularly updated to ensure you have the latest information to excel in your role.`
     }
   ];
 
@@ -133,9 +132,8 @@ function Homepage() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 3 }}>
       <StaggeredFadeIn delay={0}>
-        {/* Flex container for welcome and search bar */}
         <Box
           sx={{
             mb: 1,
@@ -146,7 +144,7 @@ function Homepage() {
             gap: 2,
           }}
         >
-          <Box sx={{ width: 1, mb: 2 }}>
+          <Box sx={{ width: 1, mb: 1 }}>
             <Box
               sx={{
                 display: 'flex',
@@ -156,8 +154,7 @@ function Homepage() {
                 gap: 2,
                 pb: 0,
                 borderBottom: '3px double #4bac52',
-                mb: 3,
-                mt: 1
+                mb: 1,
               }}
             >
               <Typography 
@@ -199,11 +196,11 @@ function Homepage() {
               sx={{ 
                 color: 'black',
                 fontFamily: 'Roboto, sans-serif',
-                fontSize: '1.1rem'
-                
+                fontSize: '1.1rem',
+                mt: 2
               }}
             >
-              Access to All About Doors & comprehensive document library and training materials
+              Access to All About Doors & Windows comprehensive document library and training materials. Click the images below to access resources.
             </Typography>
           </Box>
         </Box>
@@ -318,7 +315,7 @@ function Homepage() {
         )}
 
         {/* Divider now outside the flex container, will span full width */}
-        <Divider sx={{ mb: 4 }} />
+        <Divider sx={{ my: 3, mt: 1 }} />
 
         {sections.map((section, index) => (
           <StaggeredFadeIn key={section.title} delay={0.2 * (index + 1)}>
@@ -326,7 +323,7 @@ function Homepage() {
               <Paper 
                 elevation={0}
                 sx={{ 
-                  mb: 4, 
+                  mb: 2, 
                   backgroundColor: 'transparent',
                   border: 'none'
                 }}
@@ -334,7 +331,7 @@ function Homepage() {
                 <Grid container spacing={4} direction={index % 2 === 0 ? 'row' : 'row-reverse'}>
                   <Grid item xs={12} md={6}>
                     <Box sx={{ 
-                      p: 3, 
+                      p: 2,  // Reduce from p: 3
                       backgroundColor: '#F8F9FA',
                       border: '1px solid black',
                       borderRadius: '10px',
@@ -342,7 +339,7 @@ function Homepage() {
                       maxWidth: '800px',
                       maxHeight: '695px',
                       padding: '1px',
-                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'  // Added
+                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
                     }}>
                       <Card
                         onClick={() => navigate(section.path)}
@@ -359,15 +356,15 @@ function Homepage() {
                         }}
                       >
                         <CardContent sx={{ 
-                          p: 10,
+                          p: 4,  // Reduce from p: 10
                           display: 'flex',
                           flexDirection: 'column',
                           alignItems: 'center',
                           textAlign: 'center',
-                          gap: '1rem'
+                          gap: '1.5rem'
                         }}>
                           <Box sx={{ 
-                            mb: 2,
+                            mb: 1,
                             width: '100%',    // Added
                             display: 'flex',  // Added
                             justifyContent: 'center',  // Added
@@ -396,7 +393,7 @@ function Homepage() {
                             sx={{ 
                               color: 'black',
                               fontFamily: 'Roboto, sans-serif',
-                              mb: 1,
+                              mb: .5,
                               fontWeight: 500  // Added
                             }}
                           >
@@ -417,16 +414,16 @@ function Homepage() {
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <Box sx={{ 
-                      p: 3, 
+                      p: 2.5,  // Reduce from p: 3
                       height: '100%',
                       maxHeight: '695px',
                       display: 'flex',
-                      alignItems: 'center',
+                      alignItems: 'flex-start',
                       backgroundColor: '#F1F8E9',
                       border: '1px solid black',
                       borderRadius: '10px',
-                      padding: '2rem',  // Updated
-                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'  // Added
+                      padding: '1.75rem',
+                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
                     }}>
                       <Typography
                         sx={{
@@ -449,12 +446,12 @@ function Homepage() {
                 <StaggeredFadeIn delay={0.2 * (index + 1)}>
                   <Divider 
                     sx={{ 
-                      my: 6,
-                      borderColor: 'rgba(0, 0, 0, 0.12)',  // Updated
+                      my: 4,
+                      borderColor: 'rgba(0, 0, 0, 0.12)',
                       borderWidth: 1,
-                      width: '90%',    // Updated
-                      margin: '48px auto',
-                      opacity: 0.5     // Updated
+                      width: '90%',
+                      margin: '32px auto',
+                      opacity: 0.5
                     }} 
                   />
                 </StaggeredFadeIn>
