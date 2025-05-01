@@ -9,6 +9,7 @@ import searchIndex from '../searchIndex';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BreadcrumbTrail from './common/BreadcrumbTrail';
 
 function TrainingDocs() {
   const navigate = useNavigate();
@@ -92,25 +93,10 @@ function TrainingDocs() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <StaggeredFadeIn delay={0}>
-        <Button 
-          onClick={() => navigate('/')}
-          sx={{ 
-            color: theme.palette.primary.main,
-            mb: 2,
-            display: 'flex',
-            alignItems: 'center',
-            '&:hover': {
-              backgroundColor: 'transparent',
-              color: theme.palette.primary.dark
-            }
-          }}
-        >
-          <ArrowBackIcon sx={{ mr: 1 }} />
-          Back to Home
-        </Button>
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
+      <BreadcrumbTrail />
 
+      <StaggeredFadeIn delay={0}>
         <Box
           sx={{
             mb: 1,

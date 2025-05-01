@@ -20,7 +20,7 @@ import searchIndex from '../../searchIndex';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-
+import BreadcrumbTrail from '../common/BreadcrumbTrail';
 
 function WebDepartment() {
   const navigate = useNavigate();
@@ -705,19 +705,11 @@ function WebDepartment() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
       <StaggeredFadeIn delay={0}>
-        {/* Back Button */}
-        <Button 
-          onClick={() => navigate('/training')}
-          sx={{ 
-            mb: 3,
-            color: theme.palette.primary.main,
-            '&:hover': { backgroundColor: 'rgba(75, 172, 82, 0.1)' }
-          }}
-        >
-          ← Back to Training & SOP's
-        </Button>
+        
+
+        <BreadcrumbTrail />
 
         {/* Flex container for title and search bar */}
         <Box
@@ -739,7 +731,7 @@ function WebDepartment() {
                 alignItems: 'flex-start',
                 gap: 2,
                 pb: 0,
-                borderBottom: '3px double black',
+                borderBottom: '3px double #4bac52',
                 mb: 2
               }}
             >

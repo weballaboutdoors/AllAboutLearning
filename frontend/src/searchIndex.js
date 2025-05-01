@@ -12,7 +12,7 @@ export default [
     title: 'Hoppe HLS7 Multi-Point Lock',
     description: 'Comprehensive guide for the Hoppe HLS7 multi-point lock system',
     details: 'Technical specifications, installation procedures, and troubleshooting',
-    path: '/archives/multipoint-locks/Hoppe%20HLS7%20MPL',
+    path: '/resources/multipoint-locks/Hoppe%20HLS7%20MPL',
     type: 'document'
   },
   {
@@ -20,7 +20,7 @@ export default [
     title: 'Amesbury Truth Multi-Point Lock',
     description: 'Comprehensive guide for the Amesbury Truth multi-point lock system',
     details: 'Technical specifications and installation procedures',
-    path: '/archives/multipoint-locks/Amesbury%20Truth%20MPL',
+    path: '/resources/multipoint-locks/Amesbury%20Truth%20MPL',
     type: 'document'
   },
   {
@@ -28,7 +28,7 @@ export default [
     title: 'Andersen Multi-Point Lock',
     description: 'Comprehensive guide for the Andersen multi-point lock system',
     details: 'Installation and maintenance procedures',
-    path: '/archives/multipoint-locks/Andersen%20MPL',
+    path: '/resources/multipoint-locks/Andersen%20MPL',
     type: 'document'
   },
   {
@@ -36,7 +36,7 @@ export default [
     title: 'Door Bottoms & Sweeps',
     description: 'Door Bottom Documentation',
     details: 'Installation and maintenance guides',
-    path: '/archives/door-bottoms',
+    path: '/resources/door-bottoms',
     type: 'document'
   },
   {
@@ -44,7 +44,7 @@ export default [
     title: 'Slide-On Door Bottoms',
     description: 'Guide for steel door slide-on bottoms',
     details: 'Installation and replacement procedures for slide-on door bottoms',
-    path: '/archives/door-bottoms/door-bottoms-guide',
+    path: '/resources/door-bottoms/door-bottoms-guide',
     type: 'document'
   },
   {
@@ -52,7 +52,7 @@ export default [
     title: 'Wrap-Around Door Bottoms',
     description: 'Guide for wrap-around door bottoms',
     details: 'Installation and adjustment procedures',
-    path: '/archives/door-bottoms/door-bottoms-guide',
+    path: '/resources/door-bottoms/door-bottoms-guide',
     type: 'document'
   },
   {
@@ -60,7 +60,7 @@ export default [
     title: 'Multi-Point Lock Videos',
     description: 'Installation and troubleshooting videos',
     details: 'Video guides for installing and troubleshooting multi-point locks',
-    path: '/videos',
+    path: '/resources/videos',
     type: 'video'
   },
   {
@@ -68,7 +68,7 @@ export default [
     title: 'Door Handle Installation',
     description: 'Storm Door Handle Set Installation',
     details: 'Step-by-step guide for installing storm door handle sets',
-    path: '/videos#door-handles',
+    path: '/resources/videos#door-handles',
     type: 'video',
     videoId: 'YOJv63CnBs4'
   },
@@ -77,7 +77,7 @@ export default [
     title: 'Weatherstripping Installation',
     description: 'Window Weatherstripping Guide',
     details: 'Instructions for installing weatherstripping on windows',
-    path: '/videos#weatherstripping',
+    path: '/resources/videos#weatherstripping',
     type: 'video'
   },
   {
@@ -141,7 +141,7 @@ export default [
     title: 'Storm Doors & Windows',
     description: 'Storm System Documentation',
     details: 'Complete documentation for storm door and window installation',
-    path: '/archives/storm-doors-and-windows',
+    path: '/resources/storm-doors-and-windows',
     type: 'document'
   },
   {
@@ -149,14 +149,14 @@ export default [
     title: 'Columbia Storm Window',
     description: 'Installation Guide',
     details: 'Complete installation and adjustment procedures',
-    path: '/archives/storm-doors-and-windows/Columbia%20Storm%20Window',
+    path: '/resources/storm-doors-and-windows/Columbia%20Storm%20Window',
     type: 'document'
   },
   {
     page: 'Videos',
     title: 'Emtek Handle Sets - Changing Handing',
     description: 'How to change the handing of an Emtek handle set',
-    path: '/videos#door-handles',
+    path: '/resources/videos#door-handles',
     type: 'video',
     videoId: 'FD4nRfFBWek'
   },
@@ -164,7 +164,7 @@ export default [
     page: 'Videos',
     title: 'Handle Set Installation with Andersen Multi-point Lock',
     description: 'How to install a handle set in a door with an Andersen multi-point lock',
-    path: '/videos#door-handles',
+    path: '/resources/videos#door-handles',
     type: 'video',
     videoId: '-HswsQJliCQ'
   },
@@ -172,7 +172,7 @@ export default [
     page: 'Videos',
     title: 'Handle Sets for Multi-point Locks',
     description: 'Different types of handle sets for multi-point locks',
-    path: '/videos#door-handles',
+    path: '/resources/videos#door-handles',
     type: 'video',
     videoId: 'GyiVA-Pm94A'
   },
@@ -180,7 +180,7 @@ export default [
     page: 'Videos',
     title: 'Rehanding GU Multi-Point Lock',
     description: 'How to rehand a GU multi-point lock',
-    path: '/videos#multipoint-locks',
+    path: '/resources/videos#multipoint-locks',
     type: 'video',
     videoId: 'JqfVdyXV9Bc'
   },
@@ -188,7 +188,7 @@ export default [
     page: 'Videos',
     title: 'Rehanding Ashland Multi-Point Locks',
     description: 'How to rehand an Ashland multi-point lock',
-    path: '/videos#multipoint-locks',
+    path: '/resources/videos#multipoint-locks',
     type: 'video',
     videoId: '8QQCIZtgh6c'
   },
@@ -196,7 +196,7 @@ export default [
     page: 'Videos',
     title: 'Multi-Point Lock Guide',
     description: 'Learn the basics of multi-point locks',
-    path: '/videos#multipoint-locks',
+    path: '/resources/videos#multipoint-locks',
     type: 'video',
     videoId: 'ChozyCEPNKY'
   },
@@ -204,7 +204,7 @@ export default [
     page: 'Videos',
     title: 'Identify Casement Window Operators',
     description: 'Learn about different types of casement window operators',
-    path: '/videos#window-operators',
+    path: '/resources/videos#window-operators',
     type: 'video',
     videoId: 'hWWILNbx7hY'
   },
@@ -212,7 +212,7 @@ export default [
     page: 'Videos',
     title: 'Window Weatherstripping Installation',
     description: 'Instructions for installing weatherstripping on windows',
-    path: '/videos#weatherstripping',
+    path: '/resources/videos#weatherstripping',
     type: 'video',
     videoId: 'hTH0PMVg3_A'
   },
@@ -220,7 +220,7 @@ export default [
     page: 'Videos',
     title: 'How to Measure Weatherstripping',
     description: 'How to measure different styles of weatherstripping',
-    path: '/videos#weatherstripping',
+    path: '/resources/videos#weatherstripping',
     type: 'video',
     videoId: 'yXS4ahvtetU'
   },
@@ -229,7 +229,7 @@ export default [
     title: 'Replace a Sliding Door Handle',
     description: 'How to replace a sliding patio door handle',
     details: 'Complete guide to replacing sliding door handle sets',
-    path: '/videos#ud1Um0Abw_g',
+    path: '/resources/videos#ud1Um0Abw_g',
     type: 'video'
   },
   {
@@ -237,7 +237,7 @@ export default [
     title: 'Pella Sliding Door Handle Set',
     description: 'How to install a Pella sliding door handle set',
     details: 'Installation guide specific to Pella sliding door handles',
-    path: '/videos#SBhOLfyEoxM',
+    path: '/resources/videos#SBhOLfyEoxM',
     type: 'video'
   },
   {
@@ -245,14 +245,14 @@ export default [
     title: 'Measuring Handle Height',
     description: 'How to measure the height of a handle set',
     details: 'Proper measurement techniques for handle set installation',
-    path: '/videos#PU4Wfiev8IQ',
+    path: '/resources/videos#PU4Wfiev8IQ',
     type: 'video'
   },
   {
     page: 'Videos',
     title: 'Installing Door Sweeps',
     description: 'Complete guide to installing different types of door sweeps',
-    path: '/videos#door-bottoms',
+    path: '/resources/videos#door-bottoms',
     type: 'video',
     videoId: 'CcueimH49WU'
   },
@@ -320,7 +320,7 @@ export default [
     page: 'Videos',
     title: 'Awning Windows',
     description: 'A guide to awning window types, hardware, and operation',
-    path: '/videos#windows',
+    path: '/resources/videos#windows',
     type: 'video',
     videoId: '4Zn0WPvIsKQ'
   },
@@ -328,7 +328,7 @@ export default [
     page: 'Videos',
     title: 'Andersen Power Operator Installation',
     description: 'Install an Andersen power window operator',
-    path: '/videos#windows',
+    path: '/resources/videos#windows',
     type: 'video',
     videoId: 'fjkaPgNEGvI'
   }

@@ -21,6 +21,8 @@ import { useParams } from 'react-router-dom';
 import { useScrollTrigger } from '@mui/material';
 import SearchBar from './common/SearchBar';
 import searchIndex from '../searchIndex';
+import BreadcrumbTrail from './common/BreadcrumbTrail';
+
 function DoorBottomGuide() {
     const theme = useTheme();
     const navigate = useNavigate();
@@ -831,27 +833,10 @@ function DoorBottomGuide() {
     };
 
     return (
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
           <StaggeredFadeIn delay={0}>
+            <BreadcrumbTrail />
             <Box sx={{ mb: 4 }}>
-              <Button 
-                onClick={() => navigate('/archives/door-bottoms')}
-                sx={{ 
-                  color: theme.palette.primary.main,
-                  mb: 3,
-                  display: 'flex',
-                  alignItems: 'center',
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                    color: theme.palette.primary.dark
-                  }
-                }}
-              >
-                <ArrowBackIcon sx={{ mr: 1 }} />
-                Back to Door Bottoms
-              </Button>
-
-              {/* Flex container for title and search bar */}
               <Box
                 sx={{
                   mb: 1,

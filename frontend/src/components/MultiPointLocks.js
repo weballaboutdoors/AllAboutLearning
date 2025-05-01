@@ -10,6 +10,7 @@ import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Paper } from '@mui/material';
+import BreadcrumbTrail from './common/BreadcrumbTrail';
 
 function MultiPointLocks() {
   const theme = useTheme();
@@ -97,25 +98,9 @@ function MultiPointLocks() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
       <StaggeredFadeIn delay={0}>
-        <Button 
-          onClick={() => navigate('/archives')}
-          sx={{ 
-            color: theme.palette.primary.main,
-            mb: 2,
-            display: 'flex',
-            alignItems: 'center',
-            '&:hover': {
-              backgroundColor: 'transparent',
-              color: theme.palette.primary.dark
-            }
-          }}
-        >
-          <ArrowBackIcon sx={{ mr: 1 }} />
-          Back to Resources
-        </Button>
-
+        <BreadcrumbTrail />
         <Box
           sx={{
             mb: 1,
@@ -288,7 +273,7 @@ function MultiPointLocks() {
             {lockGuides.map((guide) => (
               <Grid item xs={12} sm={6} md={4} key={guide.id}>  {/* Changed grid sizing to match DocumentList */}
                 <Card 
-                  onClick={() => navigate(`/archives/multipoint-locks/${guide.id}`)}
+                  onClick={() => navigate(`/resources/multipoint-locks/${guide.id}`)}
                   sx={{ 
                     height: '100%',
                     cursor: 'pointer',

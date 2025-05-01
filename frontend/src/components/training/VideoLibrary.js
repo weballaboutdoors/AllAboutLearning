@@ -12,6 +12,7 @@ import searchIndex from '../../searchIndex';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BreadcrumbTrail from '../common/BreadcrumbTrail';
 
 function VideoLibrary() {
   const theme = useTheme();
@@ -375,19 +376,10 @@ function VideoLibrary() {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
       <StaggeredFadeIn delay={0}>
-        {/* Back Button */}
-        <Button 
-          onClick={() => navigate('/archives')}
-          sx={{ 
-            mb: 3,
-            color: 'primary.main',
-            '&:hover': { backgroundColor: 'rgba(75, 172, 82, 0.1)' }
-          }}
-        >
-          ← Back to Resources
-        </Button>
+        {/* BreadcrumbTrail */}
+        <BreadcrumbTrail />
 
         {/* Header */}
         <Box
@@ -480,7 +472,7 @@ function VideoLibrary() {
                         }}
                         onClick={() => {
                           if (result.type === 'video') {
-                            navigate(result.path);
+                            navigate('/resources/videos');
                             setTimeout(() => {
                               const videoElement = document.getElementById(result.videoId);
                               if (videoElement) {
@@ -496,7 +488,7 @@ function VideoLibrary() {
                               }
                             }, 500);
                           } else {
-                            navigate(result.path);
+                            navigate(`/resources/${result.path}`);
                           }
                         }}
                       >

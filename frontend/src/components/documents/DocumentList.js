@@ -43,6 +43,7 @@ import searchIndex from '../../searchIndex';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BreadcrumbTrail from '../common/BreadcrumbTrail';
 
 function DocumentList() {
   const initialDocuments = [
@@ -76,7 +77,7 @@ function DocumentList() {
     },
     { 
       id: 'videos', 
-      name: 'Videos', 
+      name: 'All About Videos', 
       type: 'video', 
       description: 'Watch and Learn - Enhance Your Support Expertise',
       image: '/AllAboutLearning/images/training-videos.png'
@@ -162,9 +163,9 @@ function DocumentList() {
 
   const handleCardClick = (categoryId) => {
     if (categoryId === 'videos') {
-      navigate('/videos'); // This will route to the video component
+      navigate('/resources/videos');
     } else {
-      navigate(`/archives/${categoryId}`);
+      navigate(`/resources/${categoryId}`);
     }
   };
 
@@ -314,25 +315,10 @@ function DocumentList() {
 };
 
 return (
-  <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+  <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
     <ToastContainer position="bottom-right" />
     <StaggeredFadeIn delay={0}>
-      <Button 
-        onClick={() => navigate('/')}
-        sx={{ 
-          color: theme.palette.primary.main,
-          mb: 2,
-          display: 'flex',
-          alignItems: 'center',
-          '&:hover': {
-            backgroundColor: 'transparent',
-            color: theme.palette.primary.dark
-          }
-        }}
-      >
-        <ArrowBackIcon sx={{ mr: 1 }} />
-        Back to Home
-      </Button>
+      <BreadcrumbTrail />
 
       <Box
         sx={{
@@ -365,6 +351,7 @@ return (
                 fontSize: '2.7rem',
                 fontWeight: 500,
                 mb: 1,
+                
                 lineHeight: 1.5
               }}
             >
@@ -525,6 +512,23 @@ return (
                   }}
                   onClick={(doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? undefined : () => handleCardClick(doc.id)}
                 >
+                  {(doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 10,
+                        right: 10,
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        color: 'white',
+                        padding: '4px 12px',
+                        borderRadius: '16px',
+                        zIndex: 1,
+                        fontSize: '0.875rem'
+                      }}
+                    >
+                      Coming Soon
+                    </Box>
+                  )}
                   <CardMedia
                     component="img"
                     height="400"

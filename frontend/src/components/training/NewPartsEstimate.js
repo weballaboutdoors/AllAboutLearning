@@ -20,6 +20,7 @@ import searchIndex from '../../searchIndex';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BreadcrumbTrail from '../common/BreadcrumbTrail';
 
 function NewPartsEstimate() {
     const theme = useTheme();
@@ -307,18 +308,9 @@ function NewPartsEstimate() {
     };
 
     return (
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            {/* Back Button */}
-            <Button 
-                onClick={() => navigate('/training')}
-                sx={{ 
-                    mb: 3,
-                    color: theme.palette.primary.main,
-                    '&:hover': { backgroundColor: 'rgba(75, 172, 82, 0.1)' }
-                }}
-            >
-                ← Back to Training & SOP's
-            </Button>
+        <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
+            {/* Add BreadcrumbTrail instead */}
+            <BreadcrumbTrail />
 
             {/* Header */}
             <StaggeredFadeIn delay={0}>

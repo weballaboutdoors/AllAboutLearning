@@ -137,13 +137,13 @@ function App() {
             <Navbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
               <Routes>
-                <Route path="/archives" element={<DocumentList />} />
-                <Route path="/archives/multipoint-locks/:guideId" element={<LockGuide />} />
-                <Route path="/archives/multipoint-locks" element={<MultiPointLocks />} />
-                <Route path="/archives/storm-doors-and-windows" element={<StormDoors />} />
-                <Route path="/archives/storm-doors-and-windows/:guideId" element={<StormGuide />} />
-                <Route path="/archives/door-bottoms" element={<DoorBottoms />} />
-                <Route path="/archives/door-bottoms/door-bottoms-guide" element={<DoorBottomGuide />} />
+                <Route path="/resources" element={<DocumentList />} />
+                <Route path="/resources/multipoint-locks/:guideId" element={<LockGuide />} />
+                <Route path="/resources/multipoint-locks" element={<MultiPointLocks />} />
+                <Route path="/resources/storm-doors-and-windows" element={<StormDoors />} />
+                <Route path="/resources/storm-doors-and-windows/:guideId" element={<StormGuide />} />
+                <Route path="/resources/door-bottoms" element={<DoorBottoms />} />
+                <Route path="/resources/door-bottoms/door-bottoms-guide" element={<DoorBottomGuide />} />
                 <Route path="/landing" element={<LandingPage />} />
                 <Route path="/training" element={<TrainingDocs />} />
                 <Route path="/training/web" element={<WebDepartment />} />
@@ -182,7 +182,7 @@ function App() {
                     </ProtectedRoute>
                   } 
                 />
-                <Route path="/videos" element={<VideoLibrary />} />
+                <Route path="/resources/videos" element={<VideoLibrary />} />
               </Routes>
             </Container>
             <Footer />
