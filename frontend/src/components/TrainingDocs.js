@@ -271,19 +271,37 @@ function TrainingDocs() {
           <Grid item xs={12} sm={6} md={4} key={dept.id}>
             <StaggeredFadeIn delay={index * 0.1}>
               <Card 
-                onClick={() => navigate(dept.path)}
+                onClick={() => dept.path && navigate(dept.path)}
                 sx={{ 
                   height: '100%',
-                  cursor: 'pointer',
+                  cursor: dept.path ? 'pointer' : 'default',
                   backgroundColor: 'background.paper',
                   border: `1px solid ${theme.palette.primary.main}`,
-                  '&:hover': {
+                  position: 'relative',
+                  '&:hover': dept.path ? {
                     transform: 'translateY(-4px)',
                     boxShadow: 3,
                     transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
-                  }
+                  } : {}
                 }}
               >
+                {!dept.path && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 10,
+                      right: 10,
+                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                      color: 'white',
+                      padding: '4px 12px',
+                      borderRadius: '16px',
+                      zIndex: 1,
+                      fontSize: '0.875rem'
+                    }}
+                  >
+                    Coming Soon
+                  </Box>
+                )}
                 <CardMedia
                   component="img"
                   height="400"
@@ -293,9 +311,10 @@ function TrainingDocs() {
                     objectFit: 'cover',
                     borderBottom: '1px solid #eee',
                     backgroundColor: '#f5f5f5',
-                    '&:hover': {
+                    filter: !dept.path ? 'grayscale(100%)' : 'none',
+                    '&:hover': dept.path ? {
                       opacity: .5
-                    }
+                    } : {}
                   }}
                 />
                 <CardContent>

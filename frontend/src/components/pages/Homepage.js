@@ -200,7 +200,7 @@ function Homepage() {
                 mt: 2
               }}
             >
-              Access to All About Doors & Windows comprehensive document library and training materials. Click the images below to access resources.
+              Access to All About Doors & Windows comprehensive document library and training materials. Click below to access resources.
             </Typography>
           </Box>
         </Box>
