@@ -10,12 +10,17 @@ import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BreadcrumbTrail from './common/BreadcrumbTrail';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { isFavorite, addFavorite, removeFavorite } from '../utils/favorites';
+import IconButton from '@mui/material/IconButton';
 
 function TrainingDocs() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [searching, setSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [favoriteToggler, setFavoriteToggler] = useState(false);
 
   const handleSearch = (query) => {
     if (!query.trim()) {
@@ -52,6 +57,15 @@ function TrainingDocs() {
     });
 
     setSearchResults(results);
+  };
+
+  const handleFavorite = (dept) => {
+    if (isFavorite(dept.id)) {
+      removeFavorite(dept.id);
+    } else {
+      addFavorite(dept);
+    }
+    setFavoriteToggler(fav => !fav); // force re-render
   };
 
   const departments = [
@@ -285,6 +299,17 @@ function TrainingDocs() {
                   } : {}
                 }}
               >
+                {dept.path && (
+                  <IconButton
+                    onClick={e => {
+                      e.stopPropagation();
+                      handleFavorite(dept);
+                    }}
+                    sx={{ position: 'absolute', top: 8, right: 8, zIndex: 2, color: '#4bac52', backgroundColor: 'black', borderRadius: '50%', boxShadow: 2, p: 0.5, '&:hover': { backgroundColor: 'black' } }}
+                  >
+                    {isFavorite(dept.id) ? <StarIcon color="warning" /> : <StarBorderIcon />}
+                  </IconButton>
+                )}
                 {!dept.path && (
                   <Box
                     sx={{

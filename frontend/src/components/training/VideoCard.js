@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Card,
     CardContent,
@@ -8,9 +8,24 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-
+import StarIcon from '@mui/icons-material/Star';
+import { isFavorite, addFavorite, removeFavorite } from '../../utils/favorites';
+import IconButton from '@mui/material/IconButton';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 const VideoCard = ({ title, description, videoId }) => {
     const theme = useTheme();
+    const [favorite, setFavorite] = useState(isFavorite(videoId));
+
+    const handleFavorite = (e) => {
+        e.stopPropagation();
+        if (favorite) {
+            removeFavorite(videoId);
+            setFavorite(false);
+        } else {
+            addFavorite({ id: videoId, name: title, type: 'video', path: `/resources/videos#${videoId}` });
+            setFavorite(true);
+        }
+    };
 
     return (
         <Card sx={{
@@ -18,12 +33,16 @@ const VideoCard = ({ title, description, videoId }) => {
             border: `1px solid ${theme.palette.primary.main}`,
             backgroundColor: '#faf9f6',
             height: '100%',  // Added to ensure equal height cards
+            position: 'relative',
             '&:hover': {
                 boxShadow: 2,
                 transform: 'translateY(-2px)',
                 transition: 'all 0.2s ease'
             }
         }}>
+            <IconButton onClick={handleFavorite} sx={{ position: 'absolute', top: 8, right: 8, color: '#4bac52', backgroundColor: 'black', borderRadius: '50%', boxShadow: 2, p: 0.5, '&:hover': { backgroundColor: 'black' } }}>
+        {favorite ? <StarIcon color="warning" /> : <StarBorderIcon />}
+      </IconButton>
             <CardContent sx={{ p: 2 }}>
                 <Box sx={{ 
                     display: 'flex', 

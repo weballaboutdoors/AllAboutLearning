@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Container, 
   Grid, 
@@ -9,7 +9,8 @@ import {
   Box,
   Paper,
   Divider,
-  CardActions
+  CardActions,
+  IconButton
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -20,6 +21,10 @@ import SearchBar from '../common/SearchBar';
 import searchIndex from '../../searchIndex';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
+import { getFavorites, removeFavorite } from '../../utils/favorites';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Homepage() {
   const navigate = useNavigate();
@@ -98,6 +103,9 @@ function Homepage() {
 
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [favorites, setFavorites] = useState(getFavorites());
+  const [scrollX, setScrollX] = useState(0);
+  const scrollRef = React.useRef();
 
   const normalizeText = (text) => {
     return text.toLowerCase()
@@ -129,6 +137,20 @@ function Homepage() {
     });
 
     setSearchResults(results);
+  };
+
+  useEffect(() => {
+    // Optionally, listen for storage changes if you want to sync across tabs
+    const onStorage = () => setFavorites(getFavorites());
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  const scrollBy = (offset) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+      setScrollX(scrollRef.current.scrollLeft + offset);
+    }
   };
 
   return (
@@ -200,7 +222,7 @@ function Homepage() {
                 mt: 2
               }}
             >
-              Access to All About Doors & Windows comprehensive document library and training materials. Click below to access resources.
+              Access to All About Doors & Windows comprehensive document library and training materials. Click the images below to access resources.
             </Typography>
           </Box>
         </Box>
@@ -459,6 +481,187 @@ function Homepage() {
             </React.Fragment>
           </StaggeredFadeIn>
         ))}
+
+        {/* --- FAVORITES SECTION HERE --- */}
+        <Box sx={{ mt: 5, mb: 3 }}>
+          <Paper
+            elevation={2}
+            sx={{
+              p: 2.5,
+              background: 'transparent',
+              borderRadius: 2,
+              border: '1px solid black',
+              boxShadow: '0 2px 8px rgba(76, 175, 80, 0.07)',
+              position: 'relative'
+            }}
+          >
+            <Typography variant="h6" sx={{ mb: 2, color: 'black', fontWeight: 500 }}>
+              Favorites
+            </Typography>
+            {favorites.length === 0 ? (
+              <Typography sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
+                You have no favorites yet.
+              </Typography>
+            ) : (
+              <Box sx={{ position: 'relative', width: '100%' }}>
+                {/* Left Arrow */}
+                {favorites.length > 4 && (
+                  <IconButton
+                    onClick={() => scrollBy(-240)}
+                    sx={{
+                      position: 'absolute',
+                      left: 0,
+                      top: '50%',
+                      zIndex: 2,
+                      transform: 'translateY(-50%)',
+                      background: 'rgba(255,255,255,0.8)',
+                      boxShadow: 1,
+                      display: { xs: 'none', sm: 'flex' }
+                    }}
+                  >
+                    <ArrowBackIosNewIcon />
+                  </IconButton>
+                )}
+                {/* Scrollable Favorites */}
+                <Box
+                  ref={scrollRef}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: 2,
+                    overflowX: favorites.length > 4 ? 'auto' : 'visible',
+                    overflowY: 'hidden',
+                    scrollBehavior: 'smooth',
+                    py: 1,
+                    px: favorites.length > 4 ? 5 : 0,
+                    '&::-webkit-scrollbar': { height: 8 },
+                    '&::-webkit-scrollbar-thumb': { background: '#e0e0e0', borderRadius: 4 }
+                  }}
+                >
+                  {favorites.map(item => (
+                    <Card
+                      key={item.id}
+                      onClick={() => {
+                        if (item.type === 'video') {
+                          navigate('/resources/videos');
+                          setTimeout(() => {
+                            const videoElement = document.getElementById(item.id);
+                            if (videoElement) {
+                              videoElement.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'center'
+                              });
+                              videoElement.style.transition = 'all 0.3s ease-in-out';
+                              videoElement.style.boxShadow = '0 0 20px rgba(75, 172, 82, 0.5)';
+                              setTimeout(() => {
+                                videoElement.style.boxShadow = 'none';
+                              }, 2000);
+                            }
+                          }, 500);
+                        } else {
+                          navigate(item.path || `/resources/${item.id}`);
+                        }
+                      }}
+                      sx={{
+                        width: 215,
+                        minWidth: 215,
+                        maxWidth: 215,
+                        minHeight: 240,
+                        cursor: 'pointer',
+                        backgroundColor: item.type === 'video' ? '#111' : '#fff',
+                        border: theme => `1px solid ${theme.palette.primary.main}`,
+                        boxShadow: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        transition: 'box-shadow 0.2s, transform 0.2s',
+                        position: 'relative',
+                        '&:hover': {
+                          boxShadow: 4,
+                          transform: 'translateY(-2px)'
+                        }
+                      }}
+                    >
+                      {/* Remove from favorites button */}
+                      <IconButton
+                        size="small"
+                        onClick={e => {
+                          e.stopPropagation();
+                          removeFavorite(item.id);
+                          setFavorites(favorites => favorites.filter(fav => fav.id !== item.id));
+                        }}
+                        sx={{
+                          position: 'absolute',
+                          top: 6,
+                          right: 6,
+                          zIndex: 3,
+                          backgroundColor: 'rgba(255,255,255,0.85)',
+                          borderRadius: '50%',
+                          boxShadow: 1,
+                          p: 0.5,
+                          '&:hover': { backgroundColor: '#ffebee', color: '#b71c1c' }
+                        }}
+                      >
+                        <CloseIcon fontSize="small" />
+                      </IconButton>
+                      {/* Video icon and text for video cards */}
+                      {item.type === 'video' ? (
+                        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, py: 3 }}>
+                          <VideoLibraryIcon sx={{ color: '#ff1744', fontSize: 48, mb: 1 }} />
+                          <Typography variant="subtitle2" sx={{ color: '#fff', fontWeight: 500, fontSize: '1.12rem', width: '100%', textAlign: 'center' }}>
+                            {item.name || item.title}
+                          </Typography>
+                        </Box>
+                      ) : (
+                        <>
+                          {item.image && (
+                            <Box
+                              component="img"
+                              src={item.image}
+                              alt={item.name || item.title}
+                              sx={{
+                                width: '100%',
+                                height: 215,
+                                objectFit: 'cover',
+                                borderTopLeftRadius: 4,
+                                borderTopRightRadius: 4,
+                                backgroundColor: '#f5f5f5'
+                              }}
+                            />
+                          )}
+                          <CardContent sx={{ p: 1, width: '100%', textAlign: 'center', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Typography variant="subtitle2" sx={{ color: 'primary.main', fontWeight: 500, fontSize: '1.12rem', width: '100%' }}>
+                              {item.name || item.title}
+                            </Typography>
+                          </CardContent>
+                        </>
+                      )}
+                    </Card>
+                  ))}
+                </Box>
+                {/* Right Arrow */}
+                {favorites.length > 4 && (
+                  <IconButton
+                    onClick={() => scrollBy(240)}
+                    sx={{
+                      position: 'absolute',
+                      right: 0,
+                      top: '50%',
+                      zIndex: 2,
+                      transform: 'translateY(-50%)',
+                      background: 'rgba(255,255,255,0.8)',
+                      boxShadow: 1,
+                      display: { xs: 'none', sm: 'flex' }
+                    }}
+                  >
+                    <ArrowForwardIosIcon />
+                  </IconButton>
+                )}
+              </Box>
+            )}
+          </Paper>
+        </Box>
+        {/* --- END FAVORITES SECTION --- */}
       </StaggeredFadeIn>
     </Container>
   );

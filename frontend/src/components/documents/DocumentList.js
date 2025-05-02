@@ -44,6 +44,9 @@ import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BreadcrumbTrail from '../common/BreadcrumbTrail';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { isFavorite, addFavorite, removeFavorite } from '../../utils/favorites';
 
 function DocumentList() {
   const initialDocuments = [
@@ -314,6 +317,85 @@ function DocumentList() {
     );
 };
 
+function DocumentCard({ doc }) {
+  const [favorite, setFavorite] = useState(isFavorite(doc.id));
+
+  const handleFavorite = (e) => {
+    e.stopPropagation();
+    if (favorite) {
+      removeFavorite(doc.id);
+      setFavorite(false);
+    } else {
+      addFavorite(doc);
+      setFavorite(true);
+    }
+  };
+
+  return (
+    <Card 
+      sx={{ 
+        position: 'relative',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer',
+        '&:hover': {
+          transform: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'none' : 'scale(1.02)',
+          boxShadow: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 1 : '0 8px 16px rgba(0,0,0,0.1)'
+        }
+      }}
+      onClick={(doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? undefined : () => handleCardClick(doc.id)}
+    >
+      {(doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            color: 'white',
+            padding: '4px 12px',
+            borderRadius: '16px',
+            zIndex: 1,
+            fontSize: '0.875rem'
+          }}
+        >
+          Coming Soon
+        </Box>
+      )}
+      <CardMedia
+        component="img"
+        height="400"
+        image={doc.image}
+        alt={doc.name}
+        sx={{ 
+          objectFit: 'cover',
+          borderBottom: '1px solid #eee',
+          backgroundColor: '#f5f5f5',
+          cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer',
+          filter: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'grayscale(100%) brightness(0.8)' : 'none',
+          '&:hover': {
+            opacity: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 1 : .5
+          }
+        }}
+      />
+      <CardContent sx={{ 
+        cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer' 
+      }}>
+        <Typography variant="h6" component="h2" sx={{ mb: 1, color: 'primary.main' }}>
+          {doc.name}
+        </Typography>
+        <Typography variant="body2" color="white">
+          {doc.description}
+        </Typography>
+      </CardContent>
+      <IconButton onClick={handleFavorite} sx={{ position: 'absolute', top: 8, right: 8, color: '#4bac52', backgroundColor: 'black', borderRadius: '50%', boxShadow: 2, p: 0.5, '&:hover': { backgroundColor: 'black' } }}>
+        {favorite ? <StarIcon color="warning" /> : <StarBorderIcon />}
+      </IconButton>
+    </Card>
+  );
+}
+
 return (
   <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
     <ToastContainer position="bottom-right" />
@@ -499,62 +581,7 @@ return (
           {initialDocuments.map((doc, index) => (
             <Grid item xs={12} sm={6} md={4} key={doc.id}>
               <StaggeredFadeIn delay={index * 0.1}>
-                <Card 
-                  sx={{ 
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer',
-                    '&:hover': {
-                      transform: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'none' : 'scale(1.02)',
-                      boxShadow: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 1 : '0 8px 16px rgba(0,0,0,0.1)'
-                    }
-                  }}
-                  onClick={(doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? undefined : () => handleCardClick(doc.id)}
-                >
-                  {(doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') && (
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        top: 10,
-                        right: 10,
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        color: 'white',
-                        padding: '4px 12px',
-                        borderRadius: '16px',
-                        zIndex: 1,
-                        fontSize: '0.875rem'
-                      }}
-                    >
-                      Coming Soon
-                    </Box>
-                  )}
-                  <CardMedia
-                    component="img"
-                    height="400"
-                    image={doc.image}
-                    alt={doc.name}
-                    sx={{ 
-                      objectFit: 'cover',
-                      borderBottom: '1px solid #eee',
-                      backgroundColor: '#f5f5f5',
-                      cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer',
-                      '&:hover': {
-                        opacity: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 1 : .5
-                      }
-                    }}
-                  />
-                  <CardContent sx={{ 
-                    cursor: (doc.id === 'hinges' || doc.id === 'storm-doors-and-windows') ? 'default' : 'pointer' 
-                  }}>
-                    <Typography variant="h6" component="h2" sx={{ mb: 1, color: 'primary.main' }}>
-                      {doc.name}
-                    </Typography>
-                    <Typography variant="body2" color="white">
-                      {doc.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                <DocumentCard doc={doc} />
               </StaggeredFadeIn>
             </Grid>
           ))}
