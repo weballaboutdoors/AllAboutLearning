@@ -85,6 +85,13 @@ function DocumentList() {
       description: 'Watch and Learn - Enhance Your Support Expertise',
       image: '/AllAboutLearning/images/training-videos.png'
     },
+    {
+      id: '4-bar-hinges',
+      name: '4-Bar Hinges',
+      type: 'document',
+      description: 'All about 4-Bar Hinges: types, materials, numbering, and more.',
+      image: '/AllAboutLearning/images/4bar-hinges.jpg'
+    },
     /* Commented out until information is ready
     { 
       id: 'window-hardware', 

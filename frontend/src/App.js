@@ -26,7 +26,7 @@ import DoorBottoms from './components/DoorBottoms';
 import DoorBottomGuide from './components/DoorBottomGuide';
 import NewPartsEstimate from './components/training/NewPartsEstimate.js';
 import VideoLibrary from './components/training/VideoLibrary';  // Create this component
-
+import FourBarHingesPage from './components/documents/FourBarHingesPage';
 const theme = createTheme({
   palette: {
     primary: {
@@ -144,6 +144,7 @@ function App() {
                 <Route path="/resources/storm-doors-and-windows/:guideId" element={<StormGuide />} />
                 <Route path="/resources/door-bottoms" element={<DoorBottoms />} />
                 <Route path="/resources/door-bottoms/door-bottoms-guide" element={<DoorBottomGuide />} />
+                <Route path="/resources/4-bar-hinges" element={<FourBarHingesPage />} />
                 <Route path="/landing" element={<LandingPage />} />
                 <Route path="/training" element={<TrainingDocs />} />
                 <Route path="/training/web" element={<WebDepartment />} />

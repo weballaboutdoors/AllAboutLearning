@@ -355,7 +355,7 @@ function Homepage() {
                     <Box sx={{ 
                       p: 2,  // Reduce from p: 3
                       backgroundColor: '#F8F9FA',
-                      border: '1px solid black',
+                      border: '1px solid #f1f8e9',
                       borderRadius: '10px',
                       height: '100%',
                       maxWidth: '800px',
@@ -490,7 +490,7 @@ function Homepage() {
               p: 2.5,
               background: 'transparent',
               borderRadius: 2,
-              border: '1px solid black',
+              border: '1px solid #f1f8e9',
               boxShadow: '0 2px 8px rgba(76, 175, 80, 0.07)',
               position: 'relative'
             }}
