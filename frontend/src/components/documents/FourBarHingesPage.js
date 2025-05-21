@@ -21,7 +21,7 @@ const PLACEHOLDER_IMG = {
 function FourBarHingesPage() {
   const theme = useTheme();
   const [showScroll, setShowScroll] = useState(false);
-
+  const [zoomedImg, setZoomedImg] = useState(null);
   React.useEffect(() => {
     const checkScrollTop = () => {
       if (!showScroll && window.pageYOffset > 400) setShowScroll(true);
@@ -63,7 +63,7 @@ function FourBarHingesPage() {
               ],
               images: [
                 {
-                  src: "/AllAboutLearning/images/4bar-hinges.jpg",
+                  src: "/AllAboutLearning/images/4bar-hinges.png",
                   alt: "4-Bar Hinge"
                 }
               ]
@@ -94,8 +94,18 @@ function FourBarHingesPage() {
               ],
               images: [
                 {
-                  src: "/AllAboutLearning/images/4bar-hinges-design.jpg",
+                  src: "/AllAboutLearning/images/4bar-hinges-design.png",
                   alt: "4-Bar Hinge Design"
+                },
+                {
+                  src: "/AllAboutLearning/images/4bar-hinge-stack-height.png",
+                  alt: "4-Bar Hinge Stack Height and Shims",
+                  caption: "Stack Height and Shim Installation"
+                },
+                {
+                  src: "/AllAboutLearning/images/4bar-hinge-stops.png",
+                  alt: "4-Bar Hinge Stop Types",
+                  caption: "Stop vs No-Stop Hinge Configurations"
                 }
               ]
             }
@@ -120,7 +130,7 @@ function FourBarHingesPage() {
               ],
               images: [
                 {
-                  src: "/AllAboutLearning/images/4bar-series.jpg",
+                  src: "/AllAboutLearning/images/4bar-series.png",
                   alt: "Truth Anderberg Series"
                 }
               ]
@@ -142,24 +152,24 @@ function FourBarHingesPage() {
               ],
               images: [
                 {
-                  src: "/AllAboutLearning/images/201series-8in.jpg",
-                  alt: "201 Series 8-inch"
+                  src: "/AllAboutLearning/images/201series-part-number-guide.png",
+                  alt: "201 Series Part Number Guide"
                 },
                 {
-                  src: "/AllAboutLearning/images/201series-10in.jpg",
-                  alt: "201 Series 10-inch"
+                  src: "/AllAboutLearning/images/201series-application-table.png",
+                  alt: "201 Series Application Table"
                 },
                 {
-                  src: "/AllAboutLearning/images/201series-12in.jpg",
-                  alt: "201 Series 12-inch"
+                  src: "/AllAboutLearning/images/4bar-hinge-awning-projected-windows.png",
+                  alt: "4-Bar Hinge Awning & Projected"
                 },
                 {
-                  src: "/AllAboutLearning/images/201series-14in.jpg",
-                  alt: "201 Series 14-inch"
+                  src: "/AllAboutLearning/images/201series-hinge-layout.png",
+                  alt: "201 Series Hinge Layout"
                 },
                 {
-                  src: "/AllAboutLearning/images/201series-16in.jpg",
-                  alt: "201 Series 16-inch"
+                  src: "/AllAboutLearning/images/4bar-hinge-with-stop-diagram.png",
+                  alt: "4-Bar Hinge With Stop Diagram"
                 }
               ]
             }
@@ -180,7 +190,7 @@ function FourBarHingesPage() {
               ],
               images: [
                 {
-                  src: "/AllAboutLearning/images/4bar-numbering.jpg",
+                  src: "/AllAboutLearning/images/4bar-numbering.png",
                   alt: "Product Numbering System"
                 }
               ]
@@ -189,20 +199,56 @@ function FourBarHingesPage() {
         }
       },
       {
-        id: "measurement",
+        id: "awning4bar",
         icon: <BuildIcon sx={{ fontSize: '2rem', color: theme.palette.primary.main, mr: 2 }} />,
-        title: "Measurement Notes",
+        title: "Awning 4-Bar Hinge",
         content: {
           sections: [
             {
-              title: "Measurement Notes",
+              title: "Awning 4-Bar Hinge",
               points: [
-                "Measures should include track width, length, stack height, stop or none and type of material."
+                "A wide range of lengths and thicknesses",
+                "4-bar hinges are certified to AAMA 904.1",
+                "4-bar hinges have been designed to be used primarily on vents with a lip on the outside edge",
+                "4-bar hinges are adaptable to both casement and projected window applications",
+                "Standard 4-bar hinges are for lighter windows no heavier than 40 lbs.",
+                "Heavy duty 4-bar hinges are for commercial windows up to 200 lbs.",
+                "201/301 Series hinges are manufactured with a black acetal or brass shoe",
+                "Available in both steel or stainless steel"
               ],
               images: [
                 {
-                  src: "/AllAboutLearning/images/4bar-measurement.jpg",
-                  alt: "Measurement Notes"
+                  src: "/AllAboutLearning/images/4bar-awning-hinge.png",
+                  alt: "Awning 4-Bar Hinge"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        id: "casement4bar",
+        icon: <BuildIcon sx={{ fontSize: '2rem', color: theme.palette.primary.main, mr: 2 }} />,
+        title: "Casement 4-Bar Hinge",
+        content: {
+          sections: [
+            {
+              title: "Casement 4-Bar Hinge",
+              points: [
+                "Designed for casement windows",
+                "Standard duty recommended for a maximum vent weight of 82 lbs. heavy duty: 158 lbs.",
+                "4 bar hinges are certified to AAMA 904.1",
+                "4 bar hinges are adaptable to both casement and projected window applications",
+                "Non-handed and made of durable stainless steel",
+                "222/333 Series Hinges can produce a 90 degree window opening allowing an average-sized person to escape in the event of an emergency",
+                "4 bar egress hinges allow outside vents to be washed from the inside",
+                "4 bar hinges have been designed to be used primarily on vents with a lip on the outside edge",
+                "By design, our 4 bar hinges are engineered to project the vent out as it pivots to avoid interference between a lipped vent and frame"
+              ],
+              images: [
+                {
+                  src: "/AllAboutLearning/images/4bar-casement-hinge.png",
+                  alt: "Casement 4-Bar Hinge"
                 }
               ]
             }
@@ -332,7 +378,19 @@ function FourBarHingesPage() {
                 <Grid container spacing={3}>
                   {/* Text Container */}
                   <Grid item xs={12} md={6}>
-                    <Paper elevation={1} sx={{ p: 2, backgroundColor: 'white', border: `1px solid ${theme.palette.primary.main}`, maxHeight: 300, overflow: 'auto' }}>
+                    <Paper 
+                      elevation={1} 
+                      sx={{ 
+                        p: 2, 
+                        backgroundColor: 'white', 
+                        border: `1px solid ${theme.palette.primary.main}`, 
+                        maxHeight: 350, 
+                        overflow: 'auto',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column'
+                      }}
+                    >
                       {sub.points && sub.points.map((point, i) => (
                         <Typography key={i} variant="body1" sx={{ mb: 1.2, fontSize: '1.1rem', lineHeight: 1.7 }}>
                           • {point}
@@ -342,17 +400,52 @@ function FourBarHingesPage() {
                   </Grid>
                   {/* Image Containers */}
                   {ensureImages(sub).images.map((img, i) => (
-                    <Grid item xs={12} md={6} key={i}>
-                      <Paper elevation={1} sx={{ p: 2, backgroundColor: 'white', border: `1px solid ${theme.palette.primary.main}` }}>
-                        <CardMedia
-                          component="img"
-                          image={img.src}
-                          alt={img.alt}
-                          sx={{ objectFit: 'contain', width: '100%', height: 200, backgroundColor: 'white' }}
-                        />
-                        <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', mt: 1 }}>
-                          {img.caption || img.alt}
-                        </Typography>
+                    <Grid item xs={12} md={6} key={i} sx={{ display: 'flex' }}>
+                      <Paper 
+                        elevation={1} 
+                        sx={{ 
+                          p: 2, 
+                          backgroundColor: 'white', 
+                          border: `1px solid ${theme.palette.primary.main}`,
+                          height: '100%',
+                          maxHeight: '350px',
+                          width: '100%',
+                          display: 'flex',
+                          flexDirection: 'column'
+                        }}
+                      >
+                        <Box sx={{ 
+                          flex: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          minHeight: 300
+                        }}>
+                          <CardMedia
+                            component="img"
+                            image={img.src}
+                            alt={img.alt}
+                            sx={{ 
+                              objectFit: 'contain',
+                              width: '100%',
+                              height: '100%',
+                              maxHeight: '300px',
+                              backgroundColor: 'white'
+                            }}
+                          />
+                          <Typography 
+                            variant="caption" 
+                            sx={{ 
+                              display: 'block', 
+                              textAlign: 'center', 
+                              mt: 1,
+                              color: theme.palette.text.secondary
+                            }}
+                          >
+                            {img.caption || img.alt}
+                          </Typography>
+                        </Box>
                       </Paper>
                     </Grid>
                   ))}

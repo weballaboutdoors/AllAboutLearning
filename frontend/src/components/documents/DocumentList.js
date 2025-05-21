@@ -90,7 +90,7 @@ function DocumentList() {
       name: '4-Bar Hinges',
       type: 'document',
       description: 'All about 4-Bar Hinges: types, materials, numbering, and more.',
-      image: '/AllAboutLearning/images/4bar-hinges.jpg'
+      image: '/AllAboutLearning/images/4bar-hinge.png'
     },
     /* Commented out until information is ready
     { 
